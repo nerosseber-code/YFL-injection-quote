@@ -199,6 +199,64 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
 .cp-total-box .ct-lbl{font-size:11px}
 .cp-total-box .ct-val{font-size:16px;font-weight:700}
 .btn-dl-contract{width:100%;padding:16px;border-radius:12px;border:none;cursor:pointer;background:linear-gradient(135deg,#2ecc71,#1a9950);color:#fff;font-family:'Oswald',sans-serif;font-size:18px;letter-spacing:1px}
+/* ── Confirm Order Button ── */
+.btn-confirm-order{display:block;width:calc(100% - 28px);margin:0 14px 12px;padding:16px;border-radius:14px;border:2px solid var(--green);background:rgba(46,204,113,.1);color:var(--green);font-family:'Oswald',sans-serif;font-size:17px;letter-spacing:1.5px;cursor:pointer;transition:all .2s;text-align:center}
+.btn-confirm-order:active{background:rgba(46,204,113,.25);transform:scale(.98)}
+.btn-confirm-order.ordered{background:var(--card2);border-color:var(--border);color:var(--muted);pointer-events:none}
+
+/* ── Customer Filter Bar ── */
+.cust-filter-bar{padding:10px 14px 0;flex-shrink:0}
+.cust-filter-btns{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;-webkit-overflow-scrolling:touch}
+.cust-filter-btns::-webkit-scrollbar{display:none}
+.cfb{flex-shrink:0;padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-family:inherit;font-size:12px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.cfb.active{background:var(--accent);border-color:var(--accent);color:#000;font-weight:700}
+
+/* ── Customer Card ── */
+.cust-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s;position:relative}
+.cust-card:active{transform:scale(.98)}
+.cust-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.cust-name{font-size:16px;font-weight:700}
+.cust-status-badge{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:700}
+.status-new{background:rgba(59,158,255,.15);color:var(--blue)}
+.status-following{background:rgba(232,160,32,.15);color:var(--accent)}
+.status-won{background:rgba(46,204,113,.15);color:var(--green)}
+.status-lost{background:rgba(231,76,60,.15);color:var(--red)}
+.cust-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.cust-tag{font-size:10px;padding:2px 7px;border-radius:4px;background:var(--card2);color:var(--muted)}
+.cust-actions{display:flex;gap:8px;margin-top:10px}
+.cust-action-btn{flex:1;padding:9px;border-radius:8px;border:1px solid var(--border);background:var(--card2);color:var(--text);font-family:inherit;font-size:12px;cursor:pointer;text-align:center;transition:all .2s}
+.cust-action-btn:active{transform:scale(.97)}
+.cust-quotes-count{font-size:11px;color:var(--muted);margin-top:6px}
+.cust-empty{text-align:center;padding:60px 20px;color:var(--muted)}
+.cust-empty .ce-icon{font-size:48px;margin-bottom:12px}
+.btn-add-customer{background:var(--accent);color:#000;border:none;padding:6px 14px;border-radius:8px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;margin-left:auto}
+
+/* ── Add Customer Modal ── */
+.cust-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .3s}
+.cust-modal-overlay.open{opacity:1;pointer-events:all}
+.cust-modal-box{background:var(--card);border-radius:20px 20px 0 0;margin-top:auto;max-height:85vh;overflow-y:auto;padding:20px 16px 30px;transform:translateY(100%);transition:transform .35s ease}
+.cust-modal-overlay.open .cust-modal-box{transform:translateY(0)}
+
+/* ── Order Card ── */
+.order-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s}
+.order-card:active{transform:scale(.98)}
+.order-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.order-product{font-size:15px;font-weight:700}
+.order-amount{font-family:'Oswald',sans-serif;font-size:18px;color:var(--accent)}
+.order-status-badge{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:700;margin-bottom:6px;display:inline-block}
+.ostatus-pending{background:rgba(232,160,32,.15);color:var(--accent)}
+.ostatus-production{background:rgba(59,158,255,.15);color:var(--blue)}
+.ostatus-ready{background:rgba(168,85,247,.15);color:#a855f7}
+.ostatus-shipped{background:rgba(46,204,113,.15);color:var(--green)}
+.ostatus-collected{background:rgba(46,204,113,.3);color:var(--green)}
+.order-progress{display:flex;gap:4px;margin:10px 0}
+.op-step{flex:1;height:4px;border-radius:2px;background:var(--border);transition:background .3s}
+.op-step.done{background:var(--green)}
+.op-step.active{background:var(--accent)}
+.order-meta{display:flex;gap:8px;flex-wrap:wrap}
+.order-tag{font-size:10px;padding:2px 7px;border-radius:4px;background:var(--card2);color:var(--muted)}
+.order-change-status{width:100%;margin-top:10px;padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--card2);color:var(--text);font-family:inherit;font-size:12px;cursor:pointer}
+
 /* ── Settings Page ── */
 .settings-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:4px}
 .settings-hint{font-size:11px;color:var(--muted);margin:-8px 0 12px;padding:0 2px}
@@ -286,10 +344,11 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
           <div class="mc-desc" data-i18n="modeNewDesc">從開模到生產一站式報價</div>
         </div>
       </div>
-      <div class="quick-stats">
-        <div class="qs-card"><div class="qs-num" id="stat-count">0</div><div class="qs-label" data-i18n="statTotal">歷史報價</div></div>
-        <div class="qs-card"><div class="qs-num" id="stat-today">0</div><div class="qs-label" data-i18n="statToday">今日報價</div></div>
-        <div class="qs-card"><div class="qs-num" id="stat-avg">—</div><div class="qs-label" data-i18n="statAvg">平均單價</div></div>
+      <div class="quick-stats" style="grid-template-columns:repeat(2,1fr)">
+        <div class="qs-card"><div class="qs-num" id="stat-count">0</div><div class="qs-label">歷史報價</div></div>
+        <div class="qs-card"><div class="qs-num" id="stat-today">0</div><div class="qs-label">今日報價</div></div>
+        <div class="qs-card"><div class="qs-num" id="stat-orders" style="color:var(--blue)">0</div><div class="qs-label">進行中訂單</div></div>
+        <div class="qs-card"><div class="qs-num" id="stat-uncollected" style="color:var(--red)">0</div><div class="qs-label">待收款</div></div>
       </div>
       <div class="guide-box" data-i18n="guideText">
         ① 選擇報價類型 → ② 填寫固定及浮動成本 → ③ 即時預覽<br>④ 確認後生成中英雙語合同 PDF → ⑤ 分享給客戶
@@ -415,9 +474,9 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
           <div class="lp-header"><span data-i18n="previewTitle">即時成本預覽</span><span id="e-prev-total">—</span></div>
           <div class="lp-row"><span class="ln" data-i18n="prevMat">📦 材料成本/件</span><span class="lv" id="e-p-mat">—</span></div>
           <div class="lp-row"><span class="ln" data-i18n="prevMach">⚙️ 機器+人工+電費/件</span><span class="lv" id="e-p-mach">—</span></div>
-          <div class="lp-row"><span class="ln" data-i18n="prevFixed">🏢 固定成本攤銷/件</span><span class="lv" id="e-p-fixed">—</span></div>
           <div class="lp-row"><span class="ln" data-i18n="prevOther">🎨 表面+包裝/件</span><span class="lv" id="e-p-other">—</span></div>
           <div class="lp-row highlight"><span class="ln" data-i18n="prevUnit">💰 建議報價/件（含利潤）</span><span class="lv" id="e-p-unit">—</span></div>
+          <span id="e-p-fixed" style="display:none">—</span>
         </div>
 
         <div class="field" style="margin-top:14px">
@@ -590,8 +649,8 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
           <div class="lp-row"><span class="ln" data-i18n="prevMold">🏗️ 模具攤銷/件</span><span class="lv" id="n-p-mold">—</span></div>
           <div class="lp-row"><span class="ln" data-i18n="prevMat">📦 材料成本/件</span><span class="lv" id="n-p-mat">—</span></div>
           <div class="lp-row"><span class="ln" data-i18n="prevMach">⚙️ 機器+人工+電費/件</span><span class="lv" id="n-p-mach">—</span></div>
-          <div class="lp-row"><span class="ln" data-i18n="prevFixed">🏢 固定成本攤銷/件</span><span class="lv" id="n-p-fixed">—</span></div>
           <div class="lp-row"><span class="ln" data-i18n="prevOther">🎨 表面+包裝/件</span><span class="lv" id="n-p-other">—</span></div>
+          <span id="n-p-fixed" style="display:none">—</span>
           <div class="lp-row highlight"><span class="ln" data-i18n="prevUnit">💰 建議報價/件（含利潤）</span><span class="lv" id="n-p-unit">—</span></div>
         </div>
 
@@ -632,6 +691,7 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
         <div id="r-breakdown"></div>
       </div>
       <button class="btn-contract" onclick="openContractModal()" data-i18n="btnContract">📄 生成中英雙語合同 PDF</button>
+      <button class="btn-confirm-order" onclick="confirmOrder()" id="btn-confirm-order">✅ 確認下單 · Confirm Order</button>
       <div class="btn-actions">
         <button class="btn-action" onclick="shareQuote()" data-i18n="btnShare">📤 分享報價</button>
         <button class="btn-action" onclick="newQuote()" data-i18n="btnNewQuote">➕ 新報價</button>
@@ -645,6 +705,44 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
         <div class="form-title" data-i18n="histTitle">📋 報價歷史</div>
       </div>
       <div class="history-list" id="history-list"></div>
+    </div>
+
+    <!-- CUSTOMERS -->
+    <div class="page hidden" id="pg-customers">
+      <div class="form-header">
+        <button class="btn-back" onclick="goHome()">← 返回</button>
+        <div class="form-title" style="color:#a855f7">👥 客戶管理</div>
+        <button class="btn-add-customer" onclick="openAddCustomer()">＋ 新增</button>
+      </div>
+      <div class="cust-filter-bar">
+        <div class="cust-filter-btns" id="cust-filter-btns">
+          <button class="cfb active" onclick="filterCustomers('all')" data-filter="all">全部</button>
+          <button class="cfb" onclick="filterCustomers('new')" data-filter="new">🔵 新客戶</button>
+          <button class="cfb" onclick="filterCustomers('following')" data-filter="following">🟡 跟進中</button>
+          <button class="cfb" onclick="filterCustomers('won')" data-filter="won">🟢 成交</button>
+          <button class="cfb" onclick="filterCustomers('lost')" data-filter="lost">🔴 流失</button>
+        </div>
+      </div>
+      <div id="customers-list" style="padding:12px 14px 20px"></div>
+    </div>
+
+    <!-- ORDERS -->
+    <div class="page hidden" id="pg-orders">
+      <div class="form-header">
+        <button class="btn-back" onclick="goHome()">← 返回</button>
+        <div class="form-title" style="color:#2ecc71">📦 訂單跟進</div>
+      </div>
+      <div class="cust-filter-bar">
+        <div class="cust-filter-btns" id="order-filter-btns">
+          <button class="cfb active" onclick="filterOrders('all')" data-filter="all">全部</button>
+          <button class="cfb" onclick="filterOrders('pending')" data-filter="pending">⏳ 待安排</button>
+          <button class="cfb" onclick="filterOrders('production')" data-filter="production">🏭 生產中</button>
+          <button class="cfb" onclick="filterOrders('ready')" data-filter="ready">📦 待出貨</button>
+          <button class="cfb" onclick="filterOrders('shipped')" data-filter="shipped">🚚 已出貨</button>
+          <button class="cfb" onclick="filterOrders('collected')" data-filter="collected">✅ 已收款</button>
+        </div>
+      </div>
+      <div id="orders-list" style="padding:12px 14px 20px"></div>
     </div>
 
     <!-- SETTINGS -->
@@ -708,24 +806,113 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
   </div><!-- /pages -->
 
   <!-- Tabbar -->
-  <div class="tabbar">
+  <div class="tabbar" style="grid-template-columns:repeat(5,1fr)">
     <div class="tab active" id="tab-home" onclick="switchTab('home')">
-      <div class="tab-icon">🏠</div><span data-i18n="tabHome">主頁</span>
+      <div class="tab-icon">🏠</div><span>主頁</span>
     </div>
     <div class="tab tab-new" id="tab-exist" onclick="openForm('exist')">
-      <div class="tab-icon">🔧</div><span data-i18n="tabExist">已有模具</span>
+      <div class="tab-icon">🔧</div><span>報價</span>
     </div>
-    <div class="tab tab-new" id="tab-new" onclick="openForm('new')">
-      <div class="tab-icon">🏗️</div><span data-i18n="tabNew">含開模</span>
+    <div class="tab" id="tab-customers" onclick="showCustomers()">
+      <div class="tab-icon">👥</div><span>客戶</span>
+    </div>
+    <div class="tab" id="tab-orders" onclick="showOrders()">
+      <div class="tab-icon">📦</div><span>訂單</span>
     </div>
     <div class="tab" id="tab-settings" onclick="openSettings()">
-      <div class="tab-icon">⚙️</div><span data-i18n="tabSettings">設置</span>
+      <div class="tab-icon">⚙️</div><span>設置</span>
     </div>
   </div>
 
 </div><!-- /app -->
 
 <div class="toast" id="toast"></div>
+
+<!-- Add/Edit Customer Modal -->
+<div class="cust-modal-overlay" id="cust-modal" onclick="closeCustModal(event)">
+  <div class="cust-modal-box">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="cust-modal-title">👤 新增客戶</div>
+    <input type="hidden" id="cm-id">
+    <div class="field"><label>公司名稱 / Company</label><input type="text" id="cm-company" placeholder="公司名稱"></div>
+    <div class="grid2">
+      <div class="field"><label>聯絡人</label><input type="text" id="cm-contact" placeholder="姓名"></div>
+      <div class="field"><label>職位</label><input type="text" id="cm-title" placeholder="採購經理"></div>
+    </div>
+    <div class="grid2">
+      <div class="field"><label>電話</label><input type="tel" id="cm-phone" inputmode="tel" placeholder="+852 xxxx xxxx"></div>
+      <div class="field"><label>WhatsApp</label><input type="tel" id="cm-whatsapp" inputmode="tel" placeholder="+852 xxxx xxxx"></div>
+    </div>
+    <div class="field"><label>Email</label><input type="email" id="cm-email" inputmode="email" placeholder="email@example.com"></div>
+    <div class="grid2">
+      <div class="field">
+        <label>地區</label>
+        <select id="cm-region">
+          <option value="香港">香港</option>
+          <option value="深圳">深圳</option>
+          <option value="廣州">廣州</option>
+          <option value="東莞">東莞</option>
+          <option value="其他大灣區">其他大灣區</option>
+          <option value="台灣">台灣</option>
+          <option value="海外">海外</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>行業</label>
+        <select id="cm-industry">
+          <option value="電子產品">電子產品</option>
+          <option value="無人機">無人機</option>
+          <option value="家電">家電</option>
+          <option value="汽車配件">汽車配件</option>
+          <option value="醫療器械">醫療器械</option>
+          <option value="玩具">玩具</option>
+          <option value="其他">其他</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label>客戶狀態</label>
+      <select id="cm-status">
+        <option value="new">🔵 新客戶</option>
+        <option value="following">🟡 跟進中</option>
+        <option value="won">🟢 成交客戶</option>
+        <option value="lost">🔴 流失客戶</option>
+      </select>
+    </div>
+    <div class="field"><label>業務員</label><input type="text" id="cm-sales" placeholder="負責業務員姓名"></div>
+    <div class="field"><label>備注 / 跟進記錄</label><textarea id="cm-notes" placeholder="跟進記錄、特殊要求、付款習慣等..." style="min-height:80px"></textarea></div>
+    <div class="grid2" style="margin-top:8px">
+      <button class="btn-action" onclick="closeCustModal(null)">取消</button>
+      <button class="btn-calc exist" style="margin:0;padding:14px;font-size:15px" onclick="saveCustomer()">💾 儲存</button>
+    </div>
+    <button id="btn-del-customer" class="hist-clear-btn" style="margin-top:10px;display:none" onclick="deleteCustomer()">🗑️ 刪除此客戶</button>
+  </div>
+</div>
+
+<!-- Order Detail Modal -->
+<div class="cust-modal-overlay" id="order-modal" onclick="closeOrderModal(event)">
+  <div class="cust-modal-box">
+    <div class="modal-handle"></div>
+    <div class="modal-title">📦 訂單詳情</div>
+    <div id="order-detail-content"></div>
+    <div class="field" style="margin-top:12px">
+      <label>更新訂單狀態</label>
+      <select id="order-status-select" onchange="updateOrderStatus()">
+        <option value="pending">⏳ 待安排生產</option>
+        <option value="production">🏭 生產中</option>
+        <option value="ready">📦 待出貨</option>
+        <option value="shipped">🚚 已出貨</option>
+        <option value="collected">✅ 已收款完成</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>跟進備注</label>
+      <textarea id="order-note-input" placeholder="更新跟進記錄..." style="min-height:70px"></textarea>
+    </div>
+    <button class="btn-calc exist" style="padding:14px;font-size:15px" onclick="saveOrderNote()">💾 儲存更新</button>
+    <button class="btn-action" style="width:100%;margin-top:8px;padding:12px" onclick="closeOrderModal(null)">關閉</button>
+  </div>
+</div>
 
 <!-- Contract Modal -->
 <div class="modal-overlay" id="contract-modal" onclick="closeContractModal(event)">
@@ -1134,8 +1321,10 @@ function calcCore(p) {
   const surface= gv(p+'-surface',0);
   const pack   = gv(p+'-pack',1.5);
   const totalFixed = gv(p+'-rent',0)+gv(p+'-depr',0)+gv(p+'-mgmt',0)+gv(p+'-insurance',0);
-  const monthVol = gv(p+'-monthly-vol',1)||1;
-  const fixedPerPc = totalFixed/monthVol;
+  const monthVolRaw = gv(p+'-monthly-vol',0);
+  const qty2 = gv(p+'-qty',0);
+  const monthVol = (monthVolRaw > 0 ? monthVolRaw : (qty2 > 0 ? qty2 : 1));
+  const fixedPerPc = totalFixed > 0 ? totalFixed/monthVol : 0;
   const matPerPc = (weight/1000)*matPr*(1+runner);
   const pcsPerHour = (3600/cycle)*cavity;
   const hrsNeeded = qty*(1+defect)/pcsPerHour;
@@ -1186,11 +1375,10 @@ function calcExist() {
   const cur=gs('e-currency')||'HKD', qty=r.qty;
   const profPct=Math.round(r.profit*100);
   const rows=[
-    {section:t('bdSecFixed')},
-    {name:t('bdRent'),value:r.fixedPerPc*qty,perPc:r.fixedPerPc,badge:'fixed'},
     {section:t('bdSecVar')},
     {name:`${t('bdMat')} (${gs('e-mat')||'—'})`,value:r.matPerPc*qty,perPc:r.matPerPc,badge:'var'},
     {name:t('bdMach'),value:r.varPerPc*qty,perPc:r.varPerPc,badge:'var'},
+    ...(r.fixedPerPc>0?[{name:t('bdRent'),value:r.fixedPerPc*qty,perPc:r.fixedPerPc,badge:'fixed'}]:[]),
     {name:t('bdSurface'),value:(r.surface+r.pack)*qty,perPc:r.surface+r.pack,badge:'var'},
     {section:t('bdSecSub')},
     {name:t('bdDirectCost'),value:r.directPerPc*qty,perPc:r.directPerPc,bold:true},
@@ -1226,11 +1414,10 @@ function calcNew() {
     {name:t('bdMoldDev'),value:moldCost,perPc:null},
     {name:`${t('bdTrialRuns')}×${trialN}`,value:trialC*trialN,perPc:null},
     {name:t('bdMoldAmort'),value:moldPerPc*qty,perPc:moldPerPc,badge:'fixed'},
-    {section:t('bdSecFixed')},
-    {name:t('bdRent'),value:r.fixedPerPc*qty,perPc:r.fixedPerPc,badge:'fixed'},
     {section:t('bdSecVar')},
     {name:`${t('bdMat')} (${gs('n-mat')||'—'})`,value:r.matPerPc*qty,perPc:r.matPerPc,badge:'var'},
     {name:t('bdMach'),value:r.varPerPc*qty,perPc:r.varPerPc,badge:'var'},
+    ...(r.fixedPerPc>0?[{name:t('bdRent'),value:r.fixedPerPc*qty,perPc:r.fixedPerPc,badge:'fixed'}]:[]),
     {name:t('bdSurface'),value:(r.surface+r.pack)*qty,perPc:r.surface+r.pack,badge:'var'},
     {section:t('bdSecSub')},
     {name:t('bdDirectCost'),value:totalDirPerPc*qty,perPc:totalDirPerPc,bold:true},
@@ -1459,7 +1646,8 @@ function updateStats() {
   const h=loadHistory(); g('stat-count').textContent=h.length;
   const td=new Date().toLocaleDateString('zh-TW');
   g('stat-today').textContent=h.filter(x=>x.date===td).length;
-  g('stat-avg').textContent=h.length?fmt(h.reduce((s,x)=>s+x.unitPrice,0)/h.length):'—';
+  g('stat-avg') && (g('stat-avg').textContent=h.length?fmt(h.reduce((s,x)=>s+x.unitPrice,0)/h.length):'—');
+  updateHomeOrderStats();
 }
 
 // ══════════════════════════════════════════
@@ -1472,6 +1660,8 @@ function showPage(name) {
   if(name==='home') g('tab-home').classList.add('active');
   else if(name==='exist') g('tab-exist').classList.add('active');
   else if(name==='new') g('tab-new').classList.add('active');
+  else if(name==='customers') g('tab-customers').classList.add('active');
+  else if(name==='orders') g('tab-orders').classList.add('active');
   else if(name==='settings') g('tab-settings').classList.add('active');
 }
 
@@ -1701,6 +1891,335 @@ window.addEventListener('load',()=>{
   // Show last saved time in settings page
   showSettingsVersion(null);
 });
+
+// ══════════════════════════════════════════
+// Customer Management
+// ══════════════════════════════════════════
+const STATUS_LABELS = {
+  new:'🔵 新客戶', following:'🟡 跟進中', won:'🟢 成交客戶', lost:'🔴 流失客戶'
+};
+const ORDER_STATUS_LABELS = {
+  pending:'⏳ 待安排生產', production:'🏭 生產中',
+  ready:'📦 待出貨', shipped:'🚚 已出貨', collected:'✅ 已收款'
+};
+const ORDER_STEPS = ['pending','production','ready','shipped','collected'];
+let currentOrderId = null;
+let custFilter = 'all';
+let orderFilter = 'all';
+
+function loadCustomers() { return JSON.parse(localStorage.getItem('imq_customers')||'[]'); }
+function saveCustomers(arr) { localStorage.setItem('imq_customers', JSON.stringify(arr)); }
+function loadOrders() { return JSON.parse(localStorage.getItem('imq_orders')||'[]'); }
+function saveOrders(arr) { localStorage.setItem('imq_orders', JSON.stringify(arr)); }
+
+// ── Confirm Order (from result page) ──
+function confirmOrder() {
+  if(!lastResult){ toast('請先計算報價'); return; }
+  const r = lastResult;
+  // Auto-create/update customer
+  const customers = loadCustomers();
+  let cust = customers.find(c => c.company === r.customer);
+  if(!cust) {
+    cust = {
+      id: 'C'+Date.now(),
+      company: r.customer||'未命名客戶',
+      contact: r.contact||'',
+      phone:'', whatsapp:'', email:'',
+      region:'', industry:'電子產品',
+      status:'following', sales:'', notes:'',
+      createdAt: r.date, quoteIds:[]
+    };
+    customers.unshift(cust);
+  }
+  if(!cust.quoteIds) cust.quoteIds = [];
+  if(!cust.quoteIds.includes(r.qid)) cust.quoteIds.push(r.qid);
+  if(cust.status==='new') cust.status='following';
+  saveCustomers(customers);
+
+  // Create order
+  const orders = loadOrders();
+  const existingOrder = orders.find(o => o.qid === r.qid);
+  if(existingOrder){ toast('⚠️ 此報價已建立訂單'); return; }
+  const order = {
+    id: 'ORD'+Date.now(),
+    qid: r.qid,
+    customerId: cust.id,
+    customer: r.customer||'—',
+    contact: r.contact||'',
+    product: r.product||'—',
+    material: r.material||'',
+    qty: r.qty,
+    unitPrice: r.unitPrice,
+    totalPrice: r.totalPrice,
+    currency: r.currency,
+    leadtime: r.leadtime,
+    payment: r.payment,
+    mode: r.mode,
+    status: 'pending',
+    notes: r.notes||'',
+    log: [{date:r.date, action:'訂單建立，待安排生產'}],
+    createdAt: r.date
+  };
+  orders.unshift(order);
+  saveOrders(orders);
+
+  // Update button state
+  const btn = g('btn-confirm-order');
+  if(btn){ btn.textContent='✅ 已下單'; btn.classList.add('ordered'); }
+  toast('✅ 訂單已建立！客戶資料已自動存入');
+  updateHomeOrderStats();
+}
+
+// ── Customer List ──
+function showCustomers() {
+  renderCustomers();
+  showPage('customers');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  g('tab-customers').classList.add('active');
+}
+
+function filterCustomers(filter) {
+  custFilter = filter;
+  document.querySelectorAll('#cust-filter-btns .cfb').forEach(b=>{
+    b.classList.toggle('active', b.getAttribute('data-filter')===filter);
+  });
+  renderCustomers();
+}
+
+function renderCustomers() {
+  let customers = loadCustomers();
+  if(custFilter !== 'all') customers = customers.filter(c=>c.status===custFilter);
+  const container = g('customers-list');
+  if(!customers.length){
+    container.innerHTML=`<div class="cust-empty"><div class="ce-icon">👥</div><div>暫無客戶記錄</div><div style="font-size:12px;margin-top:6px;color:var(--muted)">確認下單後自動建立，或點右上角手動新增</div></div>`;
+    return;
+  }
+  const orders = loadOrders();
+  container.innerHTML = customers.map(c=>{
+    const custOrders = orders.filter(o=>o.customerId===c.id||o.customer===c.company);
+    const activeOrders = custOrders.filter(o=>o.status!=='collected').length;
+    return `<div class="cust-card" onclick="openEditCustomer('${c.id}')">
+      <div class="cust-card-top">
+        <div class="cust-name">${c.company||'未命名'}</div>
+        <div class="cust-status-badge status-${c.status}">${STATUS_LABELS[c.status]||c.status}</div>
+      </div>
+      <div class="cust-meta">
+        ${c.contact?`<span class="cust-tag">👤 ${c.contact}</span>`:''}
+        ${c.region?`<span class="cust-tag">📍 ${c.region}</span>`:''}
+        ${c.industry?`<span class="cust-tag">🏭 ${c.industry}</span>`:''}
+        ${c.sales?`<span class="cust-tag">🧑‍💼 ${c.sales}</span>`:''}
+      </div>
+      <div class="cust-quotes-count">報價記錄：${c.quoteIds?.length||0} 份 　活躍訂單：${activeOrders} 張</div>
+      <div class="cust-actions" onclick="event.stopPropagation()">
+        ${c.phone?`<button class="cust-action-btn" onclick="window.location='tel:${c.phone}'">📞 致電</button>`:''}
+        ${c.whatsapp?`<button class="cust-action-btn" onclick="window.open('https://wa.me/${c.whatsapp.replace(/[^0-9]/,'')}')">💬 WhatsApp</button>`:''}
+        ${c.email?`<button class="cust-action-btn" onclick="window.location='mailto:${c.email}'">✉️ Email</button>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openAddCustomer() {
+  g('cust-modal-title').textContent='👤 新增客戶';
+  g('cm-id').value='';
+  ['cm-company','cm-contact','cm-title','cm-phone','cm-whatsapp','cm-email','cm-sales','cm-notes'].forEach(id=>{ if(g(id)) g(id).value=''; });
+  g('cm-status').value='new';
+  g('cm-region').value='香港';
+  g('cm-industry').value='電子產品';
+  g('btn-del-customer').style.display='none';
+  g('cust-modal').classList.add('open');
+}
+
+function openEditCustomer(id) {
+  const customers = loadCustomers();
+  const c = customers.find(x=>x.id===id);
+  if(!c) return;
+  g('cust-modal-title').textContent='✏️ 編輯客戶';
+  g('cm-id').value=c.id;
+  g('cm-company').value=c.company||'';
+  g('cm-contact').value=c.contact||'';
+  g('cm-title').value=c.title||'';
+  g('cm-phone').value=c.phone||'';
+  g('cm-whatsapp').value=c.whatsapp||'';
+  g('cm-email').value=c.email||'';
+  g('cm-region').value=c.region||'香港';
+  g('cm-industry').value=c.industry||'電子產品';
+  g('cm-status').value=c.status||'new';
+  g('cm-sales').value=c.sales||'';
+  g('cm-notes').value=c.notes||'';
+  g('btn-del-customer').style.display='block';
+  g('btn-del-customer').setAttribute('data-id', id);
+  g('cust-modal').classList.add('open');
+}
+
+function saveCustomer() {
+  const id = g('cm-id').value;
+  const customers = loadCustomers();
+  const data = {
+    company: g('cm-company').value.trim(),
+    contact: g('cm-contact').value.trim(),
+    title: g('cm-title').value.trim(),
+    phone: g('cm-phone').value.trim(),
+    whatsapp: g('cm-whatsapp').value.trim(),
+    email: g('cm-email').value.trim(),
+    region: g('cm-region').value,
+    industry: g('cm-industry').value,
+    status: g('cm-status').value,
+    sales: g('cm-sales').value.trim(),
+    notes: g('cm-notes').value.trim(),
+  };
+  if(!data.company){ toast('⚠️ 請填寫公司名稱'); return; }
+  if(id) {
+    const idx = customers.findIndex(c=>c.id===id);
+    if(idx>=0) Object.assign(customers[idx], data);
+  } else {
+    customers.unshift({id:'C'+Date.now(), ...data, createdAt:todayStr(), quoteIds:[]});
+  }
+  saveCustomers(customers);
+  g('cust-modal').classList.remove('open');
+  renderCustomers();
+  toast('✅ 客戶已儲存');
+}
+
+function deleteCustomer() {
+  const id = g('btn-del-customer').getAttribute('data-id');
+  if(!confirm('確定刪除此客戶？')) return;
+  const customers = loadCustomers().filter(c=>c.id!==id);
+  saveCustomers(customers);
+  g('cust-modal').classList.remove('open');
+  renderCustomers();
+  toast('✅ 已刪除');
+}
+
+function closeCustModal(e) {
+  if(!e || e.target===g('cust-modal')) g('cust-modal').classList.remove('open');
+}
+
+// ── Orders ──
+function showOrders() {
+  renderOrders();
+  showPage('orders');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  g('tab-orders').classList.add('active');
+}
+
+function filterOrders(filter) {
+  orderFilter = filter;
+  document.querySelectorAll('#order-filter-btns .cfb').forEach(b=>{
+    b.classList.toggle('active', b.getAttribute('data-filter')===filter);
+  });
+  renderOrders();
+}
+
+function renderOrders() {
+  let orders = loadOrders();
+  if(orderFilter!=='all') orders = orders.filter(o=>o.status===orderFilter);
+  const container = g('orders-list');
+  if(!orders.length){
+    container.innerHTML=`<div class="cust-empty"><div class="ce-icon">📦</div><div>暫無訂單記錄</div><div style="font-size:12px;margin-top:6px;color:var(--muted)">確認報價下單後自動建立</div></div>`;
+    return;
+  }
+  container.innerHTML = orders.map(o=>{
+    const stepIdx = ORDER_STEPS.indexOf(o.status);
+    const steps = ORDER_STEPS.map((s,i)=>`<div class="op-step ${i<stepIdx?'done':i===stepIdx?'active':''}"></div>`).join('');
+    return `<div class="order-card" onclick="openOrderDetail('${o.id}')">
+      <div class="order-card-top">
+        <div class="order-product">${o.product||'—'}</div>
+        <div class="order-amount">${o.currency} ${fmt(o.totalPrice)}</div>
+      </div>
+      <div class="order-status-badge ostatus-${o.status}">${ORDER_STATUS_LABELS[o.status]}</div>
+      <div class="order-progress">${steps}</div>
+      <div class="order-meta">
+        <span class="order-tag">👤 ${o.customer||'—'}</span>
+        <span class="order-tag">📋 ${o.qid}</span>
+        <span class="order-tag">${fmtI(o.qty)} 件</span>
+        <span class="order-tag">${o.currency} ${fmt(o.unitPrice)}/件</span>
+        <span class="order-tag">📅 ${o.createdAt}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openOrderDetail(id) {
+  const orders = loadOrders();
+  const o = orders.find(x=>x.id===id);
+  if(!o) return;
+  currentOrderId = id;
+  const stepIdx = ORDER_STEPS.indexOf(o.status);
+  const steps = ORDER_STEPS.map((s,i)=>`<div class="op-step ${i<stepIdx?'done':i===stepIdx?'active':''}" style="height:6px"></div>`).join('');
+  g('order-detail-content').innerHTML=`
+    <div style="background:var(--card2);border-radius:10px;padding:14px;margin-bottom:12px">
+      <div style="font-size:18px;font-weight:700;margin-bottom:6px">${o.product||'—'}</div>
+      <div class="order-progress" style="margin:8px 0">${steps}</div>
+      <div class="order-status-badge ostatus-${o.status}">${ORDER_STATUS_LABELS[o.status]}</div>
+      <div style="margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px">
+        <div><div style="color:var(--muted);font-size:10px">客戶</div>${o.customer||'—'}</div>
+        <div><div style="color:var(--muted);font-size:10px">報價單號</div>${o.qid}</div>
+        <div><div style="color:var(--muted);font-size:10px">數量</div>${fmtI(o.qty)} 件</div>
+        <div><div style="color:var(--muted);font-size:10px">單價</div>${o.currency} ${fmt(o.unitPrice)}</div>
+        <div><div style="color:var(--muted);font-size:10px">總金額</div><span style="color:var(--accent);font-weight:700">${o.currency} ${fmt(o.totalPrice)}</span></div>
+        <div><div style="color:var(--muted);font-size:10px">交貨期</div>${o.leadtime||'—'}</div>
+      </div>
+    </div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:6px;letter-spacing:1px">跟進記錄</div>
+    <div style="background:var(--card2);border-radius:10px;padding:10px;max-height:120px;overflow-y:auto;margin-bottom:12px">
+      ${(o.log||[]).map(l=>`<div style="font-size:12px;padding:4px 0;border-bottom:1px solid var(--border)"><span style="color:var(--muted)">${l.date}</span> ${l.action}</div>`).reverse().join('')}
+    </div>`;
+  g('order-status-select').value = o.status;
+  g('order-note-input').value='';
+  g('order-modal').classList.add('open');
+}
+
+function updateOrderStatus() {
+  if(!currentOrderId) return;
+  const orders = loadOrders();
+  const o = orders.find(x=>x.id===currentOrderId);
+  if(!o) return;
+  const newStatus = g('order-status-select').value;
+  if(newStatus === o.status) return;
+  o.status = newStatus;
+  if(!o.log) o.log=[];
+  o.log.push({date:todayStr(), action:`狀態更新：${ORDER_STATUS_LABELS[newStatus]}`});
+  saveOrders(orders);
+  openOrderDetail(currentOrderId); // refresh
+  renderOrders();
+  updateHomeOrderStats();
+}
+
+function saveOrderNote() {
+  if(!currentOrderId) return;
+  const note = g('order-note-input').value.trim();
+  const newStatus = g('order-status-select').value;
+  const orders = loadOrders();
+  const o = orders.find(x=>x.id===currentOrderId);
+  if(!o) return;
+  if(!o.log) o.log=[];
+  if(o.status !== newStatus){
+    o.status = newStatus;
+    o.log.push({date:todayStr(), action:`狀態更新：${ORDER_STATUS_LABELS[newStatus]}`});
+  }
+  if(note) o.log.push({date:todayStr(), action:note});
+  saveOrders(orders);
+  g('order-modal').classList.remove('open');
+  renderOrders();
+  updateHomeOrderStats();
+  toast('✅ 訂單已更新');
+}
+
+function closeOrderModal(e) {
+  if(!e || e.target===g('order-modal')) g('order-modal').classList.remove('open');
+}
+
+function updateHomeOrderStats() {
+  const orders = loadOrders();
+  const active = orders.filter(o=>o.status!=='collected').length;
+  const uncollected = orders.filter(o=>o.status==='shipped').length;
+  // Update quick stats if elements exist
+  const elActive = g('stat-orders');
+  const elUncollected = g('stat-uncollected');
+  if(elActive) elActive.textContent = active;
+  if(elUncollected) elUncollected.textContent = uncollected;
+}
 </script>
 </body>
 </html>
