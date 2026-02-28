@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
@@ -11,11 +12,11 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=Oswald:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
 :root {
-  --bg:#f5f0eb; --card:#ffffff; --card2:#faf7f4; --border:#e8e0d8;
+  --bg:#0f172a; --card:#1e293b; --card2:#334155; --border:#475569;
   --accent:#38bdf8; --accent-dim:rgba(56,189,248,0.12);
   --blue:#818cf8; --blue-dim:rgba(129,140,248,0.12);
-  --green:#10b981; --red:#f43f5e;
-  --text:#1e1a16; --muted:#9c8f84; --radius:14px; --tab-h:62px;
+  --green:#34d399; --red:#fb7185;
+  --text:#f1f5f9; --muted:#94a3b8; --radius:14px; --tab-h:62px;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Noto Sans TC',sans-serif;color:var(--text)}
@@ -23,19 +24,19 @@ body.sc{font-family:'Noto Sans SC',sans-serif}
 .app{display:flex;flex-direction:column;height:100%}
 
 /* Topbar */
-.topbar{background:var(--card);border-bottom:1px solid var(--border);padding:10px 14px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;z-index:10;box-shadow:0 1px 8px rgba(0,0,0,0.06)}
+.topbar{background:var(–card);border-bottom:1px solid var(–border);padding:10px 14px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;z-index:10;box-shadow:0 1px 8px rgba(0,0,0,0.06)}
 .topbar-left{display:flex;align-items:center;gap:10px}
-.topbar-badge{background:var(--accent);color:#0f172a;font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:1.5px;padding:2px 7px;border-radius:3px}
-.topbar-title{font-family:'Oswald',sans-serif;font-size:18px;letter-spacing:1px;background:linear-gradient(90deg,var(--text),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.topbar-sub{font-size:10px;color:var(--muted)}
+.topbar-badge{background:var(–accent);color:#0f172a;font-family:‘Oswald’,sans-serif;font-size:9px;letter-spacing:1.5px;padding:2px 7px;border-radius:3px}
+.topbar-title{font-family:‘Oswald’,sans-serif;font-size:18px;letter-spacing:1px;background:linear-gradient(90deg,var(–text),var(–accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar-sub{font-size:10px;color:var(–muted)}
 .topbar-right{display:flex;gap:8px;align-items:center}
 
 /* Language Toggle */
-.lang-toggle{display:flex;background:var(--card2);border:1px solid var(--border);border-radius:8px;overflow:hidden}
-.lang-btn{padding:6px 10px;font-size:11px;font-weight:700;cursor:pointer;color:var(--muted);transition:all .2s;border:none;background:transparent;font-family:inherit}
-.lang-btn.active{background:var(--accent);color:#fff;font-weight:800}
+.lang-toggle{display:flex;background:var(–card2);border:1px solid var(–border);border-radius:8px;overflow:hidden}
+.lang-btn{padding:6px 10px;font-size:11px;font-weight:700;cursor:pointer;color:var(–muted);transition:all .2s;border:none;background:transparent;font-family:inherit}
+.lang-btn.active{background:var(–accent);color:#fff;font-weight:800}
 
-.btn-history{background:var(--card2);border:1px solid var(--border);color:var(--text);padding:6px 11px;border-radius:8px;font-size:12px;cursor:pointer;font-family:inherit}
+.btn-history{background:var(–card2);border:1px solid var(–border);color:var(–text);padding:6px 11px;border-radius:8px;font-size:12px;cursor:pointer;font-family:inherit}
 
 /* Pages */
 .pages{flex:1;overflow:hidden;position:relative}
@@ -43,149 +44,149 @@ body.sc{font-family:'Noto Sans SC',sans-serif}
 .page.hidden{transform:translateX(100%);opacity:0;pointer-events:none}
 
 /* Tabbar */
-.tabbar{height:var(--tab-h);background:var(--card);border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr 1fr 1fr;flex-shrink:0;box-shadow:0 -2px 10px rgba(0,0,0,0.06)}
-.tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:all .2s;position:relative;font-size:10px;color:var(--muted);min-height:44px}
+.tabbar{height:var(–tab-h);background:var(–card);border-top:1px solid var(–border);display:grid;grid-template-columns:1fr 1fr 1fr 1fr;flex-shrink:0;box-shadow:0 -2px 10px rgba(0,0,0,0.06)}
+.tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:all .2s;position:relative;font-size:10px;color:var(–muted);min-height:44px}
 .tab .tab-icon{font-size:20px;transition:transform .2s;opacity:.6;display:flex;align-items:center;justify-content:center}
 .tab .tab-icon svg{width:22px;height:22px;stroke:currentColor}
-.tab.active .tab-icon{opacity:1;filter:drop-shadow(0 0 5px var(--accent-dim))}
-.tab.active{color:var(--accent)}
+.tab.active .tab-icon{opacity:1;filter:drop-shadow(0 0 5px var(–accent-dim))}
+.tab.active{color:var(–accent)}
 .tab.active .tab-icon{transform:scale(1.1)}
-.tab.active::after{content:'';position:absolute;bottom:0;left:20%;right:20%;height:2px;background:var(--accent);border-radius:2px 2px 0 0}
-.tab-new.active{color:var(--blue)}
-.tab-new.active::after{background:var(--blue)}
+.tab.active::after{content:’’;position:absolute;bottom:0;left:20%;right:20%;height:2px;background:var(–accent);border-radius:2px 2px 0 0}
+.tab-new.active{color:var(–blue)}
+.tab-new.active::after{background:var(–blue)}
 
 /* Scroll content */
 .scroll-content{padding:16px 14px 24px}
 
 /* Home */
 .home-hero{padding:20px 14px 0}
-.hero-label{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
-.hero-title{font-family:'Oswald',sans-serif;font-size:28px;letter-spacing:1px;color:var(--text);font-weight:800;line-height:1.2}
-.hero-title span{color:var(--accent);text-shadow:0 2px 10px var(--accent-dim)}
+.hero-label{font-size:10px;letter-spacing:2px;color:var(–muted);text-transform:uppercase;margin-bottom:8px}
+.hero-title{font-family:‘Oswald’,sans-serif;font-size:28px;letter-spacing:1px;color:var(–text);font-weight:800;line-height:1.2}
+.hero-title span{color:var(–accent);text-shadow:0 2px 10px var(–accent-dim)}
 .mode-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 14px 0}
-.mode-card{background:rgba(30,41,59,0.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius);padding:20px 14px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
-.mode-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .25s}
+.mode-card{background:rgba(30,41,59,0.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.08);border-radius:var(–radius);padding:20px 14px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.mode-card::before{content:’’;position:absolute;inset:0;opacity:0;transition:opacity .25s}
 .mc-exist::before{background:linear-gradient(135deg,rgba(232,160,32,.1),transparent 60%)}
 .mc-new::before{background:linear-gradient(135deg,rgba(59,158,255,.1),transparent 60%)}
 .mode-card:active{transform:scale(.97)}
 .mode-card:active::before{opacity:1}
-.mc-icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:16px;margin-bottom:16px;background:var(--card2);color:var(--accent);box-shadow:0 4px 12px rgba(0,0,0,.2);transition:all .3s ease}
+.mc-icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:16px;margin-bottom:16px;background:var(–card2);color:var(–accent);box-shadow:0 4px 12px rgba(0,0,0,.2);transition:all .3s ease}
 .mc-icon svg{width:26px;height:26px;stroke:currentColor}
-.mode-card:active .mc-icon{transform:translateY(-2px);background:var(--accent);color:#0f172a}
+.mode-card:active .mc-icon{transform:translateY(-2px);background:var(–accent);color:#0f172a}
 .mc-title{font-size:15px;font-weight:700;margin-bottom:4px}
-.mc-exist .mc-title{color:var(--accent)}
-.mc-new .mc-title{color:var(--blue)}
-.mc-desc{font-size:11px;color:var(--muted);line-height:1.5}
+.mc-exist .mc-title{color:var(–accent)}
+.mc-new .mc-title{color:var(–blue)}
+.mc-desc{font-size:11px;color:var(–muted);line-height:1.5}
 .mc-tag{position:absolute;top:10px;right:10px;font-size:8px;font-weight:700;letter-spacing:1.5px;padding:2px 6px;border-radius:3px}
-.mc-exist .mc-tag{background:var(--accent-dim);color:var(--accent)}
-.mc-new .mc-tag{background:var(--blue-dim);color:var(--blue)}
+.mc-exist .mc-tag{background:var(–accent-dim);color:var(–accent)}
+.mc-new .mc-tag{background:var(–blue-dim);color:var(–blue)}
 .quick-stats{margin:20px 14px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.qs-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center}
-.qs-num{font-family:'Oswald',sans-serif;font-size:24px;color:var(--accent)}
-.qs-label{font-size:10px;color:var(--muted);margin-top:2px}
-.guide-box{margin:16px 14px 0;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;font-size:12px;color:var(--muted);line-height:1.8}
+.qs-card{background:var(–card);border:1px solid var(–border);border-radius:10px;padding:12px;text-align:center}
+.qs-num{font-family:‘Oswald’,sans-serif;font-size:24px;color:var(–accent)}
+.qs-label{font-size:10px;color:var(–muted);margin-top:2px}
+.guide-box{margin:16px 14px 0;background:var(–card);border:1px solid var(–border);border-radius:12px;padding:14px;font-size:12px;color:var(–muted);line-height:1.8}
 
 /* Form header */
-.form-header{background:var(--card);border-bottom:1px solid var(--border);padding:12px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0}
-.btn-back{background:var(--card2);border:1px solid var(--border);color:var(--text);padding:7px 12px;border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit}
-.form-title{font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:.5px}
-.form-title.exist{color:var(--accent)}
-.form-title.new{color:var(--blue)}
+.form-header{background:var(–card);border-bottom:1px solid var(–border);padding:12px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.btn-back{background:var(–card2);border:1px solid var(–border);color:var(–text);padding:7px 12px;border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit}
+.form-title{font-family:‘Oswald’,sans-serif;font-size:16px;letter-spacing:.5px}
+.form-title.exist{color:var(–accent)}
+.form-title.new{color:var(–blue)}
 
 /* Section headers */
-.section-hd{display:flex;align-items:center;gap:8px;margin:20px 0 12px;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;font-family:'JetBrains Mono',monospace;font-weight:600}
-.section-hd::before{content:'';width:3px;height:14px;border-radius:2px;background:var(--accent);flex-shrink:0}
-.section-hd.blue::before{background:var(--blue)}
+.section-hd{display:flex;align-items:center;gap:8px;margin:20px 0 12px;font-size:10px;letter-spacing:2px;color:var(–muted);text-transform:uppercase;font-family:‘JetBrains Mono’,monospace;font-weight:600}
+.section-hd::before{content:’’;width:3px;height:14px;border-radius:2px;background:var(–accent);flex-shrink:0}
+.section-hd.blue::before{background:var(–blue)}
 
 /* Fields */
 .field{margin-bottom:14px}
-.field label{display:block;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.5px;margin-bottom:6px}
-.field input,.field select,.field textarea{width:100%;background:#ffffff;border:1.5px solid var(--border);border-radius:10px;padding:13px 14px;color:var(--text);font-family:inherit;font-size:15px;outline:none;transition:all .2s;-webkit-appearance:none;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
-.field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a7a94' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
-.field select option{background:#ffffff;color:var(--text)}
+.field label{display:block;font-size:11px;font-weight:600;color:var(–muted);letter-spacing:.5px;margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;background:#ffffff;border:1.5px solid var(–border);border-radius:10px;padding:13px 14px;color:var(–text);font-family:inherit;font-size:15px;outline:none;transition:all .2s;-webkit-appearance:none;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.field select{appearance:none;background-image:url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘8’ viewBox=‘0 0 12 8’%3E%3Cpath d=‘M1 1l5 5 5-5’ stroke=’%235a7a94’ stroke-width=‘1.5’ fill=‘none’ stroke-linecap=‘round’/%3E%3C/svg%3E”);background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.field select option{background:#ffffff;color:var(–text)}
 .field textarea{resize:none;min-height:70px;font-size:14px}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim)}
-.field-hint{font-size:10px;color:var(--muted);margin-top:4px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(–accent);box-shadow:0 0 0 3px var(–accent-dim)}
+.field-hint{font-size:10px;color:var(–muted);margin-top:4px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .cost-badge{display:inline-block;font-size:9px;letter-spacing:1px;font-weight:700;padding:2px 6px;border-radius:3px;margin-left:6px;vertical-align:middle}
-.badge-fixed{background:rgba(232,160,32,.15);color:var(--accent)}
-.badge-var{background:rgba(59,158,255,.15);color:var(--blue)}
+.badge-fixed{background:rgba(232,160,32,.15);color:var(–accent)}
+.badge-var{background:rgba(59,158,255,.15);color:var(–blue)}
 
 /* Live preview */
-.live-preview{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:16px}
-.lp-header{background:var(--bg);padding:10px 14px;font-size:10px;letter-spacing:2px;color:var(--muted);font-family:'JetBrains Mono',monospace;display:flex;justify-content:space-between;align-items:center;font-weight:600}
-.lp-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border);font-size:13px}
+.live-preview{background:var(–card);border:1px solid var(–border);border-radius:var(–radius);overflow:hidden;margin-top:16px}
+.lp-header{background:var(–bg);padding:10px 14px;font-size:10px;letter-spacing:2px;color:var(–muted);font-family:‘JetBrains Mono’,monospace;display:flex;justify-content:space-between;align-items:center;font-weight:600}
+.lp-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(–border);font-size:13px}
 .lp-row:last-child{border-bottom:none}
-.lp-row .ln{color:var(--muted)}
-.lp-row .lv{font-family:'JetBrains Mono',monospace;font-size:12px}
-.lp-row.highlight .lv{color:var(--accent);font-weight:700}
+.lp-row .ln{color:var(–muted)}
+.lp-row .lv{font-family:‘JetBrains Mono’,monospace;font-size:12px}
+.lp-row.highlight .lv{color:var(–accent);font-weight:700}
 
 /* Calc button */
-.btn-calc{width:100%;margin-top:20px;padding:18px;border-radius:14px;border:none;cursor:pointer;font-family:'Oswald',sans-serif;font-size:20px;letter-spacing:2px;transition:all .2s}
-.btn-calc.exist{background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 60%,#0369a1));color:#fff;font-weight:800}
-.btn-calc.new{background:linear-gradient(135deg,var(--blue),color-mix(in srgb,var(--blue) 60%,#3730a3));color:#fff}
+.btn-calc{width:100%;margin-top:20px;padding:18px;border-radius:14px;border:none;cursor:pointer;font-family:‘Oswald’,sans-serif;font-size:20px;letter-spacing:2px;transition:all .2s}
+.btn-calc.exist{background:linear-gradient(135deg,var(–accent),color-mix(in srgb,var(–accent) 60%,#0369a1));color:#fff;font-weight:800}
+.btn-calc.new{background:linear-gradient(135deg,var(–blue),color-mix(in srgb,var(–blue) 60%,#3730a3));color:#fff}
 .btn-calc:active{transform:scale(.98)}
 
 /* Result */
 .result-hero{padding:20px 14px;text-align:center}
 .result-mode-badge{display:inline-block;font-size:10px;letter-spacing:2px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:12px}
-.result-badge-exist{background:var(--accent-dim);color:var(--accent)}
-.result-badge-new{background:var(--blue-dim);color:var(--blue)}
-.result-quote-id{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:16px}
-.result-price{font-family:'Oswald',sans-serif;letter-spacing:2px;line-height:1}
-.result-price .unit-lbl{font-size:13px;color:var(--muted);margin-bottom:6px}
-.result-price .unit-val{font-size:56px;color:var(--accent)}
-.result-price .unit-sub{font-size:14px;color:var(--muted);margin-top:6px}
+.result-badge-exist{background:var(–accent-dim);color:var(–accent)}
+.result-badge-new{background:var(–blue-dim);color:var(–blue)}
+.result-quote-id{font-family:‘JetBrains Mono’,monospace;font-size:11px;color:var(–muted);margin-bottom:16px}
+.result-price{font-family:‘Oswald’,sans-serif;letter-spacing:2px;line-height:1}
+.result-price .unit-lbl{font-size:13px;color:var(–muted);margin-bottom:6px}
+.result-price .unit-val{font-size:56px;color:var(–accent)}
+.result-price .unit-sub{font-size:14px;color:var(–muted);margin-top:6px}
 .result-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 14px 16px}
-.ri-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px}
-.ri-label{font-size:10px;color:var(--muted);margin-bottom:4px}
+.ri-card{background:var(–card);border:1px solid var(–border);border-radius:10px;padding:12px}
+.ri-label{font-size:10px;color:var(–muted);margin-bottom:4px}
 .ri-value{font-size:14px;font-weight:700}
-.breakdown-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:0 14px 16px}
-.bc-header{padding:10px 14px;font-size:10px;letter-spacing:2px;color:var(--muted);font-family:'JetBrains Mono',monospace;background:var(--bg);display:flex;justify-content:space-between;font-weight:600}
-.bc-section{padding:6px 14px 2px;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;background:rgba(255,255,255,.02)}
-.bc-row{display:flex;justify-content:space-between;padding:9px 14px;border-bottom:1px solid var(--border);font-size:12px}
+.breakdown-card{background:var(–card);border:1px solid var(–border);border-radius:var(–radius);overflow:hidden;margin:0 14px 16px}
+.bc-header{padding:10px 14px;font-size:10px;letter-spacing:2px;color:var(–muted);font-family:‘JetBrains Mono’,monospace;background:var(–bg);display:flex;justify-content:space-between;font-weight:600}
+.bc-section{padding:6px 14px 2px;font-size:9px;letter-spacing:2px;color:var(–muted);text-transform:uppercase;background:rgba(255,255,255,.02)}
+.bc-row{display:flex;justify-content:space-between;padding:9px 14px;border-bottom:1px solid var(–border);font-size:12px}
 .bc-row:last-child{border-bottom:none}
-.bc-row .bn{color:var(--muted);flex:1;padding-right:8px}
-.bc-row .bv{font-family:'JetBrains Mono',monospace;flex-shrink:0}
-.bc-row.total-row{background:var(--bg)}
-.bc-row.total-row .bn{color:var(--text);font-weight:700}
-.bc-row.total-row .bv{color:var(--accent);font-weight:700;font-size:14px}
-.btn-contract{display:block;width:calc(100% - 28px);margin:0 14px 12px;padding:17px;border-radius:14px;border:none;cursor:pointer;font-family:'Oswald',sans-serif;font-size:18px;letter-spacing:2px;background:linear-gradient(135deg,var(--green),color-mix(in srgb,var(--green) 60%,#059669));color:#0f172a;font-weight:800;transition:all .2s}
+.bc-row .bn{color:var(–muted);flex:1;padding-right:8px}
+.bc-row .bv{font-family:‘JetBrains Mono’,monospace;flex-shrink:0}
+.bc-row.total-row{background:var(–bg)}
+.bc-row.total-row .bn{color:var(–text);font-weight:700}
+.bc-row.total-row .bv{color:var(–accent);font-weight:700;font-size:14px}
+.btn-contract{display:block;width:calc(100% - 28px);margin:0 14px 12px;padding:17px;border-radius:14px;border:none;cursor:pointer;font-family:‘Oswald’,sans-serif;font-size:18px;letter-spacing:2px;background:linear-gradient(135deg,var(–green),color-mix(in srgb,var(–green) 60%,#059669));color:#0f172a;font-weight:800;transition:all .2s}
 .btn-contract:active{transform:scale(.98)}
 .btn-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 14px 20px}
-.btn-action{padding:14px;border-radius:12px;border:1.5px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;transition:all .2s;text-align:center}
+.btn-action{padding:14px;border-radius:12px;border:1.5px solid var(–border);background:var(–card);color:var(–text);cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;transition:all .2s;text-align:center}
 .btn-action:active{transform:scale(.97)}
 
 /* History */
 .history-list{padding:14px}
-.hist-empty{text-align:center;padding:60px 20px;color:var(--muted)}
+.hist-empty{text-align:center;padding:60px 20px;color:var(–muted)}
 .hist-empty .he-icon{font-size:48px;margin-bottom:12px}
-.hist-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s}
+.hist-card{background:var(–card);border:1px solid var(–border);border-radius:var(–radius);padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s}
 .hist-card:active{transform:scale(.98)}
 .hc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
 .hc-product{font-weight:700;font-size:15px}
-.hc-price{font-family:'Oswald',sans-serif;font-size:20px;color:var(--accent)}
+.hc-price{font-family:‘Oswald’,sans-serif;font-size:20px;color:var(–accent)}
 .hc-meta{display:flex;gap:8px;flex-wrap:wrap}
 .hc-tag{font-size:10px;padding:2px 7px;border-radius:4px}
-.hc-tag-exist{background:var(--accent-dim);color:var(--accent)}
-.hc-tag-new{background:var(--blue-dim);color:var(--blue)}
-.hc-tag-gray{background:var(--card2);color:var(--muted)}
-.hist-clear-btn{display:block;width:100%;margin-top:16px;padding:12px;background:rgba(244,63,94,.08);border:1px solid rgba(244,63,94,.25);color:var(--red);border-radius:10px;font-family:inherit;font-size:13px;cursor:pointer}
+.hc-tag-exist{background:var(–accent-dim);color:var(–accent)}
+.hc-tag-new{background:var(–blue-dim);color:var(–blue)}
+.hc-tag-gray{background:var(–card2);color:var(–muted)}
+.hist-clear-btn{display:block;width:100%;margin-top:16px;padding:12px;background:rgba(244,63,94,.08);border:1px solid rgba(244,63,94,.25);color:var(–red);border-radius:10px;font-family:inherit;font-size:13px;cursor:pointer}
 
 /* Toast */
-.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--green);color:#000;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:700;opacity:0;transition:all .3s;z-index:999;white-space:nowrap}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(–green);color:#000;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:700;opacity:0;transition:all .3s;z-index:999;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 /* Modal */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .3s}
 .modal-overlay.open{opacity:1;pointer-events:all}
-.modal-box{background:var(--card);border-radius:20px 20px 0 0;margin-top:auto;max-height:82vh;overflow-y:auto;padding:20px 16px 30px;transform:translateY(100%);transition:transform .35s ease;box-shadow:0 -4px 30px rgba(0,0,0,0.12)}
+.modal-box{background:var(–card);border-radius:20px 20px 0 0;margin-top:auto;max-height:82vh;overflow-y:auto;padding:20px 16px 30px;transform:translateY(100%);transition:transform .35s ease;box-shadow:0 -4px 30px rgba(0,0,0,0.12)}
 .modal-overlay.open .modal-box{transform:translateY(0)}
-.modal-handle{width:40px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 16px}
-.modal-title{font-family:'Oswald',sans-serif;font-size:20px;margin-bottom:16px}
-.contract-preview{background:#fff;color:#000;border-radius:10px;padding:20px;font-size:12px;line-height:1.7;font-family:'Noto Sans TC',sans-serif;margin-bottom:16px}
-body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
+.modal-handle{width:40px;height:4px;background:var(–border);border-radius:2px;margin:0 auto 16px}
+.modal-title{font-family:‘Oswald’,sans-serif;font-size:20px;margin-bottom:16px}
+.contract-preview{background:#fff;color:#000;border-radius:10px;padding:20px;font-size:12px;line-height:1.7;font-family:‘Noto Sans TC’,sans-serif;margin-bottom:16px}
+body.sc .contract-preview{font-family:‘Noto Sans SC’,sans-serif}
 .cp-company{text-align:center;font-size:16px;font-weight:900;margin-bottom:2px}
 .cp-subtitle{text-align:center;font-size:10px;color:#666;margin-bottom:12px}
 .cp-contract-title{text-align:center;font-size:14px;font-weight:700;margin-bottom:2px}
@@ -202,128 +203,141 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
 .cp-total-box{background:#000;color:#fff;padding:10px 14px;border-radius:6px;display:flex;justify-content:space-between;margin:10px 0}
 .cp-total-box .ct-lbl{font-size:11px}
 .cp-total-box .ct-val{font-size:16px;font-weight:700}
-.btn-dl-contract{width:100%;padding:16px;border-radius:12px;border:none;cursor:pointer;background:linear-gradient(135deg,#2ecc71,#1a9950);color:#fff;font-family:'Oswald',sans-serif;font-size:18px;letter-spacing:1px}
+.btn-dl-contract{width:100%;padding:16px;border-radius:12px;border:none;cursor:pointer;background:linear-gradient(135deg,#2ecc71,#1a9950);color:#fff;font-family:‘Oswald’,sans-serif;font-size:18px;letter-spacing:1px}
 /* ── Confirm Order Button ── */
-.btn-confirm-order{display:block;width:calc(100% - 28px);margin:0 14px 12px;padding:16px;border-radius:14px;border:2px solid var(--green);background:rgba(52,211,153,.1);color:var(--green);font-family:'Oswald',sans-serif;font-size:17px;letter-spacing:1.5px;cursor:pointer;transition:all .2s;text-align:center}
+.btn-confirm-order{display:block;width:calc(100% - 28px);margin:0 14px 12px;padding:16px;border-radius:14px;border:2px solid var(–green);background:rgba(52,211,153,.1);color:var(–green);font-family:‘Oswald’,sans-serif;font-size:17px;letter-spacing:1.5px;cursor:pointer;transition:all .2s;text-align:center}
 .btn-confirm-order:active{background:rgba(46,204,113,.25);transform:scale(.98)}
-.btn-confirm-order.ordered{background:var(--card2);border-color:var(--border);color:var(--muted);pointer-events:none}
+.btn-confirm-order.ordered{background:var(–card2);border-color:var(–border);color:var(–muted);pointer-events:none}
 
 /* ── Customer Filter Bar ── */
 .cust-filter-bar{padding:10px 14px 0;flex-shrink:0}
 .cust-filter-btns{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;-webkit-overflow-scrolling:touch}
 .cust-filter-btns::-webkit-scrollbar{display:none}
-.cfb{flex-shrink:0;padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-family:inherit;font-size:12px;cursor:pointer;transition:all .2s;white-space:nowrap}
-.cfb.active{background:var(--accent);border-color:var(--accent);color:#000;font-weight:700}
+.cfb{flex-shrink:0;padding:6px 14px;border-radius:20px;border:1px solid var(–border);background:var(–card);color:var(–muted);font-family:inherit;font-size:12px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.cfb.active{background:var(–accent);border-color:var(–accent);color:#000;font-weight:700}
 
 /* ── Customer Card ── */
-.cust-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s;position:relative}
+.cust-card{background:var(–card);border:1px solid var(–border);border-radius:var(–radius);padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s;position:relative}
 .cust-card:active{transform:scale(.98)}
 .cust-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
 .cust-name{font-size:16px;font-weight:700}
 .cust-status-badge{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:700}
-.status-new{background:rgba(59,158,255,.15);color:var(--blue)}
-.status-following{background:rgba(232,160,32,.15);color:var(--accent)}
-.status-won{background:rgba(46,204,113,.15);color:var(--green)}
-.status-lost{background:rgba(231,76,60,.15);color:var(--red)}
+.status-new{background:rgba(59,158,255,.15);color:var(–blue)}
+.status-following{background:rgba(232,160,32,.15);color:var(–accent)}
+.status-won{background:rgba(46,204,113,.15);color:var(–green)}
+.status-lost{background:rgba(231,76,60,.15);color:var(–red)}
 .cust-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
-.cust-tag{font-size:10px;padding:2px 7px;border-radius:4px;background:var(--card2);color:var(--muted)}
+.cust-tag{font-size:10px;padding:2px 7px;border-radius:4px;background:var(–card2);color:var(–muted)}
 .cust-actions{display:flex;gap:8px;margin-top:10px}
-.cust-action-btn{flex:1;padding:9px;border-radius:8px;border:1px solid var(--border);background:var(--card2);color:var(--text);font-family:inherit;font-size:12px;cursor:pointer;text-align:center;transition:all .2s}
+.cust-action-btn{flex:1;padding:9px;border-radius:8px;border:1px solid var(–border);background:var(–card2);color:var(–text);font-family:inherit;font-size:12px;cursor:pointer;text-align:center;transition:all .2s}
 .cust-action-btn:active{transform:scale(.97)}
-.cust-quotes-count{font-size:11px;color:var(--muted);margin-top:6px}
-.cust-empty{text-align:center;padding:60px 20px;color:var(--muted)}
+.cust-quotes-count{font-size:11px;color:var(–muted);margin-top:6px}
+.cust-empty{text-align:center;padding:60px 20px;color:var(–muted)}
 .cust-empty .ce-icon{font-size:48px;margin-bottom:12px}
-.btn-add-customer{background:var(--accent);color:#000;border:none;padding:6px 14px;border-radius:8px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;margin-left:auto}
+.btn-add-customer{background:var(–accent);color:#000;border:none;padding:6px 14px;border-radius:8px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;margin-left:auto}
 
 /* ── Add Customer Modal ── */
 .cust-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .3s}
 .cust-modal-overlay.open{opacity:1;pointer-events:all}
-.cust-modal-box{background:var(--card);border-radius:20px 20px 0 0;margin-top:auto;max-height:85vh;overflow-y:auto;padding:20px 16px 30px;transform:translateY(100%);transition:transform .35s ease;box-shadow:0 -4px 30px rgba(0,0,0,0.12)}
+.cust-modal-box{background:var(–card);border-radius:20px 20px 0 0;margin-top:auto;max-height:85vh;overflow-y:auto;padding:20px 16px 30px;transform:translateY(100%);transition:transform .35s ease;box-shadow:0 -4px 30px rgba(0,0,0,0.12)}
 .cust-modal-overlay.open .cust-modal-box{transform:translateY(0)}
 
 /* ── Order Card ── */
-.order-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s}
+.order-card{background:var(–card);border:1px solid var(–border);border-radius:var(–radius);padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s}
 .order-card:active{transform:scale(.98)}
 .order-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
 .order-product{font-size:15px;font-weight:700}
-.order-amount{font-family:'Oswald',sans-serif;font-size:18px;color:var(--accent)}
+.order-amount{font-family:‘Oswald’,sans-serif;font-size:18px;color:var(–accent)}
 .order-status-badge{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:700;margin-bottom:6px;display:inline-block}
-.ostatus-pending{background:rgba(232,160,32,.15);color:var(--accent)}
-.ostatus-production{background:rgba(59,158,255,.15);color:var(--blue)}
+.ostatus-pending{background:rgba(232,160,32,.15);color:var(–accent)}
+.ostatus-production{background:rgba(59,158,255,.15);color:var(–blue)}
 .ostatus-ready{background:rgba(168,85,247,.15);color:#a855f7}
-.ostatus-shipped{background:rgba(46,204,113,.15);color:var(--green)}
-.ostatus-collected{background:rgba(46,204,113,.3);color:var(--green)}
+.ostatus-shipped{background:rgba(46,204,113,.15);color:var(–green)}
+.ostatus-collected{background:rgba(46,204,113,.3);color:var(–green)}
 .order-progress{display:flex;gap:4px;margin:10px 0}
-.op-step{flex:1;height:4px;border-radius:2px;background:var(--border);transition:background .3s}
-.op-step.done{background:var(--green)}
-.op-step.active{background:var(--accent)}
+.op-step{flex:1;height:4px;border-radius:2px;background:var(–border);transition:background .3s}
+.op-step.done{background:var(–green)}
+.op-step.active{background:var(–accent)}
 .order-meta{display:flex;gap:8px;flex-wrap:wrap}
-.order-tag{font-size:10px;padding:2px 7px;border-radius:4px;background:var(--card2);color:var(--muted)}
-.order-change-status{width:100%;margin-top:10px;padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--card2);color:var(--text);font-family:inherit;font-size:12px;cursor:pointer}
+.order-tag{font-size:10px;padding:2px 7px;border-radius:4px;background:var(–card2);color:var(–muted)}
+.order-change-status{width:100%;margin-top:10px;padding:10px;border-radius:8px;border:1px solid var(–border);background:var(–card2);color:var(–text);font-family:inherit;font-size:12px;cursor:pointer}
 
 /* ── Settings Page ── */
-.settings-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:4px}
-.settings-hint{font-size:11px;color:var(--muted);margin:-8px 0 12px;padding:0 2px}
+.settings-card{background:var(–card);border:1px solid var(–border);border-radius:var(–radius);padding:16px;margin-bottom:4px}
+.settings-hint{font-size:11px;color:var(–muted);margin:-8px 0 12px;padding:0 2px}
 
 /* Material Library */
-.mat-lib-list{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
-.mat-row{display:grid;grid-template-columns:1fr 90px auto auto;gap:8px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
-.mat-row-name,.mat-row-price{background:#ffffff;border:1.5px solid var(--border);border-radius:8px;padding:9px 10px;color:var(--text);font-family:inherit;font-size:14px;outline:none;width:100%;-webkit-appearance:none;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
-.mat-row-name:focus,.mat-row-price:focus{border-color:var(--accent)}
-.mat-row-unit{font-size:11px;color:var(--muted);white-space:nowrap}
-.mat-row-del{background:rgba(231,76,60,.15);border:none;color:var(--red);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mat-row{display:grid;grid-template-columns:1fr 90px auto auto;gap:8px;align-items:center;background:var(–card);border:1px solid var(–border);border-radius:10px;padding:10px 12px}
+.mat-row-name,.mat-row-price{background:#ffffff;border:1.5px solid var(–border);border-radius:8px;padding:9px 10px;color:var(–text);font-family:inherit;font-size:14px;outline:none;width:100%;-webkit-appearance:none;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.mat-row-name:focus,.mat-row-price:focus{border-color:var(–accent)}
+.mat-row-unit{font-size:11px;color:var(–muted);white-space:nowrap}
+.mat-row-del{background:rgba(231,76,60,.15);border:none;color:var(–red);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 
-.btn-add-mat{width:100%;padding:13px;border-radius:10px;border:1.5px dashed var(--border);background:transparent;color:var(--muted);font-family:inherit;font-size:14px;cursor:pointer;margin-bottom:16px;transition:all .2s}
-.btn-add-mat:active{background:var(--card2);color:var(--text)}
+.btn-add-mat{width:100%;padding:13px;border-radius:10px;border:1.5px dashed var(–border);background:transparent;color:var(–muted);font-family:inherit;font-size:14px;cursor:pointer;margin-bottom:16px;transition:all .2s}
+.btn-add-mat:active{background:var(–card2);color:var(–text)}
 
-.btn-save-settings{width:100%;padding:18px;border-radius:14px;border:none;cursor:pointer;font-family:'Oswald',sans-serif;font-size:20px;letter-spacing:2px;background:linear-gradient(135deg,var(--green),#059669);color:#0f172a;font-weight:800;transition:all .2s;margin-top:8px}
+.btn-save-settings{width:100%;padding:18px;border-radius:14px;border:none;cursor:pointer;font-family:‘Oswald’,sans-serif;font-size:20px;letter-spacing:2px;background:linear-gradient(135deg,var(–green),#059669);color:#0f172a;font-weight:800;transition:all .2s;margin-top:8px}
 .btn-save-settings:active{transform:scale(.98)}
 
 /* Settings saved indicator */
-.settings-version{text-align:center;font-size:10px;color:var(--muted);margin-top:12px;font-family:'JetBrains Mono',monospace}
-.section-hd.blue{color:var(--blue)}
-
+.settings-version{text-align:center;font-size:10px;color:var(–muted);margin-top:12px;font-family:‘JetBrains Mono’,monospace}
+.section-hd.blue{color:var(–blue)}
 
 /* ── Inquiry Parts ── */
-.iq-part-row{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px}
+.iq-part-row{background:var(–card);border:1px solid var(–border);border-radius:10px;padding:12px;margin-bottom:8px}
 .iq-part-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.iq-part-num{font-size:12px;font-weight:700;color:var(--green);background:rgba(52,211,153,.12);padding:3px 10px;border-radius:20px}
-.iq-part-del{background:rgba(251,113,133,.15);border:none;color:var(--red);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:14px}
+.iq-part-num{font-size:12px;font-weight:700;color:var(–green);background:rgba(52,211,153,.12);padding:3px 10px;border-radius:20px}
+.iq-part-del{background:rgba(251,113,133,.15);border:none;color:var(–red);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:14px}
 .iq-summary-table-inner{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
-.iq-summary-table-inner th{text-align:left;padding:8px 10px;border-bottom:2px solid var(--border);color:var(--muted);font-size:11px;letter-spacing:1px}
-.iq-summary-table-inner td{padding:10px;border-bottom:1px solid var(--border)}
+.iq-summary-table-inner th{text-align:left;padding:8px 10px;border-bottom:2px solid var(–border);color:var(–muted);font-size:11px;letter-spacing:1px}
+.iq-summary-table-inner td{padding:10px;border-bottom:1px solid var(–border)}
 .iq-summary-table-inner tr:last-child td{border-bottom:none}
-.iq-price-range{font-weight:700;color:var(--accent);font-family:'JetBrains Mono',monospace}
-.iq-cost{color:var(--muted);font-family:'JetBrains Mono',monospace}
+.iq-price-range{font-weight:700;color:var(–accent);font-family:‘JetBrains Mono’,monospace}
+.iq-cost{color:var(–muted);font-family:‘JetBrains Mono’,monospace}
+
+/* ── Mold Mode Buttons ── */
+.mold-mode-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+.mmb{padding:12px;border-radius:10px;border:1.5px solid var(–border);background:var(–card2);color:var(–muted);font-family:inherit;font-size:13px;cursor:pointer;transition:all .2s;text-align:center}
+.mmb.active{border-color:var(–accent);background:var(–accent-dim);color:var(–accent);font-weight:700}
+/* ── Mold Row ── */
+.mold-row{background:var(–card);border:1px solid var(–border);border-radius:10px;padding:12px;margin-bottom:8px}
+.mold-row-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.mold-row-num{font-size:12px;font-weight:700;color:var(–blue);background:var(–blue-dim);padding:3px 10px;border-radius:20px}
+.mold-row-del{background:rgba(251,113,133,.15);border:none;color:var(–red);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:14px}
+.mold-total-bar{background:var(–card2);border-radius:10px;padding:10px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.mold-total-val{font-family:‘JetBrains Mono’,monospace;color:var(–accent);font-size:15px;font-weight:700}
 
 ::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+::-webkit-scrollbar-thumb{background:var(–border);border-radius:10px}
 
 /* Settings Page */
-.settings-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 14px 2px;margin-bottom:14px}
-.settings-hint{font-size:11px;color:var(--muted);margin:-8px 0 12px;line-height:1.5}
+.settings-card{background:var(–card);border:1px solid var(–border);border-radius:var(–radius);padding:14px 14px 2px;margin-bottom:14px}
+.settings-hint{font-size:11px;color:var(–muted);margin:-8px 0 12px;line-height:1.5}
 .mat-lib-list{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
-.mat-row{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;display:flex;align-items:center;gap:8px}
-.mat-row-name{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:inherit;font-size:14px;outline:none}
-.mat-row-name:focus{border-color:var(--accent)}
-.mat-row-price{width:100px;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:14px;outline:none;text-align:right}
-.mat-row-price:focus{border-color:var(--accent)}
-.mat-row-unit{font-size:11px;color:var(--muted);white-space:nowrap}
-.mat-row-del{background:rgba(231,76,60,.15);border:none;color:var(--red);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.btn-add-mat{width:100%;padding:13px;border-radius:10px;border:1.5px dashed var(--border);background:transparent;color:var(--muted);font-family:inherit;font-size:14px;cursor:pointer;margin-bottom:16px;transition:all .2s}
-.btn-add-mat:active{background:var(--card)}
-.btn-save-settings{width:100%;padding:17px;border-radius:14px;border:none;cursor:pointer;font-family:'Oswald',sans-serif;font-size:20px;letter-spacing:2px;background:linear-gradient(135deg,var(--green),#1a9950);color:#fff;transition:all .2s}
+.mat-row{background:var(–card);border:1px solid var(–border);border-radius:10px;padding:12px;display:flex;align-items:center;gap:8px}
+.mat-row-name{flex:1;background:var(–card2);border:1px solid var(–border);border-radius:8px;padding:10px 12px;color:var(–text);font-family:inherit;font-size:14px;outline:none}
+.mat-row-name:focus{border-color:var(–accent)}
+.mat-row-price{width:100px;background:var(–card2);border:1px solid var(–border);border-radius:8px;padding:10px 12px;color:var(–accent);font-family:‘JetBrains Mono’,monospace;font-size:14px;outline:none;text-align:right}
+.mat-row-price:focus{border-color:var(–accent)}
+.mat-row-unit{font-size:11px;color:var(–muted);white-space:nowrap}
+.mat-row-del{background:rgba(231,76,60,.15);border:none;color:var(–red);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.btn-add-mat{width:100%;padding:13px;border-radius:10px;border:1.5px dashed var(–border);background:transparent;color:var(–muted);font-family:inherit;font-size:14px;cursor:pointer;margin-bottom:16px;transition:all .2s}
+.btn-add-mat:active{background:var(–card)}
+.btn-save-settings{width:100%;padding:17px;border-radius:14px;border:none;cursor:pointer;font-family:‘Oswald’,sans-serif;font-size:20px;letter-spacing:2px;background:linear-gradient(135deg,var(–green),#1a9950);color:#fff;transition:all .2s}
 .btn-save-settings:active{transform:scale(.98)}
-.tab-settings.active{color:var(--green)}
-.tab-settings.active::after{background:var(--green)}
+.tab-settings.active{color:var(–green)}
+.tab-settings.active::after{background:var(–green)}
 </style>
+
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
 </head>
 <body>
 <div class="app">
 
   <!-- Topbar -->
+
   <div class="topbar">
     <div class="topbar-left">
       <div class="topbar-badge">IMQ</div>
@@ -343,596 +357,592 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
 
   <div class="pages">
 
-    <!-- HOME -->
-    <div class="page" id="pg-home">
-      <div class="home-hero">
-        <div class="hero-label" data-i18n="heroLabel">即時報價系統 · Live Quotation</div>
-        <div class="hero-title" data-i18n-html="heroTitle">選擇<span>報價</span>類型</div>
+```
+<!-- HOME -->
+<div class="page" id="pg-home">
+  <div class="home-hero">
+    <div class="hero-label" data-i18n="heroLabel">即時報價系統 · Live Quotation</div>
+    <div class="hero-title" data-i18n-html="heroTitle">選擇<span>報價</span>類型</div>
+  </div>
+  <div class="mode-cards" style="grid-template-columns:1fr 1fr">
+    <div class="mode-card mc-exist" onclick="openForm('exist')">
+      <div class="mc-tag">EXISTING</div>
+      <div class="mc-icon"><i data-lucide="package-check"></i></div>
+      <div class="mc-title" data-i18n="modeExistTitle">已有模具</div>
+      <div class="mc-desc" data-i18n="modeExistDesc">客戶自備模具，計算生產成本</div>
+    </div>
+    <div class="mode-card mc-new" onclick="openForm('new')">
+      <div class="mc-tag">+ MOLD</div>
+      <div class="mc-icon"><i data-lucide="layers"></i></div>
+      <div class="mc-title" data-i18n="modeNewTitle">含開模費</div>
+      <div class="mc-desc" data-i18n="modeNewDesc">從開模到生產一站式報價</div>
+    </div>
+  </div>
+  <div class="mode-cards" style="grid-template-columns:1fr;margin-top:0">
+    <div class="mode-card mc-inquiry" onclick="openForm('inquiry')" style="display:flex;align-items:center;gap:16px;padding:16px 18px">
+      <div class="mc-icon" style="margin-bottom:0;flex-shrink:0;background:rgba(52,211,153,.12);color:var(--green)"><i data-lucide="search"></i></div>
+      <div>
+        <div class="mc-title" style="color:var(--green);margin-bottom:4px">詢價預報價</div>
+        <div class="mc-desc">來料/來樣快速估價，談判內部參考用</div>
       </div>
-      <div class="mode-cards" style="grid-template-columns:1fr 1fr">
-        <div class="mode-card mc-exist" onclick="openForm('exist')">
-          <div class="mc-tag">EXISTING</div>
-          <div class="mc-icon"><i data-lucide="package-check"></i></div>
-          <div class="mc-title" data-i18n="modeExistTitle">已有模具</div>
-          <div class="mc-desc" data-i18n="modeExistDesc">客戶自備模具，計算生產成本</div>
-        </div>
-        <div class="mode-card mc-new" onclick="openForm('new')">
-          <div class="mc-tag">+ MOLD</div>
-          <div class="mc-icon"><i data-lucide="layers"></i></div>
-          <div class="mc-title" data-i18n="modeNewTitle">含開模費</div>
-          <div class="mc-desc" data-i18n="modeNewDesc">從開模到生產一站式報價</div>
-        </div>
+      <div class="mc-tag" style="position:static;margin-left:auto;background:rgba(52,211,153,.12);color:var(--green)">INQUIRY</div>
+    </div>
+  </div>
+  <div class="quick-stats" style="grid-template-columns:repeat(2,1fr)">
+    <div class="qs-card"><div class="qs-num" id="stat-count">0</div><div class="qs-label">歷史報價</div></div>
+    <div class="qs-card"><div class="qs-num" id="stat-today">0</div><div class="qs-label">今日報價</div></div>
+    <div class="qs-card"><div class="qs-num" id="stat-orders" style="color:var(--blue)">0</div><div class="qs-label">進行中訂單</div></div>
+    <div class="qs-card"><div class="qs-num" id="stat-uncollected" style="color:var(--red)">0</div><div class="qs-label">待收款</div></div>
+  </div>
+  <div class="guide-box" data-i18n-html="guideText">
+    ① 選擇報價類型 → ② 填寫固定及浮動成本 → ③ 即時預覽<br>④ 確認後生成中英雙語合同 PDF → ⑤ 分享給客戶
+  </div>
+</div>
+
+<!-- FORM: EXISTING MOLD -->
+<div class="page hidden" id="pg-exist">
+  <div class="form-header">
+    <button class="btn-back" onclick="goHome()" data-i18n="btnBack">← 返回</button>
+    <div class="form-title exist" data-i18n="existFormTitle">🔧 已有模具報價</div>
+  </div>
+  <div class="scroll-content">
+
+    <div class="section-hd" data-i18n="secCustomer">客戶資料</div>
+    <div class="grid2">
+      <div class="field"><label data-i18n="lblCustomer">客戶 / 公司</label><input type="text" id="e-cust" data-i18n-ph="phCompany" placeholder="公司名稱"></div>
+      <div class="field"><label data-i18n="lblContact">聯絡人</label><input type="text" id="e-contact" data-i18n-ph="phContact" placeholder="姓名"></div>
+    </div>
+    <div class="grid2">
+      <div class="field"><label data-i18n="lblProduct">產品名稱</label><input type="text" id="e-prod" data-i18n-ph="phProduct" placeholder="產品描述"></div>
+      <div class="field"><label data-i18n="lblSku">料號</label><input type="text" id="e-sku" placeholder="SKU"></div>
+    </div>
+
+    <!-- 固定成本（全局，從設置帶入） -->
+    <div class="section-hd" data-i18n="secFixed">固定成本 <span class="cost-badge badge-fixed">FIXED</span></div>
+    <div class="settings-hint">廠房固定開銷按月均產量平攤到每件，從設置帶入</div>
+    <div class="grid2">
+      <div class="field"><label>廠房+設備+管理（元/月）合計</label><input type="number" id="e-rent" inputmode="decimal" placeholder="17000" oninput="liveExistCalc()"></div>
+      <div class="field"><label>月均總產量（件）</label><input type="number" id="e-monthly-vol" inputmode="numeric" placeholder="100000" oninput="liveExistCalc()"></div>
+    </div>
+    <!-- 隱藏兼容字段 -->
+    <input type="hidden" id="e-depr" value="0">
+    <input type="hidden" id="e-mgmt" value="0">
+    <input type="hidden" id="e-insurance" value="0">
+
+    <!-- 訂單設置 -->
+    <div class="section-hd" style="margin-top:4px">訂單設置</div>
+    <div class="grid2">
+      <div class="field"><label>利潤率（%）</label><input type="number" id="e-profit" inputmode="decimal" placeholder="20" value="20" oninput="liveExistCalc()"></div>
+      <div class="field"><label>次品率（%）</label><input type="number" id="e-defect" inputmode="decimal" placeholder="3" value="3" oninput="liveExistCalc()"></div>
+    </div>
+    <div class="grid2">
+      <div class="field">
+        <label>付款條件</label>
+        <select id="e-payment">
+          <option value="d50" data-i18n="pay1">訂金50%，交貨前付清</option>
+          <option value="d30" data-i18n="pay2">訂金30%，餘款月結</option>
+          <option value="full" data-i18n="pay3">全數預付</option>
+          <option value="n30" data-i18n="pay4">月結30天</option>
+          <option value="n60" data-i18n="pay5">月結60天</option>
+        </select>
       </div>
-      <div class="mode-cards" style="grid-template-columns:1fr;margin-top:0">
-        <div class="mode-card mc-inquiry" onclick="openForm('inquiry')" style="display:flex;align-items:center;gap:16px;padding:16px 18px">
-          <div class="mc-icon" style="margin-bottom:0;flex-shrink:0;background:rgba(52,211,153,.12);color:var(--green)"><i data-lucide="search"></i></div>
-          <div>
-            <div class="mc-title" style="color:var(--green);margin-bottom:4px">詢價預報價</div>
-            <div class="mc-desc">來料/來樣快速估價，談判內部參考用</div>
-          </div>
-          <div class="mc-tag" style="position:static;margin-left:auto;background:rgba(52,211,153,.12);color:var(--green)">INQUIRY</div>
-        </div>
+      <div class="field">
+        <label>貨幣</label>
+        <select id="e-currency">
+          <option value="HKD">HKD 港幣</option>
+          <option value="CNY">CNY 人民幣</option>
+          <option value="USD">USD 美元</option>
+        </select>
       </div>
-      <div class="quick-stats" style="grid-template-columns:repeat(2,1fr)">
-        <div class="qs-card"><div class="qs-num" id="stat-count">0</div><div class="qs-label">歷史報價</div></div>
-        <div class="qs-card"><div class="qs-num" id="stat-today">0</div><div class="qs-label">今日報價</div></div>
-        <div class="qs-card"><div class="qs-num" id="stat-orders" style="color:var(--blue)">0</div><div class="qs-label">進行中訂單</div></div>
-        <div class="qs-card"><div class="qs-num" id="stat-uncollected" style="color:var(--red)">0</div><div class="qs-label">待收款</div></div>
-      </div>
-      <div class="guide-box" data-i18n-html="guideText">
-        ① 選擇報價類型 → ② 填寫固定及浮動成本 → ③ 即時預覽<br>④ 確認後生成中英雙語合同 PDF → ⑤ 分享給客戶
+    </div>
+    <div class="grid2">
+      <div class="field"><label>交貨期（工作天）</label><input type="number" id="e-leadtime" inputmode="numeric" placeholder="15" value="15"></div>
+      <div class="field">
+        <label>質保期</label>
+        <select id="e-warranty">
+          <option value="1y">1 年</option>
+          <option value="6m">半年</option>
+          <option value="3m">3 個月</option>
+          <option value="none">無</option>
+        </select>
       </div>
     </div>
 
-    <!-- FORM: EXISTING MOLD -->
-    <div class="page hidden" id="pg-exist">
-      <div class="form-header">
-        <button class="btn-back" onclick="goHome()" data-i18n="btnBack">← 返回</button>
-        <div class="form-title exist" data-i18n="existFormTitle">🔧 已有模具報價</div>
+    <!-- 多零件列表 -->
+    <div class="section-hd blue" style="margin-top:4px">零件明細 <span style="font-size:11px;color:var(--muted);font-weight:400">（每件獨立填寫，可不同機台/用料）</span></div>
+    <div id="e-parts-list"></div>
+    <button class="btn-add-mat" onclick="addExistPart()" style="margin-bottom:12px">＋ 新增零件</button>
+
+    <!-- 匯總預覽 -->
+    <div id="e-summary-section" style="display:none">
+      <div class="section-hd">📊 套料報價匯總</div>
+      <div id="e-summary-content"></div>
+      <div class="live-preview" style="margin-top:12px">
+        <div class="lp-header"><span>套料總計</span><span id="e-prev-total">—</span></div>
+        <div class="lp-row highlight"><span class="ln">💰 套料總金額</span><span class="lv" id="e-p-unit">—</span></div>
       </div>
-      <div class="scroll-content">
+    </div>
+    <!-- Hidden compat fields for calcCore -->
+    <input type="hidden" id="e-mat" value=""><input type="hidden" id="e-matprice" value="0">
+    <input type="hidden" id="e-weight" value="0"><input type="hidden" id="e-runner" value="8">
+    <input type="hidden" id="e-tonnage" value="120"><input type="hidden" id="e-machrate" value="0">
+    <input type="hidden" id="e-cavity" value="1"><input type="hidden" id="e-cycle" value="30">
+    <input type="hidden" id="e-labor" value="50"><input type="hidden" id="e-elec" value="0">
+    <input type="hidden" id="e-surface" value="0"><input type="hidden" id="e-pack" value="0">
+    <input type="hidden" id="e-qty" value="0">
+    <span id="e-p-mat" style="display:none"></span><span id="e-p-mach" style="display:none"></span>
+    <span id="e-p-other" style="display:none"></span><span id="e-p-fixed" style="display:none"></span>
 
-        <div class="section-hd" data-i18n="secCustomer">客戶資料</div>
-        <div class="grid2">
-          <div class="field"><label data-i18n="lblCustomer">客戶 / 公司</label><input type="text" id="e-cust" data-i18n-ph="phCompany" placeholder="公司名稱"></div>
-          <div class="field"><label data-i18n="lblContact">聯絡人</label><input type="text" id="e-contact" data-i18n-ph="phContact" placeholder="姓名"></div>
-        </div>
-        <div class="grid2">
-          <div class="field"><label data-i18n="lblProduct">產品名稱</label><input type="text" id="e-prod" data-i18n-ph="phProduct" placeholder="產品描述"></div>
-          <div class="field"><label data-i18n="lblSku">料號</label><input type="text" id="e-sku" placeholder="SKU"></div>
-        </div>
+    <div class="field" style="margin-top:14px">
+      <label>備注</label>
+      <textarea id="e-notes" placeholder="特別要求、顏色、認證等..."></textarea>
+    </div>
+    <button class="btn-calc exist" onclick="calcExistMulti()" data-i18n="btnCalc">立即生成報價 →</button>
+    <div style="height:10px"></div>
+  </div>
+</div>
 
-        <div class="section-hd" data-i18n="secFixed">固定成本 <span class="cost-badge badge-fixed">FIXED</span></div>
+<!-- FORM: NEW MOLD -->
+<div class="page hidden" id="pg-new">
+  <div class="form-header">
+    <button class="btn-back" onclick="goHome()" data-i18n="btnBack">← 返回</button>
+    <div class="form-title new" data-i18n="newFormTitle">🏗️ 含開模費報價</div>
+  </div>
+  <div class="scroll-content">
+
+    <div class="section-hd" data-i18n="secCustomer">客戶資料</div>
+    <div class="grid2">
+      <div class="field"><label data-i18n="lblCustomer">客戶 / 公司</label><input type="text" id="n-cust" data-i18n-ph="phCompany" placeholder="公司名稱"></div>
+      <div class="field"><label data-i18n="lblContact">聯絡人</label><input type="text" id="n-contact" data-i18n-ph="phContact" placeholder="姓名"></div>
+    </div>
+    <div class="grid2">
+      <div class="field"><label data-i18n="lblProduct">產品名稱</label><input type="text" id="n-prod" data-i18n-ph="phProduct" placeholder="產品描述"></div>
+      <div class="field"><label data-i18n="lblSku">料號</label><input type="text" id="n-sku" placeholder="SKU"></div>
+    </div>
+
+    <div class="section-hd" data-i18n="secMold">模具費用（一次性）</div>
+
+    <!-- ① 開模合作模式 -->
+    <div class="field">
+      <label>開模合作模式</label>
+      <div class="mold-mode-btns">
+        <button class="mmb active" id="mmb-full" onclick="setMoldMode('full')">👤 客戶全出資</button>
+        <button class="mmb" id="mmb-shared" onclick="setMoldMode('shared')">🤝 按比例共同出資</button>
+      </div>
+    </div>
+
+    <!-- 共同出資欄（僅 shared 模式顯示） -->
+    <div id="n-shared-section" style="display:none">
+      <div class="settings-hint" style="background:rgba(129,140,248,.08);border:1px solid rgba(129,140,248,.2);border-radius:10px;padding:10px 12px;margin-bottom:12px;color:var(--blue)">
+        🤝 我方出資部分將攤銷進每件單價，回本後自動移除
+      </div>
+      <div class="grid2">
+        <div class="field"><label>開模總費用（元）</label><input type="number" id="n-mold-total" inputmode="decimal" placeholder="65000" oninput="calcSharedMold()"></div>
+        <div class="field"><label>客戶出資比例（%）</label><input type="number" id="n-cust-ratio" inputmode="decimal" placeholder="30" value="30" oninput="calcSharedMold()"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>客戶出資（元）</label><input type="number" id="n-cust-amount" inputmode="decimal" placeholder="自動計算" readonly style="color:var(--accent)"></div>
+        <div class="field"><label>我方出資 / 需回本（元）</label><input type="number" id="n-my-amount" inputmode="decimal" placeholder="自動計算" readonly style="color:var(--red)"></div>
+      </div>
+      <div class="grid2">
         <div class="field">
-          <label data-i18n="lblRent">廠房租金攤銷（元/月）<span class="cost-badge badge-fixed">固定</span></label>
-          <input type="number" id="e-rent" inputmode="decimal" placeholder="5000" oninput="liveCalc('e')">
-          <div class="field-hint" data-i18n="hintRent">按月總產量分攤到每件成本</div>
+          <label>攤銷批量（件）</label>
+          <input type="number" id="n-amortize" inputmode="numeric" placeholder="50000" oninput="liveCalc('n')">
+          <div class="field-hint">我方出資 ÷ 此批量 = 每件攤銷額</div>
         </div>
-        <div class="grid2">
-          <div class="field"><label data-i18n="lblDepr">設備折舊（元/月）<span class="cost-badge badge-fixed">固定</span></label><input type="number" id="e-depr" inputmode="decimal" placeholder="3000" oninput="liveCalc('e')"></div>
-          <div class="field"><label data-i18n="lblMgmt">管理工資（元/月）<span class="cost-badge badge-fixed">固定</span></label><input type="number" id="e-mgmt" inputmode="decimal" placeholder="8000" oninput="liveCalc('e')"></div>
+        <div class="field">
+          <label>已生產累計（件）</label>
+          <input type="number" id="n-produced" inputmode="numeric" placeholder="0" value="0" oninput="updateRecovery()">
+          <div class="field-hint" id="n-recovery-hint" style="color:var(--green)">尚未開始回本</div>
         </div>
-        <div class="grid2">
-          <div class="field"><label data-i18n="lblInsurance">保險稅費（元/月）<span class="cost-badge badge-fixed">固定</span></label><input type="number" id="e-insurance" inputmode="decimal" placeholder="1000" oninput="liveCalc('e')"></div>
-          <div class="field"><label data-i18n="lblMonthVol">本月總產量（件）</label><input type="number" id="e-monthly-vol" inputmode="numeric" placeholder="100000" oninput="liveCalc('e')"></div>
-        </div>
-
-        <div class="section-hd blue" data-i18n="secVariable">浮動成本 <span class="cost-badge badge-var">VARIABLE</span></div>
-        <div class="grid2">
-          <div class="field">
-            <label data-i18n="lblMaterial">原料種類<span class="cost-badge badge-var">浮動</span></label>
-            <select id="e-mat" onchange="liveCalc('e')">
-              <option value="" data-i18n="optSelect">請選擇...</option>
-              <option value="PP">PP 聚丙烯</option><option value="ABS">ABS</option>
-              <option value="PE">PE 聚乙烯</option><option value="PC">PC 聚碳酸酯</option>
-              <option value="POM">POM 聚甲醛</option><option value="Nylon">Nylon PA66</option>
-              <option value="TPE">TPE</option><option value="PS">PS</option>
-              <option value="其他" data-i18n="optOther">其他</option>
-            </select>
-          </div>
-          <div class="field"><label data-i18n="lblMatPrice">原料單價（元/kg）<span class="cost-badge badge-var">浮動</span></label><input type="number" id="e-matprice" inputmode="decimal" placeholder="22" oninput="liveCalc('e')"></div>
-        </div>
-        <div class="grid2">
-          <div class="field"><label data-i18n="lblWeight">件重（克）<span class="cost-badge badge-var">浮動</span></label><input type="number" id="e-weight" inputmode="decimal" placeholder="50" oninput="liveCalc('e')"></div>
-          <div class="field"><label data-i18n="lblRunner">水口料損耗（%）</label><input type="number" id="e-runner" inputmode="decimal" placeholder="8" value="8" oninput="liveCalc('e')"></div>
-        </div>
-        <div class="grid2">
-          <div class="field">
-            <label data-i18n="lblTonnage">機器噸位</label>
-            <select id="e-tonnage" onchange="autoMachineRate('e');liveCalc('e')">
-              <option value="60">60T</option><option value="80">80T</option><option value="120">120T</option>
-              <option value="160" selected>160T</option><option value="250">250T</option>
-              <option value="350">350T</option><option value="500">500T</option><option value="800">800T</option>
-            </select>
-          </div>
-          <div class="field"><label data-i18n="lblMachRate">機器費（元/h）<span class="cost-badge badge-var">浮動</span></label><input type="number" id="e-machrate" inputmode="decimal" placeholder="160" oninput="liveCalc('e')"></div>
-        </div>
-        <div class="grid3">
-          <div class="field"><label data-i18n="lblCavity">穴數</label><input type="number" id="e-cavity" inputmode="numeric" placeholder="1" value="1" oninput="liveCalc('e')"></div>
-          <div class="field"><label data-i18n="lblCycle">週期（秒）</label><input type="number" id="e-cycle" inputmode="numeric" placeholder="30" value="30" oninput="liveCalc('e')"></div>
-          <div class="field"><label data-i18n="lblDefect">次品率（%）</label><input type="number" id="e-defect" inputmode="decimal" placeholder="3" value="3" oninput="liveCalc('e')"></div>
-        </div>
-        <div class="grid2">
-          <div class="field"><label data-i18n="lblLabor">人工費（元/h）<span class="cost-badge badge-var">浮動</span></label><input type="number" id="e-labor" inputmode="decimal" placeholder="50" value="50" oninput="liveCalc('e')"></div>
-          <div class="field"><label data-i18n="lblElec">電費（元/h）<span class="cost-badge badge-var">浮動</span></label><input type="number" id="e-elec" inputmode="decimal" placeholder="30" value="30" oninput="liveCalc('e')"></div>
-        </div>
-        <div class="grid2">
-          <div class="field"><label data-i18n="lblSurface">表面處理（元/件）</label><input type="number" id="e-surface" inputmode="decimal" placeholder="0" value="0" oninput="liveCalc('e')"></div>
-          <div class="field"><label data-i18n="lblPack">包裝（元/件）</label><input type="number" id="e-pack" inputmode="decimal" placeholder="1.5" value="1.5" oninput="liveCalc('e')"></div>
-        </div>
-
-        <div class="section-hd" data-i18n="secOrder">訂單 &amp; 利潤</div>
-        <div class="grid2">
-          <div class="field"><label data-i18n="lblQty">訂購數量（件）</label><input type="number" id="e-qty" inputmode="numeric" placeholder="10000" oninput="liveCalc('e')"></div>
-          <div class="field"><label data-i18n="lblProfit">利潤率（%）</label><input type="number" id="e-profit" inputmode="decimal" placeholder="20" value="20" oninput="liveCalc('e')"></div>
-        </div>
-        <div class="grid2">
-          <div class="field">
-            <label data-i18n="lblPayment">付款條件</label>
-            <select id="e-payment">
-              <option value="d50" data-i18n="pay1">訂金50%，交貨前付清</option>
-              <option value="d30" data-i18n="pay2">訂金30%，餘款月結</option>
-              <option value="full" data-i18n="pay3">全數預付</option>
-              <option value="n30" data-i18n="pay4">月結30天</option>
-              <option value="n60" data-i18n="pay5">月結60天</option>
-            </select>
-          </div>
-          <div class="field"><label data-i18n="lblLeadtime">交貨期（工作天）</label><input type="number" id="e-leadtime" inputmode="numeric" placeholder="15" value="15" oninput="liveCalc('e')"></div>
-        </div>
-        <div class="grid2">
-          <div class="field">
-            <label data-i18n="lblWarranty">質保期</label>
-            <select id="e-warranty">
-              <option value="1y" data-i18n="war1">1 年</option>
-              <option value="6m" data-i18n="war2">半年</option>
-              <option value="3m" data-i18n="war3">3 個月</option>
-              <option value="none" data-i18n="war4">無</option>
-            </select>
-          </div>
-          <div class="field">
-            <label data-i18n="lblCurrency">貨幣</label>
-            <select id="e-currency">
-              <option value="HKD">HKD 港幣</option>
-              <option value="CNY">CNY 人民幣</option>
-              <option value="USD">USD 美元</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="live-preview">
-          <div class="lp-header"><span data-i18n="previewTitle">即時成本預覽</span><span id="e-prev-total">—</span></div>
-          <div class="lp-row"><span class="ln" data-i18n="prevMat">📦 材料成本/件</span><span class="lv" id="e-p-mat">—</span></div>
-          <div class="lp-row"><span class="ln" data-i18n="prevMach">⚙️ 機器+人工+電費/件</span><span class="lv" id="e-p-mach">—</span></div>
-          <div class="lp-row"><span class="ln" data-i18n="prevOther">🎨 表面+包裝/件</span><span class="lv" id="e-p-other">—</span></div>
-          <div class="lp-row highlight"><span class="ln" data-i18n="prevUnit">💰 建議報價/件（含利潤）</span><span class="lv" id="e-p-unit">—</span></div>
-          <span id="e-p-fixed" style="display:none">—</span>
-        </div>
-
-        <div class="field" style="margin-top:14px">
-          <label data-i18n="lblNotes">備注</label>
-          <textarea id="e-notes" data-i18n-ph="phNotes" placeholder="特別要求、顏色、認證等..."></textarea>
-        </div>
-        <button class="btn-calc exist" onclick="calcExist()" data-i18n="btnCalc">立即生成報價 →</button>
-        <div style="height:10px"></div>
       </div>
     </div>
 
-    <!-- FORM: NEW MOLD -->
-    <div class="page hidden" id="pg-new">
-      <div class="form-header">
-        <button class="btn-back" onclick="goHome()" data-i18n="btnBack">← 返回</button>
-        <div class="form-title new" data-i18n="newFormTitle">🏗️ 含開模費報價</div>
-      </div>
-      <div class="scroll-content">
-
-        <div class="section-hd" data-i18n="secCustomer">客戶資料</div>
-        <div class="grid2">
-          <div class="field"><label data-i18n="lblCustomer">客戶 / 公司</label><input type="text" id="n-cust" data-i18n-ph="phCompany" placeholder="公司名稱"></div>
-          <div class="field"><label data-i18n="lblContact">聯絡人</label><input type="text" id="n-contact" data-i18n-ph="phContact" placeholder="姓名"></div>
-        </div>
-        <div class="grid2">
-          <div class="field"><label data-i18n="lblProduct">產品名稱</label><input type="text" id="n-prod" data-i18n-ph="phProduct" placeholder="產品描述"></div>
-          <div class="field"><label data-i18n="lblSku">料號</label><input type="text" id="n-sku" placeholder="SKU"></div>
-        </div>
-
-        <div class="section-hd" data-i18n="secMold">模具費用（一次性）</div>
-        <div class="grid2">
-          <div class="field">
-            <label data-i18n="lblMoldType">模具類型</label>
-            <select id="n-moldtype" onchange="autoMoldCost()">
-              <option value="" data-i18n="optSelect">請選擇...</option>
-              <option value="simple" data-i18n="moldSimple">簡單模（單穴）</option>
-              <option value="medium" data-i18n="moldMedium">中型模（多穴）</option>
-              <option value="complex" data-i18n="moldComplex">複雜模（滑塊）</option>
-              <option value="precision" data-i18n="moldPrecision">精密模</option>
-              <option value="custom" data-i18n="moldCustom">自定義</option>
-            </select>
-          </div>
-          <div class="field">
-            <label data-i18n="lblMoldMat">模具鋼材</label>
-            <select id="n-moldmat" onchange="autoMoldCost()">
-              <option value="p20" data-i18n="steelP20">P20（一般）</option>
-              <option value="718h" data-i18n="steel718">718H（高光）</option>
-              <option value="h13" data-i18n="steelH13">H13（高壽命）</option>
-              <option value="s136" data-i18n="steelS136">S136（防腐）</option>
-            </select>
-          </div>
-        </div>
-        <div class="grid2">
-          <div class="field">
-            <label data-i18n="lblMoldCost">開模費（元）</label>
-            <input type="number" id="n-moldcost" inputmode="decimal" data-i18n-ph="phMoldCost" placeholder="系統估算或手填" oninput="liveCalc('n')">
-            <div class="field-hint" id="n-mold-hint" data-i18n="hintMoldType">請先選擇模具類型</div>
-          </div>
-          <div class="field">
-            <label data-i18n="lblTrialCost">試模費（元/次）× 次數</label>
-            <div class="grid2" style="margin:0">
-              <input type="number" id="n-trial-cost" inputmode="decimal" placeholder="3000" value="3000" oninput="liveCalc('n')">
-              <input type="number" id="n-trial-n" inputmode="numeric" placeholder="2" value="2" oninput="liveCalc('n')">
-            </div>
-          </div>
-        </div>
-        <div class="grid2">
-          <div class="field"><label data-i18n="lblMoldDays">開模交期（天）</label><input type="number" id="n-molddays" inputmode="numeric" placeholder="30" value="30"></div>
-          <div class="field">
-            <label data-i18n="lblAmortize">模具攤銷批量（件）</label>
-            <input type="number" id="n-amortize" inputmode="numeric" placeholder="50000" oninput="liveCalc('n')">
-            <div class="field-hint" data-i18n="hintAmortize">分攤至此批，算每件模費</div>
-          </div>
-        </div>
-
-        <div class="section-hd" data-i18n="secFixed">固定成本 <span class="cost-badge badge-fixed">FIXED</span></div>
-        <div class="field"><label data-i18n="lblRent">廠房租金攤銷（元/月）</label><input type="number" id="n-rent" inputmode="decimal" placeholder="5000" oninput="liveCalc('n')"></div>
-        <div class="grid2">
-          <div class="field"><label data-i18n="lblDepr">設備折舊（元/月）</label><input type="number" id="n-depr" inputmode="decimal" placeholder="3000" oninput="liveCalc('n')"></div>
-          <div class="field"><label data-i18n="lblMgmt">管理工資（元/月）</label><input type="number" id="n-mgmt" inputmode="decimal" placeholder="8000" oninput="liveCalc('n')"></div>
-        </div>
-        <div class="grid2">
-          <div class="field"><label data-i18n="lblInsurance">保險稅費（元/月）</label><input type="number" id="n-insurance" inputmode="decimal" placeholder="1000" oninput="liveCalc('n')"></div>
-          <div class="field"><label data-i18n="lblMonthVol">本月總產量（件）</label><input type="number" id="n-monthly-vol" inputmode="numeric" placeholder="100000" oninput="liveCalc('n')"></div>
-        </div>
-
-        <div class="section-hd blue" data-i18n="secVariable">浮動成本 <span class="cost-badge badge-var">VARIABLE</span></div>
-        <div class="grid2">
-          <div class="field">
-            <label data-i18n="lblMaterial">原料種類<span class="cost-badge badge-var">浮動</span></label>
-            <select id="n-mat" onchange="liveCalc('n')">
-              <option value="" data-i18n="optSelect">請選擇...</option>
-              <option value="PP">PP 聚丙烯</option><option value="ABS">ABS</option>
-              <option value="PE">PE 聚乙烯</option><option value="PC">PC 聚碳酸酯</option>
-              <option value="POM">POM 聚甲醛</option><option value="Nylon">Nylon PA66</option>
-              <option value="TPE">TPE</option><option value="PS">PS</option>
-              <option value="其他" data-i18n="optOther">其他</option>
-            </select>
-          </div>
-          <div class="field"><label data-i18n="lblMatPrice">原料單價（元/kg）</label><input type="number" id="n-matprice" inputmode="decimal" placeholder="22" oninput="liveCalc('n')"></div>
-        </div>
-        <div class="grid2">
-          <div class="field"><label data-i18n="lblWeight">件重（克）</label><input type="number" id="n-weight" inputmode="decimal" placeholder="80" oninput="liveCalc('n')"></div>
-          <div class="field"><label data-i18n="lblRunner">水口料損耗（%）</label><input type="number" id="n-runner" inputmode="decimal" placeholder="8" value="8" oninput="liveCalc('n')"></div>
-        </div>
-        <div class="grid2">
-          <div class="field">
-            <label data-i18n="lblTonnage">機器噸位</label>
-            <select id="n-tonnage" onchange="autoMachineRate('n');liveCalc('n')">
-              <option value="60">60T</option><option value="80">80T</option><option value="120">120T</option>
-              <option value="160" selected>160T</option><option value="250">250T</option>
-              <option value="350">350T</option><option value="500">500T</option>
-            </select>
-          </div>
-          <div class="field"><label data-i18n="lblMachRate">機器費（元/h）</label><input type="number" id="n-machrate" inputmode="decimal" placeholder="160" oninput="liveCalc('n')"></div>
-        </div>
-        <div class="grid3">
-          <div class="field"><label data-i18n="lblCavity">穴數</label><input type="number" id="n-cavity" inputmode="numeric" placeholder="1" value="1" oninput="liveCalc('n')"></div>
-          <div class="field"><label data-i18n="lblCycle">週期（秒）</label><input type="number" id="n-cycle" inputmode="numeric" placeholder="35" value="35" oninput="liveCalc('n')"></div>
-          <div class="field"><label data-i18n="lblDefect">次品率（%）</label><input type="number" id="n-defect" inputmode="decimal" placeholder="3" value="3" oninput="liveCalc('n')"></div>
-        </div>
-        <div class="grid2">
-          <div class="field"><label data-i18n="lblLabor">人工費（元/h）</label><input type="number" id="n-labor" inputmode="decimal" placeholder="50" value="50" oninput="liveCalc('n')"></div>
-          <div class="field"><label data-i18n="lblElec">電費（元/h）</label><input type="number" id="n-elec" inputmode="decimal" placeholder="30" value="30" oninput="liveCalc('n')"></div>
-        </div>
-        <div class="grid2">
-          <div class="field"><label data-i18n="lblSurface">表面處理（元/件）</label><input type="number" id="n-surface" inputmode="decimal" placeholder="0" value="0" oninput="liveCalc('n')"></div>
-          <div class="field"><label data-i18n="lblPack">包裝（元/件）</label><input type="number" id="n-pack" inputmode="decimal" placeholder="2" value="2" oninput="liveCalc('n')"></div>
-        </div>
-
-        <div class="section-hd" data-i18n="secOrder">訂單 &amp; 利潤</div>
-        <div class="grid2">
-          <div class="field"><label data-i18n="lblQty">訂購數量（件）</label><input type="number" id="n-qty" inputmode="numeric" placeholder="50000" oninput="liveCalc('n')"></div>
-          <div class="field"><label data-i18n="lblProfit">利潤率（%）</label><input type="number" id="n-profit" inputmode="decimal" placeholder="20" value="20" oninput="liveCalc('n')"></div>
-        </div>
-        <div class="grid2">
-          <div class="field">
-            <label data-i18n="lblPayment">付款條件</label>
-            <select id="n-payment">
-              <option value="d50" data-i18n="pay1">訂金50%，交貨前付清</option>
-              <option value="d30" data-i18n="pay2">訂金30%，餘款月結</option>
-              <option value="full" data-i18n="pay3">全數預付</option>
-              <option value="n30" data-i18n="pay4">月結30天</option>
-            </select>
-          </div>
-          <div class="field">
-            <label data-i18n="lblWarranty">質保期</label>
-            <select id="n-warranty">
-              <option value="1y" data-i18n="war1">1 年</option>
-              <option value="6m" data-i18n="war2">半年</option>
-              <option value="3m" data-i18n="war3">3 個月</option>
-              <option value="none" data-i18n="war4">無</option>
-            </select>
-          </div>
-        </div>
-        <div class="grid2">
-          <div class="field"><label data-i18n="lblLeadtimeNew">交貨期（開模後天數）</label><input type="number" id="n-leadtime" inputmode="numeric" placeholder="15" value="15"></div>
-          <div class="field">
-            <label data-i18n="lblCurrency">貨幣</label>
-            <select id="n-currency">
-              <option value="HKD">HKD 港幣</option>
-              <option value="CNY">CNY 人民幣</option>
-              <option value="USD">USD 美元</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="live-preview">
-          <div class="lp-header"><span data-i18n="previewTitle">即時成本預覽</span><span id="n-prev-total">—</span></div>
-          <div class="lp-row"><span class="ln" data-i18n="prevMold">🏗️ 模具攤銷/件</span><span class="lv" id="n-p-mold">—</span></div>
-          <div class="lp-row"><span class="ln" data-i18n="prevMat">📦 材料成本/件</span><span class="lv" id="n-p-mat">—</span></div>
-          <div class="lp-row"><span class="ln" data-i18n="prevMach">⚙️ 機器+人工+電費/件</span><span class="lv" id="n-p-mach">—</span></div>
-          <div class="lp-row"><span class="ln" data-i18n="prevOther">🎨 表面+包裝/件</span><span class="lv" id="n-p-other">—</span></div>
-          <span id="n-p-fixed" style="display:none">—</span>
-          <div class="lp-row highlight"><span class="ln" data-i18n="prevUnit">💰 建議報價/件（含利潤）</span><span class="lv" id="n-p-unit">—</span></div>
-        </div>
-
-        <div class="field" style="margin-top:14px">
-          <label data-i18n="lblNotes">備注</label>
-          <textarea id="n-notes" data-i18n-ph="phNotes" placeholder="特別要求、顏色、認證等..."></textarea>
-        </div>
-        <button class="btn-calc new" onclick="calcNew()" data-i18n="btnCalc">立即生成報價 →</button>
-        <div style="height:10px"></div>
+    <!-- 客戶全出資攤銷欄 -->
+    <div id="n-full-amortize" style="">
+      <div class="field">
+        <label>模具攤銷批量（件）</label>
+        <input type="number" id="n-amortize-full" inputmode="numeric" placeholder="50000" oninput="liveCalc('n')">
+        <div class="field-hint">開模費分攤至此批量，計算每件模費</div>
       </div>
     </div>
 
-    <!-- RESULT -->
-    <div class="page hidden" id="pg-result">
-      <div class="form-header">
-        <button class="btn-back" onclick="goHome()" data-i18n="btnBackHome">← 主頁</button>
-        <div class="form-title" id="result-header-title">報價單</div>
+    <!-- ② 多副模具 -->
+    <div class="section-hd" style="margin-top:4px">副模具明細 <span style="font-size:11px;color:var(--muted);font-weight:400">（整套產品有幾副就填幾副）</span></div>
+    <div id="n-molds-list"></div>
+    <button class="btn-add-mat" onclick="addMoldRow()" style="margin-bottom:12px">＋ 新增一副模具</button>
+    <div class="grid2">
+      <div class="field"><label>試模費（元/次）</label><input type="number" id="n-trial-cost" inputmode="decimal" placeholder="3000" value="3000" oninput="liveCalc('n')"></div>
+      <div class="field"><label>試模次數</label><input type="number" id="n-trial-n" inputmode="numeric" placeholder="2" value="2" oninput="liveCalc('n')"></div>
+    </div>
+    <div class="field">
+      <label>開模交期（天）</label>
+      <input type="number" id="n-molddays" inputmode="numeric" placeholder="45" value="45">
+    </div>
+    <!-- Hidden field for total mold cost used in calc -->
+    <input type="hidden" id="n-moldcost">
+    <input type="hidden" id="n-moldtype" value="custom">
+    <input type="hidden" id="n-moldmat" value="p20">
+
+    <div class="section-hd" data-i18n="secFixed">固定成本 <span class="cost-badge badge-fixed">FIXED</span></div>
+    <div class="field"><label data-i18n="lblRent">廠房租金攤銷（元/月）</label><input type="number" id="n-rent" inputmode="decimal" placeholder="5000" oninput="liveCalc('n')"></div>
+    <div class="grid2">
+      <div class="field"><label data-i18n="lblDepr">設備折舊（元/月）</label><input type="number" id="n-depr" inputmode="decimal" placeholder="3000" oninput="liveCalc('n')"></div>
+      <div class="field"><label data-i18n="lblMgmt">管理工資（元/月）</label><input type="number" id="n-mgmt" inputmode="decimal" placeholder="8000" oninput="liveCalc('n')"></div>
+    </div>
+    <div class="grid2">
+      <div class="field"><label data-i18n="lblInsurance">保險稅費（元/月）</label><input type="number" id="n-insurance" inputmode="decimal" placeholder="1000" oninput="liveCalc('n')"></div>
+      <div class="field"><label data-i18n="lblMonthVol">本月總產量（件）</label><input type="number" id="n-monthly-vol" inputmode="numeric" placeholder="100000" oninput="liveCalc('n')"></div>
+    </div>
+
+    <div class="section-hd blue" data-i18n="secVariable">浮動成本 <span class="cost-badge badge-var">VARIABLE</span></div>
+    <div class="grid2">
+      <div class="field">
+        <label data-i18n="lblMaterial">原料種類<span class="cost-badge badge-var">浮動</span></label>
+        <select id="n-mat" onchange="onMatChange('n')">
+          <option value="" data-i18n="optSelect">請選擇...</option>
+          <option value="PP">PP 聚丙烯</option><option value="ABS">ABS</option>
+          <option value="PE">PE 聚乙烯</option><option value="PC">PC 聚碳酸酯</option>
+          <option value="POM">POM 聚甲醛</option><option value="Nylon">Nylon PA66</option>
+          <option value="TPE">TPE</option><option value="PS">PS</option>
+          <option value="其他" data-i18n="optOther">其他</option>
+        </select>
       </div>
-      <div class="result-hero">
-        <div class="result-mode-badge" id="r-badge">已有模具</div>
-        <div class="result-quote-id" id="r-qid">QUO-000000</div>
-        <div class="result-price">
-          <div class="unit-lbl" data-i18n="unitLbl">建議單件報價</div>
-          <div class="unit-val" id="r-unit">¥0.00</div>
-          <div class="unit-sub" id="r-sub">—</div>
-        </div>
+      <div class="field" id="n-matprice-row" style="display:none">
+        <label data-i18n="lblMatPrice">原料單價（元/kg）</label>
+        <input type="number" id="n-matprice" inputmode="decimal" placeholder="手動輸入" oninput="liveCalc('n')">
       </div>
-      <div class="result-info-grid">
-        <div class="ri-card"><div class="ri-label" data-i18n="lblCustomer">客戶</div><div class="ri-value" id="r-cust">—</div></div>
-        <div class="ri-card"><div class="ri-label" data-i18n="lblProduct">產品</div><div class="ri-value" id="r-prod">—</div></div>
-        <div class="ri-card"><div class="ri-label" data-i18n="lblQty">數量</div><div class="ri-value" id="r-qty">—</div></div>
-        <div class="ri-card"><div class="ri-label" data-i18n="lblMaterial">原料</div><div class="ri-value" id="r-mat">—</div></div>
-        <div class="ri-card"><div class="ri-label" data-i18n="lblLeadtime">交貨期</div><div class="ri-value" id="r-lead">—</div></div>
-        <div class="ri-card"><div class="ri-label" data-i18n="totalAmount">總金額</div><div class="ri-value" id="r-total" style="color:var(--accent)">—</div></div>
+    </div>
+    <div class="grid2">
+      <div class="field"><label data-i18n="lblWeight">件重（克）</label><input type="number" id="n-weight" inputmode="decimal" placeholder="80" oninput="liveCalc('n')"></div>
+      <div class="field"><label data-i18n="lblRunner">水口料損耗（%）</label><input type="number" id="n-runner" inputmode="decimal" placeholder="8" value="8" oninput="liveCalc('n')"></div>
+    </div>
+    <div class="grid2">
+      <div class="field">
+        <label data-i18n="lblTonnage">機器噸位</label>
+        <select id="n-tonnage" onchange="autoMachineRate('n');liveCalc('n')">
+          <option value="60">60T</option><option value="80">80T</option><option value="120">120T</option>
+          <option value="160" selected>160T</option><option value="250">250T</option>
+          <option value="350">350T</option><option value="500">500T</option>
+        </select>
       </div>
-      <div class="breakdown-card">
-        <div class="bc-header"><span data-i18n="bdTitle">成本明細 · Cost Breakdown</span><span id="r-date">—</span></div>
-        <div id="r-breakdown"></div>
+      <div class="field"><label data-i18n="lblMachRate">機器費（元/h）</label><input type="number" id="n-machrate" inputmode="decimal" placeholder="160" oninput="liveCalc('n')"></div>
+    </div>
+    <div class="grid3">
+      <div class="field"><label data-i18n="lblCavity">穴數</label><input type="number" id="n-cavity" inputmode="numeric" placeholder="1" value="1" oninput="liveCalc('n')"></div>
+      <div class="field"><label data-i18n="lblCycle">週期（秒）</label><input type="number" id="n-cycle" inputmode="numeric" placeholder="35" value="35" oninput="liveCalc('n')"></div>
+      <div class="field"><label data-i18n="lblDefect">次品率（%）</label><input type="number" id="n-defect" inputmode="decimal" placeholder="3" value="3" oninput="liveCalc('n')"></div>
+    </div>
+    <div class="grid2">
+      <div class="field"><label data-i18n="lblLabor">人工費（元/h）</label><input type="number" id="n-labor" inputmode="decimal" placeholder="50" value="50" oninput="liveCalc('n')"></div>
+      <div class="field"><label data-i18n="lblElec">電費（元/h）</label><input type="number" id="n-elec" inputmode="decimal" placeholder="30" value="30" oninput="liveCalc('n')"></div>
+    </div>
+    <div class="grid2">
+      <div class="field"><label data-i18n="lblSurface">表面處理（元/件）</label><input type="number" id="n-surface" inputmode="decimal" placeholder="0" value="0" oninput="liveCalc('n')"></div>
+      <div class="field"><label data-i18n="lblPack">包裝（元/件）</label><input type="number" id="n-pack" inputmode="decimal" placeholder="2" value="2" oninput="liveCalc('n')"></div>
+    </div>
+
+    <div class="section-hd" data-i18n="secOrder">訂單 &amp; 利潤</div>
+    <div class="grid2">
+      <div class="field"><label data-i18n="lblQty">訂購數量（件）</label><input type="number" id="n-qty" inputmode="numeric" placeholder="50000" oninput="liveCalc('n')"></div>
+      <div class="field"><label data-i18n="lblProfit">利潤率（%）</label><input type="number" id="n-profit" inputmode="decimal" placeholder="20" value="20" oninput="liveCalc('n')"></div>
+    </div>
+    <div class="grid2">
+      <div class="field">
+        <label data-i18n="lblPayment">付款條件</label>
+        <select id="n-payment">
+          <option value="d50" data-i18n="pay1">訂金50%，交貨前付清</option>
+          <option value="d30" data-i18n="pay2">訂金30%，餘款月結</option>
+          <option value="full" data-i18n="pay3">全數預付</option>
+          <option value="n30" data-i18n="pay4">月結30天</option>
+        </select>
       </div>
-      <button class="btn-contract" onclick="openContractModal()" data-i18n="btnContract">📄 生成中英雙語合同 PDF</button>
-      <button class="btn-confirm-order" onclick="confirmOrder()" id="btn-confirm-order">✅ 確認下單 · Confirm Order</button>
-      <div class="btn-actions">
-        <button class="btn-action" onclick="shareQuote()" data-i18n="btnShare">📤 分享報價</button>
-        <button class="btn-action" onclick="newQuote()" data-i18n="btnNewQuote">➕ 新報價</button>
+      <div class="field">
+        <label data-i18n="lblWarranty">質保期</label>
+        <select id="n-warranty">
+          <option value="1y" data-i18n="war1">1 年</option>
+          <option value="6m" data-i18n="war2">半年</option>
+          <option value="3m" data-i18n="war3">3 個月</option>
+          <option value="none" data-i18n="war4">無</option>
+        </select>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="field"><label data-i18n="lblLeadtimeNew">交貨期（開模後天數）</label><input type="number" id="n-leadtime" inputmode="numeric" placeholder="15" value="15"></div>
+      <div class="field">
+        <label data-i18n="lblCurrency">貨幣</label>
+        <select id="n-currency">
+          <option value="HKD">HKD 港幣</option>
+          <option value="CNY">CNY 人民幣</option>
+          <option value="USD">USD 美元</option>
+        </select>
       </div>
     </div>
 
-
-    <!-- FORM: INQUIRY (快速詢價預報價) -->
-    <div class="page hidden" id="pg-inquiry">
-      <div class="form-header">
-        <button class="btn-back" onclick="goHome()">← 返回</button>
-        <div class="form-title" style="color:var(--green)">🔍 詢價預報價</div>
-      </div>
-      <div class="scroll-content">
-        <div class="settings-hint" style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);border-radius:10px;padding:10px 12px;margin-bottom:16px;color:var(--green)">
-          📌 內部參考價，基於廠房平均成本估算，不生成合同
-        </div>
-
-        <div class="section-hd">客戶資料</div>
-        <div class="grid2">
-          <div class="field"><label>客戶 / 公司</label><input type="text" id="iq-cust" placeholder="公司名稱"></div>
-          <div class="field"><label>聯絡人</label><input type="text" id="iq-contact" placeholder="姓名"></div>
-        </div>
-        <div class="field"><label>產品名稱</label><input type="text" id="iq-prod" placeholder="產品描述" oninput="liveCalcIQ()"></div>
-
-        <div class="section-hd" style="margin-top:16px">產品零件（可多件）</div>
-        <div class="settings-hint">每件獨立填寫重量，系統自動計算每件成本</div>
-        <div id="iq-parts-list"></div>
-        <button class="btn-add-mat" onclick="addIQPart()" style="margin-bottom:16px">＋ 新增零件</button>
-
-        <div class="section-hd">材料 & 生產</div>
-        <div class="grid2">
-          <div class="field">
-            <label>原料種類</label>
-            <select id="iq-mat" onchange="onIQMatChange()">
-              <option value="">請選擇...</option>
-            </select>
-          </div>
-          <div class="field"><label>原料單價（元/kg）</label><input type="number" id="iq-matprice" inputmode="decimal" placeholder="自動帶入" oninput="liveCalcIQ()"></div>
-        </div>
-        <div class="grid2">
-          <div class="field"><label>機器噸位</label>
-            <select id="iq-tonnage" onchange="onIQTonnageChange()">
-              <option value="60">60T</option>
-              <option value="80">80T</option>
-              <option value="120" selected>120T</option>
-              <option value="160">160T</option>
-              <option value="250">250T</option>
-              <option value="350">350T</option>
-              <option value="500">500T</option>
-              <option value="800">800T</option>
-            </select>
-          </div>
-          <div class="field"><label>機器功率（kW）</label><input type="number" id="iq-power" inputmode="decimal" placeholder="自動帶入" oninput="liveCalcIQ()"></div>
-        </div>
-        <div class="grid2">
-          <div class="field"><label>週期（秒/件）</label><input type="number" id="iq-cycle" inputmode="decimal" placeholder="30" value="30" oninput="liveCalcIQ()"></div>
-          <div class="field"><label>穴數</label><input type="number" id="iq-cavity" inputmode="numeric" placeholder="1" value="1" oninput="liveCalcIQ()"></div>
-        </div>
-        <div class="grid2">
-          <div class="field"><label>訂購數量（件）</label><input type="number" id="iq-qty" inputmode="numeric" placeholder="10000" oninput="liveCalcIQ()"></div>
-          <div class="field"><label>利潤率（%）</label><input type="number" id="iq-profit" inputmode="decimal" placeholder="20" value="20" oninput="liveCalcIQ()"></div>
-        </div>
-
-        <!-- Live Preview -->
-        <div class="live-preview" style="margin-top:16px">
-          <div class="lp-header"><span>⚡ 即時成本預覽</span><span id="iq-prev-total">—</span></div>
-          <div class="lp-row"><span class="ln">📦 材料成本/件</span><span class="lv" id="iq-p-mat">—</span></div>
-          <div class="lp-row"><span class="ln">⚡ 電費/件</span><span class="lv" id="iq-p-elec">—</span></div>
-          <div class="lp-row"><span class="ln">👷 人工/件</span><span class="lv" id="iq-p-labor">—</span></div>
-          <div class="lp-row"><span class="ln">🏢 固定攤銷/件</span><span class="lv" id="iq-p-fixed">—</span></div>
-          <div class="lp-row highlight"><span class="ln">💰 建議報價/件</span><span class="lv" id="iq-p-unit">—</span></div>
-        </div>
-
-        <!-- Parts Summary Table -->
-        <div id="iq-summary-table" style="display:none;margin-top:16px">
-          <div class="section-hd">📊 匯總一眼表（談判參考）</div>
-          <div id="iq-summary-content"></div>
-        </div>
-
-        <div class="field" style="margin-top:14px">
-          <label>備注</label>
-          <textarea id="iq-notes" placeholder="特別要求、顏色、認證等..." style="min-height:70px"></textarea>
-        </div>
-        <button class="btn-calc" style="background:linear-gradient(135deg,var(--green),#059669);color:#0f172a;font-weight:800" onclick="calcInquiry()">立即生成預報價 →</button>
-        <div style="height:10px"></div>
-      </div>
+    <div class="live-preview">
+      <div class="lp-header"><span data-i18n="previewTitle">即時成本預覽</span><span id="n-prev-total">—</span></div>
+      <div class="lp-row"><span class="ln" data-i18n="prevMold">🏗️ 模具攤銷/件</span><span class="lv" id="n-p-mold">—</span></div>
+      <div class="lp-row"><span class="ln" data-i18n="prevMat">📦 材料成本/件</span><span class="lv" id="n-p-mat">—</span></div>
+      <div class="lp-row"><span class="ln" data-i18n="prevMach">⚙️ 機器+人工+電費/件</span><span class="lv" id="n-p-mach">—</span></div>
+      <div class="lp-row"><span class="ln" data-i18n="prevOther">🎨 表面+包裝/件</span><span class="lv" id="n-p-other">—</span></div>
+      <span id="n-p-fixed" style="display:none">—</span>
+      <div class="lp-row highlight"><span class="ln" data-i18n="prevUnit">💰 建議報價/件（含利潤）</span><span class="lv" id="n-p-unit">—</span></div>
     </div>
 
-    <!-- HISTORY -->
-    <div class="page hidden" id="pg-history">
-      <div class="form-header">
-        <button class="btn-back" onclick="goHome()" data-i18n="btnBack">← 返回</button>
-        <div class="form-title" data-i18n="histTitle">📋 報價歷史</div>
-      </div>
-      <div class="history-list" id="history-list"></div>
+    <div class="field" style="margin-top:14px">
+      <label data-i18n="lblNotes">備注</label>
+      <textarea id="n-notes" data-i18n-ph="phNotes" placeholder="特別要求、顏色、認證等..."></textarea>
+    </div>
+    <button class="btn-calc new" onclick="calcNew()" data-i18n="btnCalc">立即生成報價 →</button>
+    <div style="height:10px"></div>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div class="page hidden" id="pg-result">
+  <div class="form-header">
+    <button class="btn-back" onclick="goHome()" data-i18n="btnBackHome">← 主頁</button>
+    <div class="form-title" id="result-header-title">報價單</div>
+  </div>
+  <div class="result-hero">
+    <div class="result-mode-badge" id="r-badge">已有模具</div>
+    <div class="result-quote-id" id="r-qid">QUO-000000</div>
+    <div class="result-price">
+      <div class="unit-lbl" data-i18n="unitLbl">建議單件報價</div>
+      <div class="unit-val" id="r-unit">¥0.00</div>
+      <div class="unit-sub" id="r-sub">—</div>
+    </div>
+  </div>
+  <div class="result-info-grid">
+    <div class="ri-card"><div class="ri-label" data-i18n="lblCustomer">客戶</div><div class="ri-value" id="r-cust">—</div></div>
+    <div class="ri-card"><div class="ri-label" data-i18n="lblProduct">產品</div><div class="ri-value" id="r-prod">—</div></div>
+    <div class="ri-card"><div class="ri-label" data-i18n="lblQty">數量</div><div class="ri-value" id="r-qty">—</div></div>
+    <div class="ri-card"><div class="ri-label" data-i18n="lblMaterial">原料</div><div class="ri-value" id="r-mat">—</div></div>
+    <div class="ri-card"><div class="ri-label" data-i18n="lblLeadtime">交貨期</div><div class="ri-value" id="r-lead">—</div></div>
+    <div class="ri-card"><div class="ri-label" data-i18n="totalAmount">總金額</div><div class="ri-value" id="r-total" style="color:var(--accent)">—</div></div>
+  </div>
+  <div class="breakdown-card">
+    <div class="bc-header"><span data-i18n="bdTitle">成本明細 · Cost Breakdown</span><span id="r-date">—</span></div>
+    <div id="r-breakdown"></div>
+  </div>
+  <button class="btn-contract" onclick="openContractModal()" data-i18n="btnContract">📄 生成中英雙語合同 PDF</button>
+  <button class="btn-confirm-order" onclick="confirmOrder()" id="btn-confirm-order">✅ 確認下單 · Confirm Order</button>
+  <div class="btn-actions">
+    <button class="btn-action" onclick="shareQuote()" data-i18n="btnShare">📤 分享報價</button>
+    <button class="btn-action" onclick="newQuote()" data-i18n="btnNewQuote">➕ 新報價</button>
+  </div>
+</div>
+
+
+<!-- FORM: INQUIRY (快速詢價預報價) -->
+<div class="page hidden" id="pg-inquiry">
+  <div class="form-header">
+    <button class="btn-back" onclick="goHome()">← 返回</button>
+    <div class="form-title" style="color:var(--green)">🔍 詢價預報價</div>
+  </div>
+  <div class="scroll-content">
+    <div class="settings-hint" style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);border-radius:10px;padding:10px 12px;margin-bottom:16px;color:var(--green)">
+      📌 內部參考價，基於廠房平均成本估算，不生成合同
     </div>
 
-    <!-- CUSTOMERS -->
-    <div class="page hidden" id="pg-customers">
-      <div class="form-header">
-        <button class="btn-back" onclick="goHome()">← 返回</button>
-        <div class="form-title" style="color:#a855f7">👥 客戶管理</div>
-        <button class="btn-add-customer" onclick="openAddCustomer()">＋ 新增</button>
+    <div class="section-hd">客戶資料</div>
+    <div class="grid2">
+      <div class="field"><label>客戶 / 公司</label><input type="text" id="iq-cust" placeholder="公司名稱"></div>
+      <div class="field"><label>聯絡人</label><input type="text" id="iq-contact" placeholder="姓名"></div>
+    </div>
+    <div class="field"><label>產品名稱</label><input type="text" id="iq-prod" placeholder="產品描述" oninput="liveCalcIQ()"></div>
+
+    <div class="section-hd" style="margin-top:16px">產品零件（可多件）</div>
+    <div class="settings-hint">每件獨立填寫重量，系統自動計算每件成本</div>
+    <div id="iq-parts-list"></div>
+    <button class="btn-add-mat" onclick="addIQPart()" style="margin-bottom:16px">＋ 新增零件</button>
+
+    <div class="section-hd">材料 & 生產</div>
+    <div class="field">
+        <label>原料種類</label>
+        <select id="iq-mat" onchange="onIQMatChange()">
+          <option value="">請選擇...</option>
+        </select>
       </div>
-      <div class="cust-filter-bar">
-        <div class="cust-filter-btns" id="cust-filter-btns">
-          <button class="cfb active" onclick="filterCustomers('all')" data-filter="all">全部</button>
-          <button class="cfb" onclick="filterCustomers('new')" data-filter="new">🔵 新客戶</button>
-          <button class="cfb" onclick="filterCustomers('following')" data-filter="following">🟡 跟進中</button>
-          <button class="cfb" onclick="filterCustomers('won')" data-filter="won">🟢 成交</button>
-          <button class="cfb" onclick="filterCustomers('lost')" data-filter="lost">🔴 流失</button>
-        </div>
+      <div class="field" id="iq-matprice-row" style="display:none">
+        <label>原料單價（元/kg）</label>
+        <input type="number" id="iq-matprice" inputmode="decimal" placeholder="手動輸入" oninput="liveCalcIQ()">
       </div>
-      <div id="customers-list" style="padding:12px 14px 20px"></div>
+      <input type="hidden" id="iq-matprice-hidden">
+    <div class="grid2">
+      <div class="field"><label>機器噸位</label>
+        <select id="iq-tonnage" onchange="onIQTonnageChange()">
+          <option value="60">60T</option>
+          <option value="80">80T</option>
+          <option value="120" selected>120T</option>
+          <option value="160">160T</option>
+          <option value="250">250T</option>
+          <option value="350">350T</option>
+          <option value="500">500T</option>
+          <option value="800">800T</option>
+        </select>
+      </div>
+      <div class="field"><label>機器功率（kW）</label><input type="number" id="iq-power" inputmode="decimal" placeholder="自動帶入" oninput="liveCalcIQ()"></div>
+    </div>
+    <div class="grid2">
+      <div class="field"><label>週期（秒/件）</label><input type="number" id="iq-cycle" inputmode="decimal" placeholder="30" value="30" oninput="liveCalcIQ()"></div>
+      <div class="field"><label>穴數</label><input type="number" id="iq-cavity" inputmode="numeric" placeholder="1" value="1" oninput="liveCalcIQ()"></div>
+    </div>
+    <div class="grid2">
+      <div class="field"><label>訂購數量（件）</label><input type="number" id="iq-qty" inputmode="numeric" placeholder="10000" oninput="liveCalcIQ()"></div>
+      <div class="field"><label>利潤率（%）</label><input type="number" id="iq-profit" inputmode="decimal" placeholder="20" value="20" oninput="liveCalcIQ()"></div>
     </div>
 
-    <!-- ORDERS -->
-    <div class="page hidden" id="pg-orders">
-      <div class="form-header">
-        <button class="btn-back" onclick="goHome()">← 返回</button>
-        <div class="form-title" style="color:#2ecc71">📦 訂單跟進</div>
-      </div>
-      <div class="cust-filter-bar">
-        <div class="cust-filter-btns" id="order-filter-btns">
-          <button class="cfb active" onclick="filterOrders('all')" data-filter="all">全部</button>
-          <button class="cfb" onclick="filterOrders('pending')" data-filter="pending">⏳ 待安排</button>
-          <button class="cfb" onclick="filterOrders('production')" data-filter="production">🏭 生產中</button>
-          <button class="cfb" onclick="filterOrders('ready')" data-filter="ready">📦 待出貨</button>
-          <button class="cfb" onclick="filterOrders('shipped')" data-filter="shipped">🚚 已出貨</button>
-          <button class="cfb" onclick="filterOrders('collected')" data-filter="collected">✅ 已收款</button>
-        </div>
-      </div>
-      <div id="orders-list" style="padding:12px 14px 20px"></div>
+    <!-- Live Preview -->
+    <div class="live-preview" style="margin-top:16px">
+      <div class="lp-header"><span>⚡ 即時成本預覽</span><span id="iq-prev-total">—</span></div>
+      <div class="lp-row"><span class="ln">📦 材料成本/件</span><span class="lv" id="iq-p-mat">—</span></div>
+      <div class="lp-row"><span class="ln">⚡ 電費/件</span><span class="lv" id="iq-p-elec">—</span></div>
+      <div class="lp-row"><span class="ln">👷 人工/件</span><span class="lv" id="iq-p-labor">—</span></div>
+      <div class="lp-row"><span class="ln">🏢 固定攤銷/件</span><span class="lv" id="iq-p-fixed">—</span></div>
+      <div class="lp-row highlight"><span class="ln">💰 建議報價/件</span><span class="lv" id="iq-p-unit">—</span></div>
     </div>
 
-    <!-- SETTINGS -->
-    <div class="page hidden" id="pg-settings">
-      <div class="form-header">
-        <button class="btn-back" onclick="goHome()">← 返回</button>
-        <div class="form-title" style="color:var(--green)" data-i18n="settingsTitle">⚙️ 設置</div>
+    <!-- Parts Summary Table -->
+    <div id="iq-summary-table" style="display:none;margin-top:16px">
+      <div class="section-hd">📊 匯總一眼表（談判參考）</div>
+      <div id="iq-summary-content"></div>
+    </div>
+
+    <div class="field" style="margin-top:14px">
+      <label>備注</label>
+      <textarea id="iq-notes" placeholder="特別要求、顏色、認證等..." style="min-height:70px"></textarea>
+    </div>
+    <button class="btn-calc" style="background:linear-gradient(135deg,var(--green),#059669);color:#0f172a;font-weight:800" onclick="calcInquiry()">立即生成預報價 →</button>
+    <div style="height:10px"></div>
+  </div>
+</div>
+
+<!-- HISTORY -->
+<div class="page hidden" id="pg-history">
+  <div class="form-header">
+    <button class="btn-back" onclick="goHome()" data-i18n="btnBack">← 返回</button>
+    <div class="form-title" data-i18n="histTitle">📋 報價歷史</div>
+  </div>
+  <div class="history-list" id="history-list"></div>
+</div>
+
+<!-- CUSTOMERS -->
+<div class="page hidden" id="pg-customers">
+  <div class="form-header">
+    <button class="btn-back" onclick="goHome()">← 返回</button>
+    <div class="form-title" style="color:#a855f7">👥 客戶管理</div>
+    <button class="btn-add-customer" onclick="openAddCustomer()">＋ 新增</button>
+  </div>
+  <div class="cust-filter-bar">
+    <div class="cust-filter-btns" id="cust-filter-btns">
+      <button class="cfb active" onclick="filterCustomers('all')" data-filter="all">全部</button>
+      <button class="cfb" onclick="filterCustomers('new')" data-filter="new">🔵 新客戶</button>
+      <button class="cfb" onclick="filterCustomers('following')" data-filter="following">🟡 跟進中</button>
+      <button class="cfb" onclick="filterCustomers('won')" data-filter="won">🟢 成交</button>
+      <button class="cfb" onclick="filterCustomers('lost')" data-filter="lost">🔴 流失</button>
+    </div>
+  </div>
+  <div id="customers-list" style="padding:12px 14px 20px"></div>
+</div>
+
+<!-- ORDERS -->
+<div class="page hidden" id="pg-orders">
+  <div class="form-header">
+    <button class="btn-back" onclick="goHome()">← 返回</button>
+    <div class="form-title" style="color:#2ecc71">📦 訂單跟進</div>
+  </div>
+  <div class="cust-filter-bar">
+    <div class="cust-filter-btns" id="order-filter-btns">
+      <button class="cfb active" onclick="filterOrders('all')" data-filter="all">全部</button>
+      <button class="cfb" onclick="filterOrders('pending')" data-filter="pending">⏳ 待安排</button>
+      <button class="cfb" onclick="filterOrders('production')" data-filter="production">🏭 生產中</button>
+      <button class="cfb" onclick="filterOrders('ready')" data-filter="ready">📦 待出貨</button>
+      <button class="cfb" onclick="filterOrders('shipped')" data-filter="shipped">🚚 已出貨</button>
+      <button class="cfb" onclick="filterOrders('collected')" data-filter="collected">✅ 已收款</button>
+    </div>
+  </div>
+  <div id="orders-list" style="padding:12px 14px 20px"></div>
+</div>
+
+<!-- SETTINGS -->
+<div class="page hidden" id="pg-settings">
+  <div class="form-header">
+    <button class="btn-back" onclick="goHome()">← 返回</button>
+    <div class="form-title" style="color:var(--green)" data-i18n="settingsTitle">⚙️ 設置</div>
+  </div>
+  <div class="scroll-content">
+
+    <!-- Company Info -->
+    <div class="section-hd" data-i18n="secCompanyInfo">公司資料</div>
+    <div class="settings-card">
+      <div class="field"><label data-i18n="lblCompanyName">公司名稱（合同用）</label><input type="text" id="s-company" data-i18n-ph="phCompanyName" placeholder="例：香港XX塑膠製品有限公司"></div>
+      <div class="field"><label data-i18n="lblCompanyNameEn">公司英文名稱</label><input type="text" id="s-company-en" placeholder="e.g. HK XX Plastics Ltd."></div>
+      <div class="field"><label data-i18n="lblDefaultCurrency">預設貨幣</label>
+        <select id="s-currency">
+          <option value="HKD">HKD 港幣</option>
+          <option value="CNY">CNY 人民幣</option>
+          <option value="USD">USD 美元</option>
+        </select>
       </div>
-      <div class="scroll-content">
+      <div class="field"><label data-i18n="lblDefaultProfit">預設利潤率（%）</label><input type="number" id="s-profit" inputmode="decimal" placeholder="20" value="20"></div>
+    </div>
 
-        <!-- Company Info -->
-        <div class="section-hd" data-i18n="secCompanyInfo">公司資料</div>
-        <div class="settings-card">
-          <div class="field"><label data-i18n="lblCompanyName">公司名稱（合同用）</label><input type="text" id="s-company" data-i18n-ph="phCompanyName" placeholder="例：香港XX塑膠製品有限公司"></div>
-          <div class="field"><label data-i18n="lblCompanyNameEn">公司英文名稱</label><input type="text" id="s-company-en" placeholder="e.g. HK XX Plastics Ltd."></div>
-          <div class="field"><label data-i18n="lblDefaultCurrency">預設貨幣</label>
-            <select id="s-currency">
-              <option value="HKD">HKD 港幣</option>
-              <option value="CNY">CNY 人民幣</option>
-              <option value="USD">USD 美元</option>
-            </select>
-          </div>
-          <div class="field"><label data-i18n="lblDefaultProfit">預設利潤率（%）</label><input type="number" id="s-profit" inputmode="decimal" placeholder="20" value="20"></div>
-        </div>
+    <!-- Fixed Costs Defaults -->
+    <div class="section-hd" data-i18n="secFixedDefaults">固定成本預設值 <span class="cost-badge badge-fixed">FIXED</span></div>
+    <div class="settings-hint" data-i18n="hintFixedDefaults">儲存後，每次開啟報價表單自動填入</div>
+    <div class="settings-card">
+      <div class="field"><label data-i18n="lblRent">廠房租金（元/月）</label><input type="number" id="s-rent" inputmode="decimal" placeholder="5000"></div>
+      <div class="field"><label data-i18n="lblDepr">設備折舊（元/月）</label><input type="number" id="s-depr" inputmode="decimal" placeholder="3000"></div>
+      <div class="field"><label data-i18n="lblMgmt">管理工資（元/月）</label><input type="number" id="s-mgmt" inputmode="decimal" placeholder="8000"></div>
+      <div class="field"><label data-i18n="lblInsurance">保險稅費（元/月）</label><input type="number" id="s-insurance" inputmode="decimal" placeholder="1000"></div>
+      <div class="field"><label data-i18n="lblMonthVol">月均總產量（件）</label><input type="number" id="s-monthly-vol" inputmode="numeric" placeholder="100000"></div>
+    </div>
 
-        <!-- Fixed Costs Defaults -->
-        <div class="section-hd" data-i18n="secFixedDefaults">固定成本預設值 <span class="cost-badge badge-fixed">FIXED</span></div>
-        <div class="settings-hint" data-i18n="hintFixedDefaults">儲存後，每次開啟報價表單自動填入</div>
-        <div class="settings-card">
-          <div class="field"><label data-i18n="lblRent">廠房租金（元/月）</label><input type="number" id="s-rent" inputmode="decimal" placeholder="5000"></div>
-          <div class="field"><label data-i18n="lblDepr">設備折舊（元/月）</label><input type="number" id="s-depr" inputmode="decimal" placeholder="3000"></div>
-          <div class="field"><label data-i18n="lblMgmt">管理工資（元/月）</label><input type="number" id="s-mgmt" inputmode="decimal" placeholder="8000"></div>
-          <div class="field"><label data-i18n="lblInsurance">保險稅費（元/月）</label><input type="number" id="s-insurance" inputmode="decimal" placeholder="1000"></div>
-          <div class="field"><label data-i18n="lblMonthVol">月均總產量（件）</label><input type="number" id="s-monthly-vol" inputmode="numeric" placeholder="100000"></div>
-        </div>
+    <!-- Variable Cost Defaults -->
+    <div class="section-hd blue" data-i18n="secVarDefaults">浮動成本預設值 <span class="cost-badge badge-var">VARIABLE</span></div>
+    <div class="settings-card">
+      <div class="field"><label>電費單價（元/度 kWh）</label><input type="number" id="s-elec-rate" inputmode="decimal" placeholder="0.85" value="0.85"></div>
+      <div class="field"><label>一人看幾台機</label><input type="number" id="s-machines-per-worker" inputmode="decimal" placeholder="1" value="1"></div>
+      <div class="field"><label data-i18n="lblLabor">人工費（元/h）</label><input type="number" id="s-labor" inputmode="decimal" placeholder="50"></div>
+      <div class="field"><label data-i18n="lblDefect">預設次品率（%）</label><input type="number" id="s-defect" inputmode="decimal" placeholder="3"></div>
+      <div class="field"><label data-i18n="lblRunner">水口料損耗（%）</label><input type="number" id="s-runner" inputmode="decimal" placeholder="8"></div>
+      <div class="field"><label data-i18n="lblPack">包裝費（元/件）</label><input type="number" id="s-pack" inputmode="decimal" placeholder="1.5"></div>
+      <div class="field"><label data-i18n="lblLeadtime">預設交貨期（工作天）</label><input type="number" id="s-leadtime" inputmode="numeric" placeholder="15"></div>
+    </div>
 
-        <!-- Variable Cost Defaults -->
-        <div class="section-hd blue" data-i18n="secVarDefaults">浮動成本預設值 <span class="cost-badge badge-var">VARIABLE</span></div>
-        <div class="settings-card">
-          <div class="field"><label>電費單價（元/度 kWh）</label><input type="number" id="s-elec-rate" inputmode="decimal" placeholder="0.85" value="0.85"></div>
-          <div class="field"><label>一人看幾台機</label><input type="number" id="s-machines-per-worker" inputmode="decimal" placeholder="1" value="1"></div>
-          <div class="field"><label data-i18n="lblLabor">人工費（元/h）</label><input type="number" id="s-labor" inputmode="decimal" placeholder="50"></div>
-          <div class="field"><label data-i18n="lblDefect">預設次品率（%）</label><input type="number" id="s-defect" inputmode="decimal" placeholder="3"></div>
-          <div class="field"><label data-i18n="lblRunner">水口料損耗（%）</label><input type="number" id="s-runner" inputmode="decimal" placeholder="8"></div>
-          <div class="field"><label data-i18n="lblPack">包裝費（元/件）</label><input type="number" id="s-pack" inputmode="decimal" placeholder="1.5"></div>
-          <div class="field"><label data-i18n="lblLeadtime">預設交貨期（工作天）</label><input type="number" id="s-leadtime" inputmode="numeric" placeholder="15"></div>
-        </div>
+    <!-- Material Price Library -->
+    <div class="section-hd" data-i18n="secMatLib">材料價格庫 <span class="cost-badge badge-var">VARIABLE</span></div>
+    <div class="settings-hint" data-i18n="hintMatLib">選擇原料時自動帶入當前市場價格，可隨時更新</div>
+    <div class="mat-lib-list" id="mat-lib-list"></div>
+    <button class="btn-add-mat" onclick="addMatRow()" data-i18n="btnAddMat">＋ 新增原料</button>
 
-        <!-- Material Price Library -->
-        <div class="section-hd" data-i18n="secMatLib">材料價格庫 <span class="cost-badge badge-var">VARIABLE</span></div>
-        <div class="settings-hint" data-i18n="hintMatLib">選擇原料時自動帶入當前市場價格，可隨時更新</div>
-        <div class="mat-lib-list" id="mat-lib-list"></div>
-        <button class="btn-add-mat" onclick="addMatRow()" data-i18n="btnAddMat">＋ 新增原料</button>
+    <!-- Save Button -->
+    <button class="btn-save-settings" onclick="saveSettings()" data-i18n="btnSaveSettings">💾 儲存所有設置</button>
+    <div class="settings-version" id="settings-version"></div>
 
-        <!-- Save Button -->
-        <button class="btn-save-settings" onclick="saveSettings()" data-i18n="btnSaveSettings">💾 儲存所有設置</button>
-        <div class="settings-version" id="settings-version"></div>
-
-        <!-- Cloud Sync -->
-        <div class="section-hd" style="margin-top:20px">☁️ 雲端同步</div>
-        <div class="settings-hint">數據備份到雲端，換手機或多設備共用</div>
-        <div class="settings-card">
-          <div id="sync-status" style="font-size:12px;color:var(--muted);margin-bottom:12px;text-align:center">尚未同步</div>
-          <div class="grid2">
-            <button class="cust-action-btn" style="padding:14px;font-size:13px" onclick="syncToCloud()">⬆️ 上傳到雲端</button>
-            <button class="cust-action-btn" style="padding:14px;font-size:13px" onclick="loadFromCloud()">⬇️ 從雲端載入</button>
-          </div>
-          <div style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.6">
-            📌 建議：每次重要操作後點「上傳到雲端」<br>換新手機時點「從雲端載入」恢復所有數據
-          </div>
-        </div>
-        <div style="height:20px"></div>
+    <!-- Cloud Sync -->
+    <div class="section-hd" style="margin-top:20px">☁️ 雲端同步</div>
+    <div class="settings-hint">數據備份到雲端，換手機或多設備共用</div>
+    <div class="settings-card">
+      <div id="sync-status" style="font-size:12px;color:var(--muted);margin-bottom:12px;text-align:center">尚未同步</div>
+      <div class="grid2">
+        <button class="cust-action-btn" style="padding:14px;font-size:13px" onclick="syncToCloud()">⬆️ 上傳到雲端</button>
+        <button class="cust-action-btn" style="padding:14px;font-size:13px" onclick="loadFromCloud()">⬇️ 從雲端載入</button>
+      </div>
+      <div style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.6">
+        📌 建議：每次重要操作後點「上傳到雲端」<br>換新手機時點「從雲端載入」恢復所有數據
       </div>
     </div>
+    <div style="height:20px"></div>
+  </div>
+</div>
+```
 
   </div><!-- /pages -->
 
   <!-- Tabbar -->
+
   <div class="tabbar" style="grid-template-columns:repeat(5,1fr)">
     <div class="tab active" id="tab-home" onclick="switchTab('home')">
       <div class="tab-icon"><i data-lucide="layout-grid"></i></div><span>主頁</span>
@@ -956,6 +966,7 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
 <div class="toast" id="toast"></div>
 
 <!-- Add/Edit Customer Modal -->
+
 <div class="cust-modal-overlay" id="cust-modal" onclick="closeCustModal(event)">
   <div class="cust-modal-box">
     <div class="modal-handle"></div>
@@ -1017,6 +1028,7 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
 </div>
 
 <!-- Order Detail Modal -->
+
 <div class="cust-modal-overlay" id="order-modal" onclick="closeOrderModal(event)">
   <div class="cust-modal-box">
     <div class="modal-handle"></div>
@@ -1042,6 +1054,7 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
 </div>
 
 <!-- Contract Modal -->
+
 <div class="modal-overlay" id="contract-modal" onclick="closeContractModal(event)">
   <div class="modal-box">
     <div class="modal-handle"></div>
@@ -1419,16 +1432,12 @@ function toast(msg) {
 
 function autoMachineRate(p) {
   const ton=parseInt(gs(p+'-tonnage'));
-  g(p+'-machrate').value=machineRates[ton]||160;
+  const el = g(p+'-machrate');
+  if(el) el.value=machineRates[ton]||160;
 }
 
 function autoMoldCost() {
-  const type=gs('n-moldtype'); const mat=gs('n-moldmat');
-  if(!type||type==='custom'){ g('n-mold-hint').textContent=t('hintMoldType'); return; }
-  g('n-moldcost').value=moldPriceMatrix[type]?.[mat]||0;
-  g('n-mold-hint').textContent=`${t('steelP20').replace('（一般）','')} ${mat.toUpperCase()} ${t('hintMoldType').replace('请先选择模具类型','').replace('請先選擇模具類型','')}`;
-  g('n-mold-hint').textContent=`参考估算 / 參考估算：${mat.toUpperCase()}`;
-  liveCalc('n');
+  // Mold cost now managed per-row in moldRows array
 }
 
 // ══════════════════════════════════════════
@@ -1471,9 +1480,13 @@ function liveCalc(p) {
     const cur = gs(p+'-currency')||'HKD';
     const s = c => `${cur} ${fmt(c)}`;
     if(p==='n') {
-      const moldCost=gv('n-moldcost',0), trialC=gv('n-trial-cost',3000), trialN=gv('n-trial-n',2);
-      const amortize=gv('n-amortize',r.qty)||r.qty||1;
-      const moldPerPc=(moldCost+trialC*trialN)/amortize;
+      const moldCostTotal2 = moldRows.reduce((s,m)=>s+(parseFloat(m.cost)||0),0);
+      const trialC2=gv('n-trial-cost',3000), trialN2=gv('n-trial-n',2);
+      const moldTotal2 = moldCostTotal2 + trialC2*trialN2;
+      const myMoldAmt2 = moldMode==='shared' ? (parseFloat(g('n-my-amount')?.value)||0) : moldTotal2;
+      const amortizeQty2 = moldMode==='shared' ? (parseFloat(g('n-amortize')?.value)||1) : (parseFloat(g('n-amortize-full')?.value)||1);
+      const amortize = amortizeQty2 > 0 ? amortizeQty2 : 1;
+      const moldPerPc = moldMode==='shared' ? myMoldAmt2/amortize : moldTotal2/amortize;
       const unitW = (r.directPerPc+moldPerPc)*(1+r.profit);
       g('n-p-mold').textContent=s(moldPerPc);
       g('n-p-mat').textContent=s(r.matPerPc);
@@ -1524,14 +1537,83 @@ function calcExist() {
   showResult(res);
 }
 
+
+function calcExistMulti() {
+  const s = loadSettings();
+  const elecRate = parseFloat(s.elecRate||'0.85');
+  const laborH = parseFloat(s.labor||'50');
+  const mPerWorker = parseFloat(s.machinesPerWorker||'1');
+  const totalFixed = parseFloat(g('e-rent')?.value)||0;
+  const monthVol = parseFloat(g('e-monthly-vol')?.value)||1;
+  const fixedPerPc = monthVol>0 ? totalFixed/monthVol : 0;
+  const profit = (parseFloat(g('e-profit')?.value)||20)/100;
+  const defect = (parseFloat(g('e-defect')?.value)||3)/100;
+  const cur = gs('e-currency')||'HKD';
+
+  const validParts = existParts.filter(p => parseFloat(p.weight)>0 && parseFloat(p.matPrice)>0 && parseInt(p.qty)>0);
+  if(!validParts.length){ toast('⚠️ 請至少填寫一個零件（重量、原料、數量）'); return; }
+
+  const partResults = validParts.map(p => {
+    const w = parseFloat(p.weight);
+    const matPr = parseFloat(p.matPrice);
+    const runner = (parseFloat(p.runner)||8)/100;
+    const ton = parseInt(p.tonnage)||120;
+    const power = HAITIAN_POWER[ton]||22;
+    const cycle = parseFloat(p.cycle)||30;
+    const cavity = parseInt(p.cavity)||1;
+    const qty = parseInt(p.qty);
+    const surface = parseFloat(p.surface)||0;
+    const pack = parseFloat(p.pack)||0;
+    const matCost = (w/1000)*matPr*(1+runner)/(1-defect);
+    const pcsPerHour = (3600/cycle)*cavity;
+    const elecPerPc = (power*elecRate)/pcsPerHour;
+    const laborPerPc = (laborH/mPerWorker)/pcsPerHour;
+    const directCost = matCost+elecPerPc+laborPerPc+fixedPerPc+surface+pack;
+    const unitPrice = directCost*(1+profit);
+    return {name:p.name, mat:p.mat, weight:w, tonnage:ton, qty, unitPrice, totalPrice:unitPrice*qty,
+            matCost, elecPerPc, laborPerPc, fixedPerPc, surface, pack, directCost};
+  });
+
+  const grandTotal = partResults.reduce((s,p)=>s+p.totalPrice,0);
+  const grandQty = partResults.reduce((s,p)=>s+p.qty,0);
+  const avgUnit = grandQty>0 ? grandTotal/grandQty : 0;
+
+  // Build result with parts breakdown
+  const rows = [
+    {section:'零件明細 · Parts Breakdown'},
+    ...partResults.map(p=>({name:`${p.name} (${p.mat}·${p.weight}g·${p.tonnage}T)`, value:p.totalPrice, perPc:p.unitPrice, badge:'var'})),
+    {total:true, name:'套料合計 · Total', value:grandTotal, perPc:avgUnit}
+  ];
+
+  const res = {
+    mode:'exist', qid:genId(), date:todayStr(), currency:cur,
+    customer:gs('e-cust'), contact:gs('e-contact'),
+    product:gs('e-prod')||validParts.map(p=>p.name).join('+'),
+    sku:gs('e-sku'), material:validParts.map(p=>p.mat).join('/'),
+    qty:grandQty, unitPrice:avgUnit, totalPrice:grandTotal,
+    leadtime:`${gv('e-leadtime',15)} 工作天`,
+    payment:gs('e-payment'), warranty:gs('e-warranty'),
+    notes:gs('e-notes'), rows,
+    parts:partResults, moldTotal:0, moldPerPc:0
+  };
+  saveHistory(res);
+  showResult(res);
+}
+
 function calcNew() {
   const r=calcCore('n');
   if(!r.qty||!r.matPerPc){ toast(t('toastValidate')); return; }
   const cur=gs('n-currency')||'HKD', qty=r.qty;
-  const moldCost=gv('n-moldcost',0), trialC=gv('n-trial-cost',3000), trialN=gv('n-trial-n',2);
-  const moldTotal=moldCost+trialC*trialN;
-  const amortize=gv('n-amortize',qty)||qty||1;
-  const moldPerPc=moldTotal/amortize;
+  // Multi-mold total
+  const moldCostTotal = moldRows.reduce((s,m)=>s+(parseFloat(m.cost)||0),0);
+  const trialC=gv('n-trial-cost',3000), trialN=gv('n-trial-n',2);
+  const moldTotal=moldCostTotal+trialC*trialN;
+  // Shared vs full mode
+  const myMoldAmt = moldMode==='shared' ? (parseFloat(g('n-my-amount')?.value)||0) : moldTotal;
+  const amortizeVal = moldMode==='shared'
+    ? (parseFloat(g('n-amortize')?.value)||qty||1)
+    : (parseFloat(g('n-amortize-full')?.value)||qty||1);
+  const moldPerPc = amortizeVal>0 ? (moldMode==='shared' ? myMoldAmt/amortizeVal : moldTotal/amortizeVal) : 0;
   const totalDirPerPc=r.directPerPc+moldPerPc;
   const unitPrice=totalDirPerPc*(1+r.profit);
   const profPct=Math.round(r.profit*100);
@@ -1802,10 +1884,17 @@ function newQuote(){ showPage('home'); updateStats(); }
 
 function openForm(mode) {
   if(mode==='inquiry'){ openInquiry(); return; }
-  autoMachineRate(mode==='exist'?'e':'n');
-  applySettingsToForm(mode==='exist'?'e':'n');
-  showPage(mode);
-  liveCalc(mode==='exist'?'e':'n');
+  if(mode==='exist'){
+    initExistForm();
+    showPage('exist');
+    return;
+  }
+  applySettingsToForm('n');
+  moldRows = [{id:1, name:'副模1', cost:'', steel:'p20', type:'simple'}];
+  renderMoldRows();
+  setMoldMode('full');
+  showPage('new');
+  liveCalc('n');
 }
 
 function showHistory(){ renderHistory(); showPage('history'); }
@@ -1845,7 +1934,6 @@ function openSettings() {
   g('s-elec-rate') && (g('s-elec-rate').value = s.elecRate||'0.85');
   g('s-machines-per-worker') && (g('s-machines-per-worker').value = s.machinesPerWorker||'1');
   g('s-labor').value = s.labor||'50';
-  g('s-elec').value = s.elec||'30';
   g('s-defect').value = s.defect||'3';
   g('s-runner').value = s.runner||'8';
   g('s-pack').value = s.pack||'1.5';
@@ -1913,7 +2001,6 @@ function saveSettings() {
     insurance: g('s-insurance').value,
     monthlyVol: g('s-monthly-vol').value,
     labor: g('s-labor').value,
-    elec: g('s-elec').value,
     defect: g('s-defect').value,
     runner: g('s-runner').value,
     pack: g('s-pack').value,
@@ -1952,7 +2039,7 @@ function applySettingsToForm(prefix) {
   set(prefix+'-monthly-vol', s.monthlyVol);
   // Variable
   set(prefix+'-labor', s.labor||'50');
-  set(prefix+'-elec', s.elec||'30');
+  // elec per hour now calculated from elecRate × machine power
   set(prefix+'-defect', s.defect||'3');
   set(prefix+'-runner', s.runner||'8');
   set(prefix+'-pack', s.pack||'1.5');
@@ -1961,6 +2048,9 @@ function applySettingsToForm(prefix) {
   if(s.currency && g(prefix+'-currency')) g(prefix+'-currency').value = s.currency;
   // Material select — update options with prices
   updateMatSelectOptions(prefix, s.materials||DEFAULT_MATS);
+  // Hide price field by default (shown only for 其他)
+  const priceRow = g(prefix+'-matprice-row');
+  if(priceRow) priceRow.style.display = 'none';
 }
 
 function updateMatSelectOptions(prefix, mats) {
@@ -1982,14 +2072,7 @@ function updateMatSelectOptions(prefix, mats) {
   otherOpt.value = '其他'; otherOpt.textContent = t('optOther');
   sel.appendChild(otherOpt);
   // Bind auto-fill price on change
-  sel.onchange = () => {
-    const selected = sel.options[sel.selectedIndex];
-    const price = selected.getAttribute('data-price');
-    if(price) {
-      g(prefix+'-matprice').value = price;
-    }
-    liveCalc(prefix);
-  };
+  sel.onchange = () => { onMatChange(prefix); };
 }
 
 // Update contract to use saved company name
@@ -2018,7 +2101,7 @@ function copyText(text) {
 // Init
 // ══════════════════════════════════════════
 window.addEventListener('load',()=>{
-  autoMachineRate('e'); autoMachineRate('n');
+  autoMachineRate('n'); // exist form uses per-part tonnage now
   applyLang();
   updateStats();
   applySettingsToForm('e');
@@ -2358,6 +2441,389 @@ function updateHomeOrderStats() {
 
 
 // ══════════════════════════════════════════
+// Exist Form - Multi-Part
+// ══════════════════════════════════════════
+let existParts = [{
+  id:1, name:'件1', weight:'', mat:'', matPrice:'', 
+  tonnage:'120', cavity:'1', cycle:'30', qty:'', 
+  surface:'0', pack:'1.5', runner:'8'
+}];
+
+function initExistForm() {
+  const s = loadSettings();
+  // Pre-fill fixed costs
+  const totalFixed = (parseFloat(s.rent)||0)+(parseFloat(s.depr)||0)+(parseFloat(s.mgmt)||0)+(parseFloat(s.insurance)||0);
+  if(g('e-rent')) g('e-rent').value = totalFixed||'';
+  if(g('e-monthly-vol')) g('e-monthly-vol').value = s.monthlyVol||'';
+  if(g('e-profit')) g('e-profit').value = s.profit||'20';
+  if(g('e-defect')) g('e-defect').value = s.defect||'3';
+  if(g('e-currency')) g('e-currency').value = s.currency||'HKD';
+  existParts = [{id:1, name:'件1', weight:'', mat:'', matPrice:'', tonnage:'120', cavity:'1', cycle:'30', qty:'', surface:'0', pack:'1.5', runner:'8'}];
+  renderExistParts();
+}
+
+function getMatOptions(selectedMat, selectedPrice) {
+  const s = loadSettings();
+  const mats = s.materials || DEFAULT_MATS;
+  const options = mats.map(m => 
+    `<option value="${m.name}" data-price="${m.price}" ${selectedMat===m.name?'selected':''}>${m.name} · ${m.price}元/kg</option>`
+  ).join('');
+  return `<option value="">請選擇...</option>${options}<option value="其他" ${selectedMat==='其他'?'selected':''}>其他</option>`;
+}
+
+function renderExistParts() {
+  const list = g('e-parts-list');
+  if(!list) return;
+  const s = loadSettings();
+  const elecRate = parseFloat(s.elecRate||'0.85');
+  const laborH = parseFloat(s.labor||'50');
+  const mPerWorker = parseFloat(s.machinesPerWorker||'1');
+
+  list.innerHTML = existParts.map((p,i) => {
+    // Calculate live cost for this part
+    const w = parseFloat(p.weight)||0;
+    const matPr = parseFloat(p.matPrice)||0;
+    const runner = (parseFloat(p.runner)||8)/100;
+    const ton = parseInt(p.tonnage)||120;
+    const power = HAITIAN_POWER[ton]||22;
+    const cycle = parseFloat(p.cycle)||30;
+    const cavity = parseInt(p.cavity)||1;
+    const qty = parseInt(p.qty)||0;
+    const profit = (parseFloat(g('e-profit')?.value)||20)/100;
+    const defect = (parseFloat(g('e-defect')?.value)||3)/100;
+    const totalFixed = parseFloat(g('e-rent')?.value)||0;
+    const monthVol = parseFloat(g('e-monthly-vol')?.value)||1;
+    const fixedPerPc = monthVol>0 ? totalFixed/monthVol : 0;
+
+    const matCost = w>0&&matPr>0 ? (w/1000)*matPr*(1+runner)/(1-defect) : 0;
+    const pcsPerHour = (3600/cycle)*cavity;
+    const elecPerPc = (power*elecRate)/pcsPerHour;
+    const laborPerPc = (laborH/mPerWorker)/pcsPerHour;
+    const surface = parseFloat(p.surface)||0;
+    const pack = parseFloat(p.pack)||0;
+    const directCost = matCost+elecPerPc+laborPerPc+fixedPerPc+surface+pack;
+    const unitPrice = directCost*(1+profit);
+    const totalAmt = unitPrice*qty;
+
+    const cur = gs('e-currency')||'HKD';
+    const hasCost = unitPrice > 0;
+
+    return `<div class="mold-row" style="margin-bottom:10px">
+      <div class="mold-row-header">
+        <span class="mold-row-num" style="background:var(--blue-dim);color:var(--blue)">零件 ${i+1}</span>
+        <div style="display:flex;align-items:center;gap:8px">
+          ${hasCost?`<span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent)">${cur} ${unitPrice.toFixed(2)}/件</span>`:''}
+          ${existParts.length>1?`<button class="mold-row-del" onclick="delExistPart(${i})">✕</button>`:''}
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>件號 / 名稱</label>
+          <input type="text" value="${p.name||''}" placeholder="件${i+1}" 
+            oninput="updateExistPart(${i},'name',this.value)">
+        </div>
+        <div class="field"><label>件重（克）</label>
+          <input type="number" inputmode="decimal" value="${p.weight||''}" placeholder="0"
+            oninput="updateExistPart(${i},'weight',this.value);liveExistCalc()">
+        </div>
+      </div>
+      <div class="field"><label>原料種類</label>
+        <select onchange="updateExistPartMat(${i},this)">
+          ${getMatOptions(p.mat, p.matPrice)}
+        </select>
+      </div>
+      <div class="field" id="ep-matprice-row-${i}" style="${(!p.mat||p.mat==='其他')?'':'display:none'}">
+        <label>原料單價（元/kg）</label>
+        <input type="number" inputmode="decimal" value="${p.matPrice||''}" placeholder="手動輸入"
+          oninput="updateExistPart(${i},'matPrice',this.value);liveExistCalc()">
+      </div>
+      <div class="grid2" style="margin-top:4px">
+        <div class="field"><label>機器噸位</label>
+          <select onchange="updateExistPart(${i},'tonnage',this.value);liveExistCalc()">
+            ${[60,80,120,160,250,350,500,800].map(t=>`<option value="${t}" ${parseInt(p.tonnage)===t?'selected':''}>${t}T · ${HAITIAN_POWER[t]}kW</option>`).join('')}
+          </select>
+        </div>
+        <div class="field"><label>穴數</label>
+          <input type="number" inputmode="numeric" value="${p.cavity||1}" placeholder="1"
+            oninput="updateExistPart(${i},'cavity',this.value);liveExistCalc()">
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>週期（秒/件）</label>
+          <input type="number" inputmode="decimal" value="${p.cycle||30}" placeholder="30"
+            oninput="updateExistPart(${i},'cycle',this.value);liveExistCalc()">
+        </div>
+        <div class="field"><label>水口料損耗（%）</label>
+          <input type="number" inputmode="decimal" value="${p.runner||8}" placeholder="8"
+            oninput="updateExistPart(${i},'runner',this.value);liveExistCalc()">
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>表面處理（元/件）</label>
+          <input type="number" inputmode="decimal" value="${p.surface||0}" placeholder="0"
+            oninput="updateExistPart(${i},'surface',this.value);liveExistCalc()">
+        </div>
+        <div class="field"><label>包裝費（元/件）</label>
+          <input type="number" inputmode="decimal" value="${p.pack||1.5}" placeholder="1.5"
+            oninput="updateExistPart(${i},'pack',this.value);liveExistCalc()">
+        </div>
+      </div>
+      <div class="field"><label>訂購數量（件）</label>
+        <input type="number" inputmode="numeric" value="${p.qty||''}" placeholder="10000"
+          oninput="updateExistPart(${i},'qty',this.value);liveExistCalc()">
+      </div>
+      ${hasCost&&qty>0?`<div class="mold-total-bar" style="margin-top:8px">
+        <span>小計</span>
+        <span class="mold-total-val">${cur} ${totalAmt.toLocaleString('zh-TW',{minimumFractionDigits:2,maximumFractionDigits:2})}</span>
+      </div>`:''}
+    </div>`;
+  }).join('');
+  updateIcons();
+  liveExistSummary();
+}
+
+function addExistPart() {
+  existParts.push({
+    id:Date.now(), name:`件${existParts.length+1}`,
+    weight:'', mat:'', matPrice:'', tonnage:'120',
+    cavity:'1', cycle:'30', qty:'', surface:'0', pack:'1.5', runner:'8'
+  });
+  renderExistParts();
+}
+
+function delExistPart(idx) {
+  existParts.splice(idx,1);
+  renderExistParts();
+}
+
+function updateExistPart(idx, field, val) {
+  existParts[idx][field] = val;
+}
+
+function updateExistPartMat(idx, sel) {
+  const selected = sel.options[sel.selectedIndex];
+  const price = selected.getAttribute('data-price');
+  existParts[idx].mat = sel.value;
+  const isOther = sel.value === '其他' || sel.value === '';
+  const row = g(`ep-matprice-row-${idx}`);
+  if(row) row.style.display = isOther ? '' : 'none';
+  if(price) {
+    existParts[idx].matPrice = price;
+  } else if(isOther) {
+    existParts[idx].matPrice = '';
+  }
+  liveExistCalc();
+}
+
+function liveExistCalc() {
+  renderExistParts();
+}
+
+function liveExistSummary() {
+  const s = loadSettings();
+  const elecRate = parseFloat(s.elecRate||'0.85');
+  const laborH = parseFloat(s.labor||'50');
+  const mPerWorker = parseFloat(s.machinesPerWorker||'1');
+  const totalFixed = parseFloat(g('e-rent')?.value)||0;
+  const monthVol = parseFloat(g('e-monthly-vol')?.value)||1;
+  const fixedPerPc = monthVol>0 ? totalFixed/monthVol : 0;
+  const profit = (parseFloat(g('e-profit')?.value)||20)/100;
+  const defect = (parseFloat(g('e-defect')?.value)||3)/100;
+  const cur = gs('e-currency')||'HKD';
+
+  const partResults = existParts.map(p => {
+    const w = parseFloat(p.weight)||0;
+    const matPr = parseFloat(p.matPrice)||0;
+    const runner = (parseFloat(p.runner)||8)/100;
+    const ton = parseInt(p.tonnage)||120;
+    const power = HAITIAN_POWER[ton]||22;
+    const cycle = parseFloat(p.cycle)||30;
+    const cavity = parseInt(p.cavity)||1;
+    const qty = parseInt(p.qty)||0;
+    const surface = parseFloat(p.surface)||0;
+    const pack = parseFloat(p.pack)||0;
+    const matCost = w>0&&matPr>0 ? (w/1000)*matPr*(1+runner)/(1-defect) : 0;
+    const pcsPerHour = (3600/cycle)*cavity;
+    const elecPerPc = (power*elecRate)/pcsPerHour;
+    const laborPerPc = (laborH/mPerWorker)/pcsPerHour;
+    const directCost = matCost+elecPerPc+laborPerPc+fixedPerPc+surface+pack;
+    const unitPrice = directCost*(1+profit);
+    return {name:p.name||'—', weight:w, mat:p.mat||'—', tonnage:p.tonnage,
+            qty, directCost, unitPrice, total:unitPrice*qty};
+  });
+
+  const validParts = partResults.filter(p=>p.unitPrice>0);
+  const summarySection = g('e-summary-section');
+  if(!summarySection) return;
+
+  if(!validParts.length){ summarySection.style.display='none'; return; }
+  summarySection.style.display='block';
+
+  const grandTotal = validParts.reduce((s,p)=>s+p.total,0);
+  const summaryContent = g('e-summary-content');
+  if(summaryContent) {
+    summaryContent.innerHTML = `<table class="iq-summary-table-inner">
+      <thead><tr>
+        <th>件號</th><th>重量</th><th>原料</th><th>噸位</th><th>數量</th><th>單價</th><th>小計</th>
+      </tr></thead>
+      <tbody>
+        ${validParts.map(p=>`<tr>
+          <td>${p.name}</td>
+          <td>${p.weight>0?p.weight+'g':'—'}</td>
+          <td>${p.mat}</td>
+          <td>${p.tonnage}T</td>
+          <td>${p.qty>0?p.qty.toLocaleString():'—'}</td>
+          <td class="iq-price-range">${cur} ${p.unitPrice.toFixed(2)}</td>
+          <td class="iq-cost">${p.qty>0?cur+' '+p.total.toFixed(0):'—'}</td>
+        </tr>`).join('')}
+        ${validParts.length>1?`<tr style="font-weight:700;background:var(--card2)">
+          <td colspan="5">合計</td>
+          <td colspan="2" class="mold-total-val">${cur} ${grandTotal.toFixed(0)}</td>
+        </tr>`:''}
+      </tbody>
+    </table>`;
+  }
+  if(g('e-prev-total')) g('e-prev-total').textContent = grandTotal>0?`${cur} ${grandTotal.toFixed(0)}`:'—';
+  if(g('e-p-unit')) g('e-p-unit').textContent = grandTotal>0?`${cur} ${grandTotal.toFixed(0)}`:'—';
+}
+
+// ══════════════════════════════════════════
+// Multi-Mold & Collaboration Mode
+// ══════════════════════════════════════════
+let moldRows = [{id:1, name:'副模1', cost:'', steel:'p20', type:'simple'}];
+let moldMode = 'full'; // 'full' or 'shared'
+
+function setMoldMode(mode) {
+  moldMode = mode;
+  g('mmb-full').classList.toggle('active', mode==='full');
+  g('mmb-shared').classList.toggle('active', mode==='shared');
+  g('n-shared-section').style.display = mode==='shared' ? '' : 'none';
+  g('n-full-amortize').style.display = mode==='full' ? '' : 'none';
+  liveCalc('n');
+}
+
+function calcSharedMold() {
+  const total = parseFloat(g('n-mold-total')?.value)||0;
+  const custRatio = parseFloat(g('n-cust-ratio')?.value)||0;
+  const custAmt = total * custRatio / 100;
+  const myAmt = total - custAmt;
+  if(g('n-cust-amount')) g('n-cust-amount').value = custAmt.toFixed(0);
+  if(g('n-my-amount')) g('n-my-amount').value = myAmt.toFixed(0);
+  updateRecovery();
+  liveCalc('n');
+}
+
+function updateRecovery() {
+  const myAmt = parseFloat(g('n-my-amount')?.value)||0;
+  const produced = parseFloat(g('n-produced')?.value)||0;
+  const amortize = parseFloat(g('n-amortize')?.value)||0;
+  if(!myAmt || !amortize) return;
+  const perPc = myAmt / amortize;
+  const recovered = Math.min(produced * perPc, myAmt);
+  const remaining = myAmt - recovered;
+  const pct = (recovered/myAmt*100).toFixed(1);
+  const hint = g('n-recovery-hint');
+  if(hint) {
+    if(remaining <= 0) {
+      hint.textContent = '✅ 已完全回本，可調低單價';
+      hint.style.color = 'var(--green)';
+    } else {
+      hint.textContent = `已回本 ${pct}%，還差 ¥${remaining.toFixed(0)}`;
+      hint.style.color = 'var(--accent)';
+    }
+  }
+  liveCalc('n');
+}
+
+function renderMoldRows() {
+  const list = g('n-molds-list');
+  if(!list) return;
+  list.innerHTML = moldRows.map((m,i) => `
+    <div class="mold-row">
+      <div class="mold-row-header">
+        <span class="mold-row-num">第 ${i+1} 副模具</span>
+        ${moldRows.length>1?`<button class="mold-row-del" onclick="delMoldRow(${i})">✕</button>`:''}
+      </div>
+      <div class="grid2">
+        <div class="field"><label>模具名稱</label><input type="text" value="${m.name||''}" placeholder="副模${i+1}" oninput="updateMoldRow(${i},'name',this.value)"></div>
+        <div class="field">
+          <label>模具鋼材</label>
+          <select onchange="updateMoldRow(${i},'steel',this.value)">
+            <option value="p20" ${m.steel==='p20'?'selected':''}>P20（一般）</option>
+            <option value="718h" ${m.steel==='718h'?'selected':''}>718H（高光）</option>
+            <option value="h13" ${m.steel==='h13'?'selected':''}>H13（高壽命）</option>
+            <option value="s136" ${m.steel==='s136'?'selected':''}>S136（防腐）</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <label>模具類型</label>
+          <select onchange="updateMoldRow(${i},'type',this.value);autoMoldRowCost(${i})">
+            <option value="simple" ${m.type==='simple'?'selected':''}>簡單模（單穴）</option>
+            <option value="medium" ${m.type==='medium'?'selected':''}>中型模（多穴）</option>
+            <option value="complex" ${m.type==='complex'?'selected':''}>複雜模（滑塊）</option>
+            <option value="precision" ${m.type==='precision'?'selected':''}>精密模</option>
+            <option value="custom" ${m.type==='custom'?'selected':''}>自定義</option>
+          </select>
+        </div>
+        <div class="field"><label>開模費（元）</label><input type="number" inputmode="decimal" value="${m.cost||''}" placeholder="系統估算" oninput="updateMoldRow(${i},'cost',this.value);updateMoldTotal()"></div>
+      </div>
+    </div>`).join('');
+  updateMoldTotal();
+  updateIcons();
+}
+
+function addMoldRow() {
+  moldRows.push({id:Date.now(), name:`副模${moldRows.length+1}`, cost:'', steel:'p20', type:'simple'});
+  renderMoldRows();
+}
+
+function delMoldRow(idx) {
+  moldRows.splice(idx,1);
+  renderMoldRows();
+  updateMoldTotal();
+  liveCalc('n');
+}
+
+function updateMoldRow(idx, field, val) {
+  moldRows[idx][field] = val;
+  if(field==='type' || field==='steel') autoMoldRowCost(idx);
+}
+
+function autoMoldRowCost(idx) {
+  const m = moldRows[idx];
+  if(m.type && m.type !== 'custom') {
+    const cost = moldPriceMatrix[m.type]?.[m.steel] || 0;
+    if(cost) {
+      moldRows[idx].cost = cost;
+      renderMoldRows();
+      updateMoldTotal();
+    }
+  }
+}
+
+function updateMoldTotal() {
+  const total = moldRows.reduce((s,m) => s + (parseFloat(m.cost)||0), 0);
+  // Update hidden moldcost field for calcNew()
+  if(g('n-moldcost')) g('n-moldcost').value = total;
+  // Show total bar
+  const list = g('n-molds-list');
+  if(list && moldRows.length > 1) {
+    const existingBar = list.nextElementSibling;
+    let bar = g('mold-total-bar');
+    if(!bar) {
+      bar = document.createElement('div');
+      bar.id = 'mold-total-bar';
+      bar.className = 'mold-total-bar';
+      list.after(bar);
+    }
+    bar.innerHTML = `<span>${moldRows.length} 副模具合計</span><span class="mold-total-val">¥ ${total.toLocaleString()}</span>`;
+    bar.style.display = 'flex';
+  }
+  liveCalc('n');
+}
+
+// ══════════════════════════════════════════
 // Inquiry (詢價預報價) 
 // ══════════════════════════════════════════
 const HAITIAN_POWER = {60:11, 80:15, 120:22, 160:30, 250:45, 350:55, 500:75, 800:110};
@@ -2397,8 +2863,29 @@ function onIQMatChange() {
   const sel = g('iq-mat');
   const selected = sel.options[sel.selectedIndex];
   const price = selected.getAttribute('data-price');
-  if(price) g('iq-matprice').value = price;
+  const isOther = sel.value === '其他' || sel.value === '';
+  // Show manual price input only for "其他" or empty
+  g('iq-matprice-row').style.display = isOther ? '' : 'none';
+  if(price) {
+    g('iq-matprice').value = price;
+    g('iq-matprice-hidden').value = price;
+  } else if(isOther) {
+    g('iq-matprice').value = '';
+    g('iq-matprice-hidden').value = '';
+  }
   liveCalcIQ();
+}
+
+
+function onMatChange(p) {
+  const sel = g(p+'-mat');
+  const selected = sel.options[sel.selectedIndex];
+  const price = selected.getAttribute('data-price');
+  const isOther = sel.value === '其他' || sel.value === '';
+  const row = g(p+'-matprice-row');
+  if(row) row.style.display = isOther ? '' : 'none';
+  if(price) g(p+'-matprice').value = price;
+  liveCalc(p);
 }
 
 function onIQTonnageChange() {
@@ -2440,7 +2927,10 @@ function updateIQPart(idx, field, val) {
 
 function liveCalcIQ() {
   const s = loadSettings();
-  const matPr = parseFloat(g('iq-matprice')?.value)||0;
+  const matSel = g('iq-mat');
+  const matSelected = matSel?.options[matSel?.selectedIndex];
+  const matPrice = matSelected?.getAttribute('data-price');
+  const matPr = parseFloat(matPrice || g('iq-matprice')?.value)||0;
   const power = parseFloat(g('iq-power')?.value)||22;
   const cycle = parseFloat(g('iq-cycle')?.value)||30;
   const cavity = parseInt(g('iq-cavity')?.value)||1;
