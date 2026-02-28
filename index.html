@@ -281,6 +281,20 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
 
 /* Settings saved indicator */
 .settings-version{text-align:center;font-size:10px;color:var(--muted);margin-top:12px;font-family:'JetBrains Mono',monospace}
+.section-hd.blue{color:var(--blue)}
+
+
+/* ── Inquiry Parts ── */
+.iq-part-row{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px}
+.iq-part-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.iq-part-num{font-size:12px;font-weight:700;color:var(--green);background:rgba(52,211,153,.12);padding:3px 10px;border-radius:20px}
+.iq-part-del{background:rgba(251,113,133,.15);border:none;color:var(--red);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:14px}
+.iq-summary-table-inner{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+.iq-summary-table-inner th{text-align:left;padding:8px 10px;border-bottom:2px solid var(--border);color:var(--muted);font-size:11px;letter-spacing:1px}
+.iq-summary-table-inner td{padding:10px;border-bottom:1px solid var(--border)}
+.iq-summary-table-inner tr:last-child td{border-bottom:none}
+.iq-price-range{font-weight:700;color:var(--accent);font-family:'JetBrains Mono',monospace}
+.iq-cost{color:var(--muted);font-family:'JetBrains Mono',monospace}
 
 ::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-track{background:transparent}
@@ -335,7 +349,7 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
         <div class="hero-label" data-i18n="heroLabel">即時報價系統 · Live Quotation</div>
         <div class="hero-title" data-i18n-html="heroTitle">選擇<span>報價</span>類型</div>
       </div>
-      <div class="mode-cards">
+      <div class="mode-cards" style="grid-template-columns:1fr 1fr">
         <div class="mode-card mc-exist" onclick="openForm('exist')">
           <div class="mc-tag">EXISTING</div>
           <div class="mc-icon"><i data-lucide="package-check"></i></div>
@@ -347,6 +361,16 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
           <div class="mc-icon"><i data-lucide="layers"></i></div>
           <div class="mc-title" data-i18n="modeNewTitle">含開模費</div>
           <div class="mc-desc" data-i18n="modeNewDesc">從開模到生產一站式報價</div>
+        </div>
+      </div>
+      <div class="mode-cards" style="grid-template-columns:1fr;margin-top:0">
+        <div class="mode-card mc-inquiry" onclick="openForm('inquiry')" style="display:flex;align-items:center;gap:16px;padding:16px 18px">
+          <div class="mc-icon" style="margin-bottom:0;flex-shrink:0;background:rgba(52,211,153,.12);color:var(--green)"><i data-lucide="search"></i></div>
+          <div>
+            <div class="mc-title" style="color:var(--green);margin-bottom:4px">詢價預報價</div>
+            <div class="mc-desc">來料/來樣快速估價，談判內部參考用</div>
+          </div>
+          <div class="mc-tag" style="position:static;margin-left:auto;background:rgba(52,211,153,.12);color:var(--green)">INQUIRY</div>
         </div>
       </div>
       <div class="quick-stats" style="grid-template-columns:repeat(2,1fr)">
@@ -703,6 +727,89 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
       </div>
     </div>
 
+
+    <!-- FORM: INQUIRY (快速詢價預報價) -->
+    <div class="page hidden" id="pg-inquiry">
+      <div class="form-header">
+        <button class="btn-back" onclick="goHome()">← 返回</button>
+        <div class="form-title" style="color:var(--green)">🔍 詢價預報價</div>
+      </div>
+      <div class="scroll-content">
+        <div class="settings-hint" style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);border-radius:10px;padding:10px 12px;margin-bottom:16px;color:var(--green)">
+          📌 內部參考價，基於廠房平均成本估算，不生成合同
+        </div>
+
+        <div class="section-hd">客戶資料</div>
+        <div class="grid2">
+          <div class="field"><label>客戶 / 公司</label><input type="text" id="iq-cust" placeholder="公司名稱"></div>
+          <div class="field"><label>聯絡人</label><input type="text" id="iq-contact" placeholder="姓名"></div>
+        </div>
+        <div class="field"><label>產品名稱</label><input type="text" id="iq-prod" placeholder="產品描述" oninput="liveCalcIQ()"></div>
+
+        <div class="section-hd" style="margin-top:16px">產品零件（可多件）</div>
+        <div class="settings-hint">每件獨立填寫重量，系統自動計算每件成本</div>
+        <div id="iq-parts-list"></div>
+        <button class="btn-add-mat" onclick="addIQPart()" style="margin-bottom:16px">＋ 新增零件</button>
+
+        <div class="section-hd">材料 & 生產</div>
+        <div class="grid2">
+          <div class="field">
+            <label>原料種類</label>
+            <select id="iq-mat" onchange="onIQMatChange()">
+              <option value="">請選擇...</option>
+            </select>
+          </div>
+          <div class="field"><label>原料單價（元/kg）</label><input type="number" id="iq-matprice" inputmode="decimal" placeholder="自動帶入" oninput="liveCalcIQ()"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>機器噸位</label>
+            <select id="iq-tonnage" onchange="onIQTonnageChange()">
+              <option value="60">60T</option>
+              <option value="80">80T</option>
+              <option value="120" selected>120T</option>
+              <option value="160">160T</option>
+              <option value="250">250T</option>
+              <option value="350">350T</option>
+              <option value="500">500T</option>
+              <option value="800">800T</option>
+            </select>
+          </div>
+          <div class="field"><label>機器功率（kW）</label><input type="number" id="iq-power" inputmode="decimal" placeholder="自動帶入" oninput="liveCalcIQ()"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>週期（秒/件）</label><input type="number" id="iq-cycle" inputmode="decimal" placeholder="30" value="30" oninput="liveCalcIQ()"></div>
+          <div class="field"><label>穴數</label><input type="number" id="iq-cavity" inputmode="numeric" placeholder="1" value="1" oninput="liveCalcIQ()"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>訂購數量（件）</label><input type="number" id="iq-qty" inputmode="numeric" placeholder="10000" oninput="liveCalcIQ()"></div>
+          <div class="field"><label>利潤率（%）</label><input type="number" id="iq-profit" inputmode="decimal" placeholder="20" value="20" oninput="liveCalcIQ()"></div>
+        </div>
+
+        <!-- Live Preview -->
+        <div class="live-preview" style="margin-top:16px">
+          <div class="lp-header"><span>⚡ 即時成本預覽</span><span id="iq-prev-total">—</span></div>
+          <div class="lp-row"><span class="ln">📦 材料成本/件</span><span class="lv" id="iq-p-mat">—</span></div>
+          <div class="lp-row"><span class="ln">⚡ 電費/件</span><span class="lv" id="iq-p-elec">—</span></div>
+          <div class="lp-row"><span class="ln">👷 人工/件</span><span class="lv" id="iq-p-labor">—</span></div>
+          <div class="lp-row"><span class="ln">🏢 固定攤銷/件</span><span class="lv" id="iq-p-fixed">—</span></div>
+          <div class="lp-row highlight"><span class="ln">💰 建議報價/件</span><span class="lv" id="iq-p-unit">—</span></div>
+        </div>
+
+        <!-- Parts Summary Table -->
+        <div id="iq-summary-table" style="display:none;margin-top:16px">
+          <div class="section-hd">📊 匯總一眼表（談判參考）</div>
+          <div id="iq-summary-content"></div>
+        </div>
+
+        <div class="field" style="margin-top:14px">
+          <label>備注</label>
+          <textarea id="iq-notes" placeholder="特別要求、顏色、認證等..." style="min-height:70px"></textarea>
+        </div>
+        <button class="btn-calc" style="background:linear-gradient(135deg,var(--green),#059669);color:#0f172a;font-weight:800" onclick="calcInquiry()">立即生成預報價 →</button>
+        <div style="height:10px"></div>
+      </div>
+    </div>
+
     <!-- HISTORY -->
     <div class="page hidden" id="pg-history">
       <div class="form-header">
@@ -787,8 +894,9 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
         <!-- Variable Cost Defaults -->
         <div class="section-hd blue" data-i18n="secVarDefaults">浮動成本預設值 <span class="cost-badge badge-var">VARIABLE</span></div>
         <div class="settings-card">
+          <div class="field"><label>電費單價（元/度 kWh）</label><input type="number" id="s-elec-rate" inputmode="decimal" placeholder="0.85" value="0.85"></div>
+          <div class="field"><label>一人看幾台機</label><input type="number" id="s-machines-per-worker" inputmode="decimal" placeholder="1" value="1"></div>
           <div class="field"><label data-i18n="lblLabor">人工費（元/h）</label><input type="number" id="s-labor" inputmode="decimal" placeholder="50"></div>
-          <div class="field"><label data-i18n="lblElec">電費（元/h）</label><input type="number" id="s-elec" inputmode="decimal" placeholder="30"></div>
           <div class="field"><label data-i18n="lblDefect">預設次品率（%）</label><input type="number" id="s-defect" inputmode="decimal" placeholder="3"></div>
           <div class="field"><label data-i18n="lblRunner">水口料損耗（%）</label><input type="number" id="s-runner" inputmode="decimal" placeholder="8"></div>
           <div class="field"><label data-i18n="lblPack">包裝費（元/件）</label><input type="number" id="s-pack" inputmode="decimal" placeholder="1.5"></div>
@@ -804,6 +912,20 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
         <!-- Save Button -->
         <button class="btn-save-settings" onclick="saveSettings()" data-i18n="btnSaveSettings">💾 儲存所有設置</button>
         <div class="settings-version" id="settings-version"></div>
+
+        <!-- Cloud Sync -->
+        <div class="section-hd" style="margin-top:20px">☁️ 雲端同步</div>
+        <div class="settings-hint">數據備份到雲端，換手機或多設備共用</div>
+        <div class="settings-card">
+          <div id="sync-status" style="font-size:12px;color:var(--muted);margin-bottom:12px;text-align:center">尚未同步</div>
+          <div class="grid2">
+            <button class="cust-action-btn" style="padding:14px;font-size:13px" onclick="syncToCloud()">⬆️ 上傳到雲端</button>
+            <button class="cust-action-btn" style="padding:14px;font-size:13px" onclick="loadFromCloud()">⬇️ 從雲端載入</button>
+          </div>
+          <div style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.6">
+            📌 建議：每次重要操作後點「上傳到雲端」<br>換新手機時點「從雲端載入」恢復所有數據
+          </div>
+        </div>
         <div style="height:20px"></div>
       </div>
     </div>
@@ -1666,6 +1788,7 @@ function showPage(name) {
   if(name==='home') g('tab-home').classList.add('active');
   else if(name==='exist') g('tab-exist').classList.add('active');
   else if(name==='new') g('tab-new').classList.add('active');
+  else if(name==='inquiry') {}
   else if(name==='customers') g('tab-customers').classList.add('active');
   else if(name==='orders') g('tab-orders').classList.add('active');
   else if(name==='settings') g('tab-settings').classList.add('active');
@@ -1678,10 +1801,11 @@ function goHome(){ showPage('home'); updateStats(); }
 function newQuote(){ showPage('home'); updateStats(); }
 
 function openForm(mode) {
+  if(mode==='inquiry'){ openInquiry(); return; }
   autoMachineRate(mode==='exist'?'e':'n');
   applySettingsToForm(mode==='exist'?'e':'n');
   showPage(mode);
-  liveCalc('e'); liveCalc('n');
+  liveCalc(mode==='exist'?'e':'n');
 }
 
 function showHistory(){ renderHistory(); showPage('history'); }
@@ -1718,6 +1842,8 @@ function openSettings() {
   g('s-insurance').value = s.insurance||'';
   g('s-monthly-vol').value = s.monthlyVol||'';
   // Variable
+  g('s-elec-rate') && (g('s-elec-rate').value = s.elecRate||'0.85');
+  g('s-machines-per-worker') && (g('s-machines-per-worker').value = s.machinesPerWorker||'1');
   g('s-labor').value = s.labor||'50';
   g('s-elec').value = s.elec||'30';
   g('s-defect').value = s.defect||'3';
@@ -1792,6 +1918,8 @@ function saveSettings() {
     runner: g('s-runner').value,
     pack: g('s-pack').value,
     leadtime: g('s-leadtime').value,
+    elecRate: g('s-elec-rate')?.value||'0.85',
+    machinesPerWorker: g('s-machines-per-worker')?.value||'1',
     materials: mats,
     savedAt: new Date().toLocaleString('zh-TW')
   };
@@ -2226,6 +2354,320 @@ function updateHomeOrderStats() {
   const elUncollected = g('stat-uncollected');
   if(elActive) elActive.textContent = active;
   if(elUncollected) elUncollected.textContent = uncollected;
+}
+
+
+// ══════════════════════════════════════════
+// Inquiry (詢價預報價) 
+// ══════════════════════════════════════════
+const HAITIAN_POWER = {60:11, 80:15, 120:22, 160:30, 250:45, 350:55, 500:75, 800:110};
+let iqParts = [{id:1, weight:'', partNo:'件1'}];
+
+function openInquiry() {
+  // Load settings defaults
+  const s = loadSettings();
+  const mats = s.materials || DEFAULT_MATS;
+  updateIQMatSelect(mats);
+  g('iq-profit').value = s.profit||'20';
+  // Set default tonnage power
+  onIQTonnageChange();
+  // Render parts
+  renderIQParts();
+  showPage('inquiry');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+}
+
+function updateIQMatSelect(mats) {
+  const sel = g('iq-mat');
+  if(!sel) return;
+  sel.innerHTML = '<option value="">請選擇...</option>';
+  mats.forEach(m => {
+    const opt = document.createElement('option');
+    opt.value = m.name;
+    opt.textContent = `${m.name}  ·  ${m.price} 元/kg`;
+    opt.setAttribute('data-price', m.price);
+    sel.appendChild(opt);
+  });
+  const other = document.createElement('option');
+  other.value = '其他'; other.textContent = '其他';
+  sel.appendChild(other);
+}
+
+function onIQMatChange() {
+  const sel = g('iq-mat');
+  const selected = sel.options[sel.selectedIndex];
+  const price = selected.getAttribute('data-price');
+  if(price) g('iq-matprice').value = price;
+  liveCalcIQ();
+}
+
+function onIQTonnageChange() {
+  const ton = parseInt(g('iq-tonnage').value);
+  g('iq-power').value = HAITIAN_POWER[ton] || 22;
+  liveCalcIQ();
+}
+
+function renderIQParts() {
+  const list = g('iq-parts-list');
+  list.innerHTML = iqParts.map((p,i) => `
+    <div class="iq-part-row">
+      <div class="iq-part-header">
+        <span class="iq-part-num">零件 ${i+1}</span>
+        ${iqParts.length>1?`<button class="iq-part-del" onclick="delIQPart(${i})">✕</button>`:''}
+      </div>
+      <div class="grid2">
+        <div class="field"><label>件號 / 名稱</label><input type="text" value="${p.partNo||''}" placeholder="件${i+1}" oninput="updateIQPart(${i},'partNo',this.value)"></div>
+        <div class="field"><label>件重（克）</label><input type="number" inputmode="decimal" value="${p.weight||''}" placeholder="0" oninput="updateIQPart(${i},'weight',this.value);liveCalcIQ()"></div>
+      </div>
+    </div>`).join('');
+  updateIcons();
+}
+
+function addIQPart() {
+  iqParts.push({id: Date.now(), weight:'', partNo:`件${iqParts.length+1}`});
+  renderIQParts();
+}
+
+function delIQPart(idx) {
+  iqParts.splice(idx,1);
+  renderIQParts();
+  liveCalcIQ();
+}
+
+function updateIQPart(idx, field, val) {
+  iqParts[idx][field] = val;
+}
+
+function liveCalcIQ() {
+  const s = loadSettings();
+  const matPr = parseFloat(g('iq-matprice')?.value)||0;
+  const power = parseFloat(g('iq-power')?.value)||22;
+  const cycle = parseFloat(g('iq-cycle')?.value)||30;
+  const cavity = parseInt(g('iq-cavity')?.value)||1;
+  const qty = parseFloat(g('iq-qty')?.value)||0;
+  const profit = (parseFloat(g('iq-profit')?.value)||20)/100;
+  const elecRate = parseFloat(s.elecRate||'0.85');
+  const laborH = parseFloat(s.labor||'50');
+  const machinesPerWorker = parseFloat(s.machinesPerWorker||'1');
+  const runner = (parseFloat(s.runner||'8'))/100;
+
+  // Fixed cost per piece
+  const totalFixed = (parseFloat(s.rent||0))+(parseFloat(s.depr||0))+(parseFloat(s.mgmt||0))+(parseFloat(s.insurance||0));
+  const monthVol = parseFloat(s.monthlyVol||0);
+  const fixedPerPc = (totalFixed>0 && monthVol>0) ? totalFixed/monthVol : 0;
+
+  // Machine & electric per piece
+  const pcsPerHour = (3600/cycle)*cavity;
+  const elecPerHour = power * elecRate;
+  const elecPerPc = elecPerHour / pcsPerHour;
+  const laborPerPc = (laborH/machinesPerWorker) / pcsPerHour;
+
+  // Per part material cost
+  const partResults = iqParts.map(p => {
+    const w = parseFloat(p.weight)||0;
+    const matCost = (w/1000)*matPr*(1+runner);
+    const directCost = matCost + elecPerPc + laborPerPc + fixedPerPc;
+    const unitPrice = directCost*(1+profit);
+    return {partNo:p.partNo, weight:w, matCost, directCost, unitPrice};
+  });
+
+  // Show first part preview (or average if multiple)
+  const totalWeight = partResults.reduce((s,p)=>s+p.weight,0);
+  const avgMat = partResults.reduce((s,p)=>s+p.matCost,0)/Math.max(partResults.length,1);
+
+  const cur = s.currency||'CNY';
+  const f = n=>n.toFixed(2);
+
+  if(g('iq-p-mat')) g('iq-p-mat').textContent = `${cur} ${f(avgMat)}`;
+  if(g('iq-p-elec')) g('iq-p-elec').textContent = `${cur} ${f(elecPerPc)}`;
+  if(g('iq-p-labor')) g('iq-p-labor').textContent = `${cur} ${f(laborPerPc)}`;
+  if(g('iq-p-fixed')) g('iq-p-fixed').textContent = fixedPerPc>0?`${cur} ${f(fixedPerPc)}`:'(從設置帶入)';
+
+  const totalUnitCost = partResults.reduce((s,p)=>s+p.unitPrice,0);
+  if(g('iq-p-unit')) g('iq-p-unit').textContent = `${cur} ${f(totalUnitCost)}`;
+  if(g('iq-prev-total')) g('iq-prev-total').textContent = qty>0?`${cur} ${(totalUnitCost*qty).toLocaleString('zh-TW',{minimumFractionDigits:0,maximumFractionDigits:0})}`:'—';
+
+  // Update summary table if multiple parts
+  if(partResults.length>1 || partResults.some(p=>p.weight>0)) {
+    renderIQSummary(partResults, cur);
+  }
+
+  return {partResults, elecPerPc, laborPerPc, fixedPerPc, totalUnitCost};
+}
+
+function renderIQSummary(parts, cur) {
+  const table = g('iq-summary-table');
+  const content = g('iq-summary-content');
+  if(!table || !content) return;
+  const validParts = parts.filter(p=>p.weight>0);
+  if(!validParts.length){ table.style.display='none'; return; }
+  table.style.display='block';
+  content.innerHTML = `<table class="iq-summary-table-inner">
+    <thead><tr>
+      <th>件號</th><th>重量</th><th>保本成本</th><th>建議報價</th>
+    </tr></thead>
+    <tbody>
+      ${validParts.map(p=>`<tr>
+        <td>${p.partNo||'—'}</td>
+        <td>${p.weight} g</td>
+        <td class="iq-cost">${cur} ${p.directCost.toFixed(2)}</td>
+        <td class="iq-price-range">${cur} ${(p.unitPrice*0.95).toFixed(2)}–${(p.unitPrice*1.1).toFixed(2)}</td>
+      </tr>`).join('')}
+      ${validParts.length>1?`<tr style="font-weight:700;background:var(--card2)">
+        <td colspan="2">套料合計</td>
+        <td class="iq-cost">${cur} ${validParts.reduce((s,p)=>s+p.directCost,0).toFixed(2)}</td>
+        <td class="iq-price-range">${cur} ${(validParts.reduce((s,p)=>s+p.unitPrice,0)*0.95).toFixed(2)}–${(validParts.reduce((s,p)=>s+p.unitPrice,0)*1.1).toFixed(2)}</td>
+      </tr>`:''}
+    </tbody>
+  </table>`;
+}
+
+function calcInquiry() {
+  const result = liveCalcIQ();
+  if(!result) return;
+  const {partResults, totalUnitCost} = result;
+  const validParts = partResults.filter(p=>p.weight>0);
+  if(!validParts.length){ toast('⚠️ 請填寫至少一個零件重量'); return; }
+  toast('✅ 預報價已生成，見匯總表');
+  // Save to history as inquiry type
+  const s = loadSettings();
+  const cur = s.currency||'CNY';
+  const qty = parseFloat(g('iq-qty')?.value)||0;
+  if(qty>0) {
+    const h = JSON.parse(localStorage.getItem('imq_history')||'[]');
+    h.unshift({
+      qid:'INQ-'+Date.now().toString().slice(-6),
+      date: new Date().toLocaleDateString('zh-TW'),
+      mode:'inquiry',
+      customer: g('iq-cust')?.value||'',
+      contact: g('iq-contact')?.value||'',
+      product: g('iq-prod')?.value||'',
+      qty, unitPrice:totalUnitCost, totalPrice:totalUnitCost*qty,
+      currency:cur
+    });
+    if(h.length>100) h.splice(100);
+    localStorage.setItem('imq_history', JSON.stringify(h));
+    updateStats();
+  }
+}
+
+// ══════════════════════════════════════════
+// Cloud Sync (Supabase)
+// ══════════════════════════════════════════
+const SB_URL = 'https://oqszkhmaeenfijgbvcdx.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xc3praG1hZWVuZmlqZ2J2Y2R4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyNzc4NDksImV4cCI6MjA4Nzg1Mzg0OX0.kj9SYeLjvlBeBXjQuhhP9QovXZ_MGOmr8_xnShbuXnQ';
+
+async function sbFetch(table, method='GET', body=null, id=null) {
+  const url = id ? `${SB_URL}/rest/v1/${table}?id=eq.${id}` : `${SB_URL}/rest/v1/${table}`;
+  const headers = {
+    'apikey': SB_KEY,
+    'Authorization': `Bearer ${SB_KEY}`,
+    'Content-Type': 'application/json',
+    'Prefer': method==='POST' ? 'return=minimal' : 'return=representation'
+  };
+  if(method==='PATCH'||method==='DELETE') headers['Prefer']='return=minimal';
+  const res = await fetch(url, {method, headers, body: body ? JSON.stringify(body) : null});
+  if(method==='GET') return await res.json();
+  return res.ok;
+}
+
+async function syncToCloud() {
+  try {
+    // Sync quotes
+    const quotes = loadHistory();
+    for(const h of quotes) {
+      const row = {
+        id: h.qid, customer: h.customer, contact: h.contact||'',
+        product: h.product, material: h.material||'',
+        qty: h.qty, unit_price: h.unitPrice, total_price: h.totalPrice,
+        currency: h.currency, mode: h.mode||'exist',
+        leadtime: h.leadtime||'', payment: h.payment||'',
+        warranty: h.warranty||'', notes: h.notes||'', date: h.date
+      };
+      await sbFetch('quotes', 'POST', row);
+    }
+    // Sync customers
+    const customers = loadCustomers();
+    for(const c of customers) {
+      const row = {
+        id: c.id, company: c.company, contact: c.contact||'',
+        title: c.title||'', phone: c.phone||'', whatsapp: c.whatsapp||'',
+        email: c.email||'', region: c.region||'', industry: c.industry||'',
+        status: c.status||'new', sales: c.sales||'', notes: c.notes||'',
+        quote_ids: c.quoteIds||[]
+      };
+      await sbFetch('customers', 'POST', row);
+    }
+    // Sync orders
+    const orders = loadOrders();
+    for(const o of orders) {
+      const row = {
+        id: o.id, qid: o.qid, customer_id: o.customerId||'',
+        customer: o.customer||'', contact: o.contact||'',
+        product: o.product||'', material: o.material||'',
+        qty: o.qty, unit_price: o.unitPrice, total_price: o.totalPrice,
+        currency: o.currency, leadtime: o.leadtime||'',
+        payment: o.payment||'', mode: o.mode||'exist',
+        status: o.status||'pending', notes: o.notes||'', log: o.log||[]
+      };
+      await sbFetch('orders', 'POST', row);
+    }
+    toast('☁️ 已同步到雲端');
+    g('sync-status').textContent='☁️ 已同步 '+new Date().toLocaleTimeString('zh-TW');
+  } catch(e) {
+    console.error('Sync error:', e);
+    toast('⚠️ 同步失敗，請檢查網絡');
+  }
+}
+
+async function loadFromCloud() {
+  try {
+    toast('⬇️ 正在從雲端載入...');
+    // Load quotes
+    const quotes = await sbFetch('quotes?order=created_at.desc&limit=200');
+    if(quotes && quotes.length) {
+      const local = quotes.map(q => ({
+        qid:q.id, customer:q.customer, contact:q.contact,
+        product:q.product, material:q.material,
+        qty:q.qty, unitPrice:q.unit_price, totalPrice:q.total_price,
+        currency:q.currency, mode:q.mode, leadtime:q.leadtime,
+        payment:q.payment, warranty:q.warranty, notes:q.notes, date:q.date
+      }));
+      localStorage.setItem('imq_history', JSON.stringify(local));
+    }
+    // Load customers
+    const customers = await sbFetch('customers?order=created_at.desc');
+    if(customers && customers.length) {
+      const local = customers.map(c => ({
+        id:c.id, company:c.company, contact:c.contact, title:c.title,
+        phone:c.phone, whatsapp:c.whatsapp, email:c.email,
+        region:c.region, industry:c.industry, status:c.status,
+        sales:c.sales, notes:c.notes, quoteIds:c.quote_ids||[],
+        createdAt:c.created_at?.slice(0,10)||''
+      }));
+      localStorage.setItem('imq_customers', JSON.stringify(local));
+    }
+    // Load orders
+    const orders = await sbFetch('orders?order=created_at.desc');
+    if(orders && orders.length) {
+      const local = orders.map(o => ({
+        id:o.id, qid:o.qid, customerId:o.customer_id,
+        customer:o.customer, contact:o.contact, product:o.product,
+        material:o.material, qty:o.qty, unitPrice:o.unit_price,
+        totalPrice:o.total_price, currency:o.currency,
+        leadtime:o.leadtime, payment:o.payment, mode:o.mode,
+        status:o.status, notes:o.notes, log:o.log||[],
+        createdAt:o.created_at?.slice(0,10)||''
+      }));
+      localStorage.setItem('imq_orders', JSON.stringify(local));
+    }
+    updateStats();
+    toast('✅ 雲端數據已載入');
+    g('sync-status').textContent='✅ 已載入 '+new Date().toLocaleTimeString('zh-TW');
+  } catch(e) {
+    console.error('Load error:', e);
+    toast('⚠️ 載入失敗，請檢查網絡');
+  }
 }
 
 // Lucide icon init - called after DOM ready and after any dynamic content
