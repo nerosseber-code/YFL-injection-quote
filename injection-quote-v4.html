@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0f1923">
+<title>注塑報價系統</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=Oswald:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+:root {
+  --bg:#0f1923; --card:#16212e; --card2:#1c2d3e; --border:#243447;
+  --accent:#e8a020; --accent-dim:rgba(232,160,32,0.12);
+  --blue:#3b9eff; --blue-dim:rgba(59,158,255,0.12);
+  --green:#2ecc71; --red:#e74c3c;
+  --text:#dce8f0; --muted:#5a7a94; --radius:14px; --tab-h:62px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Noto Sans TC',sans-serif;color:var(--text)}
+body.sc{font-family:'Noto Sans SC',sans-serif}
+.app{display:flex;flex-direction:column;height:100%}
+
+/* Topbar */
+.topbar{background:var(--card);border-bottom:1px solid var(--border);padding:10px 14px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;z-index:10}
+.topbar-left{display:flex;align-items:center;gap:10px}
+.topbar-badge{background:var(--accent);color:#000;font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:1.5px;padding:2px 7px;border-radius:3px}
+.topbar-title{font-family:'Oswald',sans-serif;font-size:18px;letter-spacing:1px;color:#fff}
+.topbar-sub{font-size:10px;color:var(--muted)}
+.topbar-right{display:flex;gap:8px;align-items:center}
+
+/* Language Toggle */
+.lang-toggle{display:flex;background:var(--card2);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.lang-btn{padding:6px 10px;font-size:11px;font-weight:700;cursor:pointer;color:var(--muted);transition:all .2s;border:none;background:transparent;font-family:inherit}
+.lang-btn.active{background:var(--accent);color:#000}
+
+.btn-history{background:var(--card2);border:1px solid var(--border);color:var(--text);padding:6px 11px;border-radius:8px;font-size:12px;cursor:pointer;font-family:inherit}
+
+/* Pages */
+.pages{flex:1;overflow:hidden;position:relative}
+.page{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;transition:transform .3s ease,opacity .3s ease}
+.page.hidden{transform:translateX(100%);opacity:0;pointer-events:none}
+
+/* Tabbar */
+.tabbar{height:var(--tab-h);background:var(--card);border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr 1fr 1fr;flex-shrink:0}
+.tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:all .2s;position:relative;font-size:10px;color:var(--muted)}
+.tab .tab-icon{font-size:20px;transition:transform .2s}
+.tab.active{color:var(--accent)}
+.tab.active .tab-icon{transform:scale(1.1)}
+.tab.active::after{content:'';position:absolute;bottom:0;left:20%;right:20%;height:2px;background:var(--accent);border-radius:2px 2px 0 0}
+.tab-new.active{color:var(--blue)}
+.tab-new.active::after{background:var(--blue)}
+
+/* Scroll content */
+.scroll-content{padding:16px 14px 24px}
+
+/* Home */
+.home-hero{padding:20px 14px 0}
+.hero-label{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+.hero-title{font-family:'Oswald',sans-serif;font-size:28px;letter-spacing:1px;color:#fff;line-height:1.2}
+.hero-title span{color:var(--accent)}
+.mode-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 14px 0}
+.mode-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px 14px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.mode-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .25s}
+.mc-exist::before{background:linear-gradient(135deg,rgba(232,160,32,.1),transparent 60%)}
+.mc-new::before{background:linear-gradient(135deg,rgba(59,158,255,.1),transparent 60%)}
+.mode-card:active{transform:scale(.97)}
+.mode-card:active::before{opacity:1}
+.mc-icon{font-size:30px;margin-bottom:10px}
+.mc-title{font-size:15px;font-weight:700;margin-bottom:4px}
+.mc-exist .mc-title{color:var(--accent)}
+.mc-new .mc-title{color:var(--blue)}
+.mc-desc{font-size:11px;color:var(--muted);line-height:1.5}
+.mc-tag{position:absolute;top:10px;right:10px;font-size:8px;font-weight:700;letter-spacing:1.5px;padding:2px 6px;border-radius:3px}
+.mc-exist .mc-tag{background:var(--accent-dim);color:var(--accent)}
+.mc-new .mc-tag{background:var(--blue-dim);color:var(--blue)}
+.quick-stats{margin:20px 14px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.qs-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center}
+.qs-num{font-family:'Oswald',sans-serif;font-size:24px;color:var(--accent)}
+.qs-label{font-size:10px;color:var(--muted);margin-top:2px}
+.guide-box{margin:16px 14px 0;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;font-size:12px;color:var(--muted);line-height:1.8}
+
+/* Form header */
+.form-header{background:var(--card);border-bottom:1px solid var(--border);padding:12px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.btn-back{background:var(--card2);border:1px solid var(--border);color:var(--text);padding:7px 12px;border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit}
+.form-title{font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:.5px}
+.form-title.exist{color:var(--accent)}
+.form-title.new{color:var(--blue)}
+
+/* Section headers */
+.section-hd{display:flex;align-items:center;gap:8px;margin:20px 0 12px;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;font-family:'JetBrains Mono',monospace}
+.section-hd::before{content:'';width:3px;height:14px;border-radius:2px;background:var(--accent);flex-shrink:0}
+.section-hd.blue::before{background:var(--blue)}
+
+/* Fields */
+.field{margin-bottom:14px}
+.field label{display:block;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.5px;margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;background:var(--card2);border:1.5px solid var(--border);border-radius:10px;padding:13px 14px;color:var(--text);font-family:inherit;font-size:15px;outline:none;transition:border-color .2s;-webkit-appearance:none}
+.field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a7a94' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.field select option{background:var(--card2)}
+.field textarea{resize:none;min-height:70px;font-size:14px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent)}
+.field-hint{font-size:10px;color:var(--muted);margin-top:4px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.cost-badge{display:inline-block;font-size:9px;letter-spacing:1px;font-weight:700;padding:2px 6px;border-radius:3px;margin-left:6px;vertical-align:middle}
+.badge-fixed{background:rgba(232,160,32,.15);color:var(--accent)}
+.badge-var{background:rgba(59,158,255,.15);color:var(--blue)}
+
+/* Live preview */
+.live-preview{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:16px}
+.lp-header{background:var(--card2);padding:10px 14px;font-size:10px;letter-spacing:2px;color:var(--muted);font-family:'JetBrains Mono',monospace;display:flex;justify-content:space-between;align-items:center}
+.lp-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border);font-size:13px}
+.lp-row:last-child{border-bottom:none}
+.lp-row .ln{color:var(--muted)}
+.lp-row .lv{font-family:'JetBrains Mono',monospace;font-size:12px}
+.lp-row.highlight .lv{color:var(--accent);font-weight:700}
+
+/* Calc button */
+.btn-calc{width:100%;margin-top:20px;padding:18px;border-radius:14px;border:none;cursor:pointer;font-family:'Oswald',sans-serif;font-size:20px;letter-spacing:2px;transition:all .2s}
+.btn-calc.exist{background:linear-gradient(135deg,var(--accent),#c87800);color:#000}
+.btn-calc.new{background:linear-gradient(135deg,var(--blue),#1a6fcc);color:#fff}
+.btn-calc:active{transform:scale(.98)}
+
+/* Result */
+.result-hero{padding:20px 14px;text-align:center}
+.result-mode-badge{display:inline-block;font-size:10px;letter-spacing:2px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:12px}
+.result-badge-exist{background:var(--accent-dim);color:var(--accent)}
+.result-badge-new{background:var(--blue-dim);color:var(--blue)}
+.result-quote-id{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:16px}
+.result-price{font-family:'Oswald',sans-serif;letter-spacing:2px;line-height:1}
+.result-price .unit-lbl{font-size:13px;color:var(--muted);margin-bottom:6px}
+.result-price .unit-val{font-size:56px;color:var(--accent)}
+.result-price .unit-sub{font-size:14px;color:var(--muted);margin-top:6px}
+.result-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 14px 16px}
+.ri-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px}
+.ri-label{font-size:10px;color:var(--muted);margin-bottom:4px}
+.ri-value{font-size:14px;font-weight:700}
+.breakdown-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:0 14px 16px}
+.bc-header{padding:10px 14px;font-size:10px;letter-spacing:2px;color:var(--muted);font-family:'JetBrains Mono',monospace;background:var(--card2);display:flex;justify-content:space-between}
+.bc-section{padding:6px 14px 2px;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;background:rgba(255,255,255,.02)}
+.bc-row{display:flex;justify-content:space-between;padding:9px 14px;border-bottom:1px solid var(--border);font-size:12px}
+.bc-row:last-child{border-bottom:none}
+.bc-row .bn{color:var(--muted);flex:1;padding-right:8px}
+.bc-row .bv{font-family:'JetBrains Mono',monospace;flex-shrink:0}
+.bc-row.total-row{background:var(--card2)}
+.bc-row.total-row .bn{color:var(--text);font-weight:700}
+.bc-row.total-row .bv{color:var(--accent);font-weight:700;font-size:14px}
+.btn-contract{display:block;width:calc(100% - 28px);margin:0 14px 12px;padding:17px;border-radius:14px;border:none;cursor:pointer;font-family:'Oswald',sans-serif;font-size:18px;letter-spacing:2px;background:linear-gradient(135deg,#2ecc71,#1a9950);color:#fff;transition:all .2s}
+.btn-contract:active{transform:scale(.98)}
+.btn-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 14px 20px}
+.btn-action{padding:14px;border-radius:12px;border:1.5px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;transition:all .2s;text-align:center}
+.btn-action:active{transform:scale(.97)}
+
+/* History */
+.history-list{padding:14px}
+.hist-empty{text-align:center;padding:60px 20px;color:var(--muted)}
+.hist-empty .he-icon{font-size:48px;margin-bottom:12px}
+.hist-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s}
+.hist-card:active{transform:scale(.98)}
+.hc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.hc-product{font-weight:700;font-size:15px}
+.hc-price{font-family:'Oswald',sans-serif;font-size:20px;color:var(--accent)}
+.hc-meta{display:flex;gap:8px;flex-wrap:wrap}
+.hc-tag{font-size:10px;padding:2px 7px;border-radius:4px}
+.hc-tag-exist{background:var(--accent-dim);color:var(--accent)}
+.hc-tag-new{background:var(--blue-dim);color:var(--blue)}
+.hc-tag-gray{background:var(--card2);color:var(--muted)}
+.hist-clear-btn{display:block;width:100%;margin-top:16px;padding:12px;background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.3);color:var(--red);border-radius:10px;font-family:inherit;font-size:13px;cursor:pointer}
+
+/* Toast */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--green);color:#000;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:700;opacity:0;transition:all .3s;z-index:999;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .3s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal-box{background:var(--card);border-radius:20px 20px 0 0;margin-top:auto;max-height:82vh;overflow-y:auto;padding:20px 16px 30px;transform:translateY(100%);transition:transform .35s ease}
+.modal-overlay.open .modal-box{transform:translateY(0)}
+.modal-handle{width:40px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 16px}
+.modal-title{font-family:'Oswald',sans-serif;font-size:20px;margin-bottom:16px}
+.contract-preview{background:#fff;color:#000;border-radius:10px;padding:20px;font-size:12px;line-height:1.7;font-family:'Noto Sans TC',sans-serif;margin-bottom:16px}
+body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
+.cp-company{text-align:center;font-size:16px;font-weight:900;margin-bottom:2px}
+.cp-subtitle{text-align:center;font-size:10px;color:#666;margin-bottom:12px}
+.cp-contract-title{text-align:center;font-size:14px;font-weight:700;margin-bottom:2px}
+.cp-contract-en{text-align:center;font-size:10px;color:#666;margin-bottom:14px}
+.cp-divider{border:none;border-top:2px solid #000;margin:10px 0}
+.cp-divider-thin{border:none;border-top:1px solid #ccc;margin:8px 0}
+.cp-section{font-weight:700;font-size:12px;margin:12px 0 4px}
+.cp-row{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #f0f0f0;font-size:11px}
+.cp-row .label{color:#555}
+.cp-clause{font-size:11px;margin:4px 0;color:#333}
+.cp-clause-en{font-size:10px;color:#888;margin:0 0 8px;font-style:italic}
+.cp-sig{display:flex;justify-content:space-between;margin-top:20px}
+.cp-sig-block{flex:1;text-align:center;padding-top:30px;border-top:1px solid #000;font-size:11px}
+.cp-total-box{background:#000;color:#fff;padding:10px 14px;border-radius:6px;display:flex;justify-content:space-between;margin:10px 0}
+.cp-total-box .ct-lbl{font-size:11px}
+.cp-total-box .ct-val{font-size:16px;font-weight:700}
+.btn-dl-contract{width:100%;padding:16px;border-radius:12px;border:none;cursor:pointer;background:linear-gradient(135deg,#2ecc71,#1a9950);color:#fff;font-family:'Oswald',sans-serif;font-size:18px;letter-spacing:1px}
+/* ── Settings Page ── */
+.settings-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:4px}
+.settings-hint{font-size:11px;color:var(--muted);margin:-8px 0 12px;padding:0 2px}
+
+/* Material Library */
+.mat-lib-list{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.mat-row{display:grid;grid-template-columns:1fr 90px auto auto;gap:8px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
+.mat-row-name,.mat-row-price{background:var(--card2);border:1.5px solid var(--border);border-radius:8px;padding:9px 10px;color:var(--text);font-family:inherit;font-size:14px;outline:none;width:100%;-webkit-appearance:none}
+.mat-row-name:focus,.mat-row-price:focus{border-color:var(--accent)}
+.mat-row-unit{font-size:11px;color:var(--muted);white-space:nowrap}
+.mat-row-del{background:rgba(231,76,60,.15);border:none;color:var(--red);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+.btn-add-mat{width:100%;padding:13px;border-radius:10px;border:1.5px dashed var(--border);background:transparent;color:var(--muted);font-family:inherit;font-size:14px;cursor:pointer;margin-bottom:16px;transition:all .2s}
+.btn-add-mat:active{background:var(--card2);color:var(--text)}
+
+.btn-save-settings{width:100%;padding:18px;border-radius:14px;border:none;cursor:pointer;font-family:'Oswald',sans-serif;font-size:20px;letter-spacing:2px;background:linear-gradient(135deg,var(--green),#1a9950);color:#fff;transition:all .2s;margin-top:8px}
+.btn-save-settings:active{transform:scale(.98)}
+
+/* Settings saved indicator */
+.settings-version{text-align:center;font-size:10px;color:var(--muted);margin-top:12px;font-family:'JetBrains Mono',monospace}
+
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+
+/* Settings Page */
+.settings-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 14px 2px;margin-bottom:14px}
+.settings-hint{font-size:11px;color:var(--muted);margin:-8px 0 12px;line-height:1.5}
+.mat-lib-list{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.mat-row{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;display:flex;align-items:center;gap:8px}
+.mat-row-name{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:inherit;font-size:14px;outline:none}
+.mat-row-name:focus{border-color:var(--accent)}
+.mat-row-price{width:100px;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:14px;outline:none;text-align:right}
+.mat-row-price:focus{border-color:var(--accent)}
+.mat-row-unit{font-size:11px;color:var(--muted);white-space:nowrap}
+.mat-row-del{background:rgba(231,76,60,.15);border:none;color:var(--red);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.btn-add-mat{width:100%;padding:13px;border-radius:10px;border:1.5px dashed var(--border);background:transparent;color:var(--muted);font-family:inherit;font-size:14px;cursor:pointer;margin-bottom:16px;transition:all .2s}
+.btn-add-mat:active{background:var(--card)}
+.btn-save-settings{width:100%;padding:17px;border-radius:14px;border:none;cursor:pointer;font-family:'Oswald',sans-serif;font-size:20px;letter-spacing:2px;background:linear-gradient(135deg,var(--green),#1a9950);color:#fff;transition:all .2s}
+.btn-save-settings:active{transform:scale(.98)}
+.tab-settings.active{color:var(--green)}
+.tab-settings.active::after{background:var(--green)}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-badge">IMQ</div>
+      <div>
+        <div class="topbar-title" data-i18n="appTitle">注塑報價</div>
+        <div class="topbar-sub" data-i18n="appSub">Injection Molding Quotation</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="btn-tc" onclick="setLang('tc')">繁體</button>
+        <button class="lang-btn" id="btn-sc" onclick="setLang('sc')">简体</button>
+      </div>
+      <button class="btn-history" onclick="showHistory()" data-i18n="btnHistory">📋 歷史</button>
+    </div>
+  </div>
+
+  <div class="pages">
+
+    <!-- HOME -->
+    <div class="page" id="pg-home">
+      <div class="home-hero">
+        <div class="hero-label" data-i18n="heroLabel">即時報價系統 · Live Quotation</div>
+        <div class="hero-title" data-i18n-html="heroTitle">選擇<span>報價</span>類型</div>
+      </div>
+      <div class="mode-cards">
+        <div class="mode-card mc-exist" onclick="openForm('exist')">
+          <div class="mc-tag">EXISTING</div>
+          <div class="mc-icon">🔧</div>
+          <div class="mc-title" data-i18n="modeExistTitle">已有模具</div>
+          <div class="mc-desc" data-i18n="modeExistDesc">客戶自備模具，計算生產成本</div>
+        </div>
+        <div class="mode-card mc-new" onclick="openForm('new')">
+          <div class="mc-tag">+ MOLD</div>
+          <div class="mc-icon">🏗️</div>
+          <div class="mc-title" data-i18n="modeNewTitle">含開模費</div>
+          <div class="mc-desc" data-i18n="modeNewDesc">從開模到生產一站式報價</div>
+        </div>
+      </div>
+      <div class="quick-stats">
+        <div class="qs-card"><div class="qs-num" id="stat-count">0</div><div class="qs-label" data-i18n="statTotal">歷史報價</div></div>
+        <div class="qs-card"><div class="qs-num" id="stat-today">0</div><div class="qs-label" data-i18n="statToday">今日報價</div></div>
+        <div class="qs-card"><div class="qs-num" id="stat-avg">—</div><div class="qs-label" data-i18n="statAvg">平均單價</div></div>
+      </div>
+      <div class="guide-box" data-i18n="guideText">
+        ① 選擇報價類型 → ② 填寫固定及浮動成本 → ③ 即時預覽<br>④ 確認後生成中英雙語合同 PDF → ⑤ 分享給客戶
+      </div>
+    </div>
+
+    <!-- FORM: EXISTING MOLD -->
+    <div class="page hidden" id="pg-exist">
+      <div class="form-header">
+        <button class="btn-back" onclick="goHome()" data-i18n="btnBack">← 返回</button>
+        <div class="form-title exist" data-i18n="existFormTitle">🔧 已有模具報價</div>
+      </div>
+      <div class="scroll-content">
+
+        <div class="section-hd" data-i18n="secCustomer">客戶資料</div>
+        <div class="grid2">
+          <div class="field"><label data-i18n="lblCustomer">客戶 / 公司</label><input type="text" id="e-cust" data-i18n-ph="phCompany" placeholder="公司名稱"></div>
+          <div class="field"><label data-i18n="lblContact">聯絡人</label><input type="text" id="e-contact" data-i18n-ph="phContact" placeholder="姓名"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label data-i18n="lblProduct">產品名稱</label><input type="text" id="e-prod" data-i18n-ph="phProduct" placeholder="產品描述"></div>
+          <div class="field"><label data-i18n="lblSku">料號</label><input type="text" id="e-sku" placeholder="SKU"></div>
+        </div>
+
+        <div class="section-hd" data-i18n="secFixed">固定成本 <span class="cost-badge badge-fixed">FIXED</span></div>
+        <div class="field">
+          <label data-i18n="lblRent">廠房租金攤銷（元/月）<span class="cost-badge badge-fixed">固定</span></label>
+          <input type="number" id="e-rent" inputmode="decimal" placeholder="5000" oninput="liveCalc('e')">
+          <div class="field-hint" data-i18n="hintRent">按月總產量分攤到每件成本</div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label data-i18n="lblDepr">設備折舊（元/月）<span class="cost-badge badge-fixed">固定</span></label><input type="number" id="e-depr" inputmode="decimal" placeholder="3000" oninput="liveCalc('e')"></div>
+          <div class="field"><label data-i18n="lblMgmt">管理工資（元/月）<span class="cost-badge badge-fixed">固定</span></label><input type="number" id="e-mgmt" inputmode="decimal" placeholder="8000" oninput="liveCalc('e')"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label data-i18n="lblInsurance">保險稅費（元/月）<span class="cost-badge badge-fixed">固定</span></label><input type="number" id="e-insurance" inputmode="decimal" placeholder="1000" oninput="liveCalc('e')"></div>
+          <div class="field"><label data-i18n="lblMonthVol">本月總產量（件）</label><input type="number" id="e-monthly-vol" inputmode="numeric" placeholder="100000" oninput="liveCalc('e')"></div>
+        </div>
+
+        <div class="section-hd blue" data-i18n="secVariable">浮動成本 <span class="cost-badge badge-var">VARIABLE</span></div>
+        <div class="grid2">
+          <div class="field">
+            <label data-i18n="lblMaterial">原料種類<span class="cost-badge badge-var">浮動</span></label>
+            <select id="e-mat" onchange="liveCalc('e')">
+              <option value="" data-i18n="optSelect">請選擇...</option>
+              <option value="PP">PP 聚丙烯</option><option value="ABS">ABS</option>
+              <option value="PE">PE 聚乙烯</option><option value="PC">PC 聚碳酸酯</option>
+              <option value="POM">POM 聚甲醛</option><option value="Nylon">Nylon PA66</option>
+              <option value="TPE">TPE</option><option value="PS">PS</option>
+              <option value="其他" data-i18n="optOther">其他</option>
+            </select>
+          </div>
+          <div class="field"><label data-i18n="lblMatPrice">原料單價（元/kg）<span class="cost-badge badge-var">浮動</span></label><input type="number" id="e-matprice" inputmode="decimal" placeholder="22" oninput="liveCalc('e')"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label data-i18n="lblWeight">件重（克）<span class="cost-badge badge-var">浮動</span></label><input type="number" id="e-weight" inputmode="decimal" placeholder="50" oninput="liveCalc('e')"></div>
+          <div class="field"><label data-i18n="lblRunner">水口料損耗（%）</label><input type="number" id="e-runner" inputmode="decimal" placeholder="8" value="8" oninput="liveCalc('e')"></div>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label data-i18n="lblTonnage">機器噸位</label>
+            <select id="e-tonnage" onchange="autoMachineRate('e');liveCalc('e')">
+              <option value="60">60T</option><option value="80">80T</option><option value="120">120T</option>
+              <option value="160" selected>160T</option><option value="250">250T</option>
+              <option value="350">350T</option><option value="500">500T</option><option value="800">800T</option>
+            </select>
+          </div>
+          <div class="field"><label data-i18n="lblMachRate">機器費（元/h）<span class="cost-badge badge-var">浮動</span></label><input type="number" id="e-machrate" inputmode="decimal" placeholder="160" oninput="liveCalc('e')"></div>
+        </div>
+        <div class="grid3">
+          <div class="field"><label data-i18n="lblCavity">穴數</label><input type="number" id="e-cavity" inputmode="numeric" placeholder="1" value="1" oninput="liveCalc('e')"></div>
+          <div class="field"><label data-i18n="lblCycle">週期（秒）</label><input type="number" id="e-cycle" inputmode="numeric" placeholder="30" value="30" oninput="liveCalc('e')"></div>
+          <div class="field"><label data-i18n="lblDefect">次品率（%）</label><input type="number" id="e-defect" inputmode="decimal" placeholder="3" value="3" oninput="liveCalc('e')"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label data-i18n="lblLabor">人工費（元/h）<span class="cost-badge badge-var">浮動</span></label><input type="number" id="e-labor" inputmode="decimal" placeholder="50" value="50" oninput="liveCalc('e')"></div>
+          <div class="field"><label data-i18n="lblElec">電費（元/h）<span class="cost-badge badge-var">浮動</span></label><input type="number" id="e-elec" inputmode="decimal" placeholder="30" value="30" oninput="liveCalc('e')"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label data-i18n="lblSurface">表面處理（元/件）</label><input type="number" id="e-surface" inputmode="decimal" placeholder="0" value="0" oninput="liveCalc('e')"></div>
+          <div class="field"><label data-i18n="lblPack">包裝（元/件）</label><input type="number" id="e-pack" inputmode="decimal" placeholder="1.5" value="1.5" oninput="liveCalc('e')"></div>
+        </div>
+
+        <div class="section-hd" data-i18n="secOrder">訂單 &amp; 利潤</div>
+        <div class="grid2">
+          <div class="field"><label data-i18n="lblQty">訂購數量（件）</label><input type="number" id="e-qty" inputmode="numeric" placeholder="10000" oninput="liveCalc('e')"></div>
+          <div class="field"><label data-i18n="lblProfit">利潤率（%）</label><input type="number" id="e-profit" inputmode="decimal" placeholder="20" value="20" oninput="liveCalc('e')"></div>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label data-i18n="lblPayment">付款條件</label>
+            <select id="e-payment">
+              <option value="d50" data-i18n="pay1">訂金50%，交貨前付清</option>
+              <option value="d30" data-i18n="pay2">訂金30%，餘款月結</option>
+              <option value="full" data-i18n="pay3">全數預付</option>
+              <option value="n30" data-i18n="pay4">月結30天</option>
+              <option value="n60" data-i18n="pay5">月結60天</option>
+            </select>
+          </div>
+          <div class="field"><label data-i18n="lblLeadtime">交貨期（工作天）</label><input type="number" id="e-leadtime" inputmode="numeric" placeholder="15" value="15" oninput="liveCalc('e')"></div>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label data-i18n="lblWarranty">質保期</label>
+            <select id="e-warranty">
+              <option value="1y" data-i18n="war1">1 年</option>
+              <option value="6m" data-i18n="war2">半年</option>
+              <option value="3m" data-i18n="war3">3 個月</option>
+              <option value="none" data-i18n="war4">無</option>
+            </select>
+          </div>
+          <div class="field">
+            <label data-i18n="lblCurrency">貨幣</label>
+            <select id="e-currency">
+              <option value="HKD">HKD 港幣</option>
+              <option value="CNY">CNY 人民幣</option>
+              <option value="USD">USD 美元</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="live-preview">
+          <div class="lp-header"><span data-i18n="previewTitle">即時成本預覽</span><span id="e-prev-total">—</span></div>
+          <div class="lp-row"><span class="ln" data-i18n="prevMat">📦 材料成本/件</span><span class="lv" id="e-p-mat">—</span></div>
+          <div class="lp-row"><span class="ln" data-i18n="prevMach">⚙️ 機器+人工+電費/件</span><span class="lv" id="e-p-mach">—</span></div>
+          <div class="lp-row"><span class="ln" data-i18n="prevFixed">🏢 固定成本攤銷/件</span><span class="lv" id="e-p-fixed">—</span></div>
+          <div class="lp-row"><span class="ln" data-i18n="prevOther">🎨 表面+包裝/件</span><span class="lv" id="e-p-other">—</span></div>
+          <div class="lp-row highlight"><span class="ln" data-i18n="prevUnit">💰 建議報價/件（含利潤）</span><span class="lv" id="e-p-unit">—</span></div>
+        </div>
+
+        <div class="field" style="margin-top:14px">
+          <label data-i18n="lblNotes">備注</label>
+          <textarea id="e-notes" data-i18n-ph="phNotes" placeholder="特別要求、顏色、認證等..."></textarea>
+        </div>
+        <button class="btn-calc exist" onclick="calcExist()" data-i18n="btnCalc">立即生成報價 →</button>
+        <div style="height:10px"></div>
+      </div>
+    </div>
+
+    <!-- FORM: NEW MOLD -->
+    <div class="page hidden" id="pg-new">
+      <div class="form-header">
+        <button class="btn-back" onclick="goHome()" data-i18n="btnBack">← 返回</button>
+        <div class="form-title new" data-i18n="newFormTitle">🏗️ 含開模費報價</div>
+      </div>
+      <div class="scroll-content">
+
+        <div class="section-hd" data-i18n="secCustomer">客戶資料</div>
+        <div class="grid2">
+          <div class="field"><label data-i18n="lblCustomer">客戶 / 公司</label><input type="text" id="n-cust" data-i18n-ph="phCompany" placeholder="公司名稱"></div>
+          <div class="field"><label data-i18n="lblContact">聯絡人</label><input type="text" id="n-contact" data-i18n-ph="phContact" placeholder="姓名"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label data-i18n="lblProduct">產品名稱</label><input type="text" id="n-prod" data-i18n-ph="phProduct" placeholder="產品描述"></div>
+          <div class="field"><label data-i18n="lblSku">料號</label><input type="text" id="n-sku" placeholder="SKU"></div>
+        </div>
+
+        <div class="section-hd" data-i18n="secMold">模具費用（一次性）</div>
+        <div class="grid2">
+          <div class="field">
+            <label data-i18n="lblMoldType">模具類型</label>
+            <select id="n-moldtype" onchange="autoMoldCost()">
+              <option value="" data-i18n="optSelect">請選擇...</option>
+              <option value="simple" data-i18n="moldSimple">簡單模（單穴）</option>
+              <option value="medium" data-i18n="moldMedium">中型模（多穴）</option>
+              <option value="complex" data-i18n="moldComplex">複雜模（滑塊）</option>
+              <option value="precision" data-i18n="moldPrecision">精密模</option>
+              <option value="custom" data-i18n="moldCustom">自定義</option>
+            </select>
+          </div>
+          <div class="field">
+            <label data-i18n="lblMoldMat">模具鋼材</label>
+            <select id="n-moldmat" onchange="autoMoldCost()">
+              <option value="p20" data-i18n="steelP20">P20（一般）</option>
+              <option value="718h" data-i18n="steel718">718H（高光）</option>
+              <option value="h13" data-i18n="steelH13">H13（高壽命）</option>
+              <option value="s136" data-i18n="steelS136">S136（防腐）</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label data-i18n="lblMoldCost">開模費（元）</label>
+            <input type="number" id="n-moldcost" inputmode="decimal" data-i18n-ph="phMoldCost" placeholder="系統估算或手填" oninput="liveCalc('n')">
+            <div class="field-hint" id="n-mold-hint" data-i18n="hintMoldType">請先選擇模具類型</div>
+          </div>
+          <div class="field">
+            <label data-i18n="lblTrialCost">試模費（元/次）× 次數</label>
+            <div class="grid2" style="margin:0">
+              <input type="number" id="n-trial-cost" inputmode="decimal" placeholder="3000" value="3000" oninput="liveCalc('n')">
+              <input type="number" id="n-trial-n" inputmode="numeric" placeholder="2" value="2" oninput="liveCalc('n')">
+            </div>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label data-i18n="lblMoldDays">開模交期（天）</label><input type="number" id="n-molddays" inputmode="numeric" placeholder="30" value="30"></div>
+          <div class="field">
+            <label data-i18n="lblAmortize">模具攤銷批量（件）</label>
+            <input type="number" id="n-amortize" inputmode="numeric" placeholder="50000" oninput="liveCalc('n')">
+            <div class="field-hint" data-i18n="hintAmortize">分攤至此批，算每件模費</div>
+          </div>
+        </div>
+
+        <div class="section-hd" data-i18n="secFixed">固定成本 <span class="cost-badge badge-fixed">FIXED</span></div>
+        <div class="field"><label data-i18n="lblRent">廠房租金攤銷（元/月）</label><input type="number" id="n-rent" inputmode="decimal" placeholder="5000" oninput="liveCalc('n')"></div>
+        <div class="grid2">
+          <div class="field"><label data-i18n="lblDepr">設備折舊（元/月）</label><input type="number" id="n-depr" inputmode="decimal" placeholder="3000" oninput="liveCalc('n')"></div>
+          <div class="field"><label data-i18n="lblMgmt">管理工資（元/月）</label><input type="number" id="n-mgmt" inputmode="decimal" placeholder="8000" oninput="liveCalc('n')"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label data-i18n="lblInsurance">保險稅費（元/月）</label><input type="number" id="n-insurance" inputmode="decimal" placeholder="1000" oninput="liveCalc('n')"></div>
+          <div class="field"><label data-i18n="lblMonthVol">本月總產量（件）</label><input type="number" id="n-monthly-vol" inputmode="numeric" placeholder="100000" oninput="liveCalc('n')"></div>
+        </div>
+
+        <div class="section-hd blue" data-i18n="secVariable">浮動成本 <span class="cost-badge badge-var">VARIABLE</span></div>
+        <div class="grid2">
+          <div class="field">
+            <label data-i18n="lblMaterial">原料種類<span class="cost-badge badge-var">浮動</span></label>
+            <select id="n-mat" onchange="liveCalc('n')">
+              <option value="" data-i18n="optSelect">請選擇...</option>
+              <option value="PP">PP 聚丙烯</option><option value="ABS">ABS</option>
+              <option value="PE">PE 聚乙烯</option><option value="PC">PC 聚碳酸酯</option>
+              <option value="POM">POM 聚甲醛</option><option value="Nylon">Nylon PA66</option>
+              <option value="TPE">TPE</option><option value="PS">PS</option>
+              <option value="其他" data-i18n="optOther">其他</option>
+            </select>
+          </div>
+          <div class="field"><label data-i18n="lblMatPrice">原料單價（元/kg）</label><input type="number" id="n-matprice" inputmode="decimal" placeholder="22" oninput="liveCalc('n')"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label data-i18n="lblWeight">件重（克）</label><input type="number" id="n-weight" inputmode="decimal" placeholder="80" oninput="liveCalc('n')"></div>
+          <div class="field"><label data-i18n="lblRunner">水口料損耗（%）</label><input type="number" id="n-runner" inputmode="decimal" placeholder="8" value="8" oninput="liveCalc('n')"></div>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label data-i18n="lblTonnage">機器噸位</label>
+            <select id="n-tonnage" onchange="autoMachineRate('n');liveCalc('n')">
+              <option value="60">60T</option><option value="80">80T</option><option value="120">120T</option>
+              <option value="160" selected>160T</option><option value="250">250T</option>
+              <option value="350">350T</option><option value="500">500T</option>
+            </select>
+          </div>
+          <div class="field"><label data-i18n="lblMachRate">機器費（元/h）</label><input type="number" id="n-machrate" inputmode="decimal" placeholder="160" oninput="liveCalc('n')"></div>
+        </div>
+        <div class="grid3">
+          <div class="field"><label data-i18n="lblCavity">穴數</label><input type="number" id="n-cavity" inputmode="numeric" placeholder="1" value="1" oninput="liveCalc('n')"></div>
+          <div class="field"><label data-i18n="lblCycle">週期（秒）</label><input type="number" id="n-cycle" inputmode="numeric" placeholder="35" value="35" oninput="liveCalc('n')"></div>
+          <div class="field"><label data-i18n="lblDefect">次品率（%）</label><input type="number" id="n-defect" inputmode="decimal" placeholder="3" value="3" oninput="liveCalc('n')"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label data-i18n="lblLabor">人工費（元/h）</label><input type="number" id="n-labor" inputmode="decimal" placeholder="50" value="50" oninput="liveCalc('n')"></div>
+          <div class="field"><label data-i18n="lblElec">電費（元/h）</label><input type="number" id="n-elec" inputmode="decimal" placeholder="30" value="30" oninput="liveCalc('n')"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label data-i18n="lblSurface">表面處理（元/件）</label><input type="number" id="n-surface" inputmode="decimal" placeholder="0" value="0" oninput="liveCalc('n')"></div>
+          <div class="field"><label data-i18n="lblPack">包裝（元/件）</label><input type="number" id="n-pack" inputmode="decimal" placeholder="2" value="2" oninput="liveCalc('n')"></div>
+        </div>
+
+        <div class="section-hd" data-i18n="secOrder">訂單 &amp; 利潤</div>
+        <div class="grid2">
+          <div class="field"><label data-i18n="lblQty">訂購數量（件）</label><input type="number" id="n-qty" inputmode="numeric" placeholder="50000" oninput="liveCalc('n')"></div>
+          <div class="field"><label data-i18n="lblProfit">利潤率（%）</label><input type="number" id="n-profit" inputmode="decimal" placeholder="20" value="20" oninput="liveCalc('n')"></div>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label data-i18n="lblPayment">付款條件</label>
+            <select id="n-payment">
+              <option value="d50" data-i18n="pay1">訂金50%，交貨前付清</option>
+              <option value="d30" data-i18n="pay2">訂金30%，餘款月結</option>
+              <option value="full" data-i18n="pay3">全數預付</option>
+              <option value="n30" data-i18n="pay4">月結30天</option>
+            </select>
+          </div>
+          <div class="field">
+            <label data-i18n="lblWarranty">質保期</label>
+            <select id="n-warranty">
+              <option value="1y" data-i18n="war1">1 年</option>
+              <option value="6m" data-i18n="war2">半年</option>
+              <option value="3m" data-i18n="war3">3 個月</option>
+              <option value="none" data-i18n="war4">無</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label data-i18n="lblLeadtimeNew">交貨期（開模後天數）</label><input type="number" id="n-leadtime" inputmode="numeric" placeholder="15" value="15"></div>
+          <div class="field">
+            <label data-i18n="lblCurrency">貨幣</label>
+            <select id="n-currency">
+              <option value="HKD">HKD 港幣</option>
+              <option value="CNY">CNY 人民幣</option>
+              <option value="USD">USD 美元</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="live-preview">
+          <div class="lp-header"><span data-i18n="previewTitle">即時成本預覽</span><span id="n-prev-total">—</span></div>
+          <div class="lp-row"><span class="ln" data-i18n="prevMold">🏗️ 模具攤銷/件</span><span class="lv" id="n-p-mold">—</span></div>
+          <div class="lp-row"><span class="ln" data-i18n="prevMat">📦 材料成本/件</span><span class="lv" id="n-p-mat">—</span></div>
+          <div class="lp-row"><span class="ln" data-i18n="prevMach">⚙️ 機器+人工+電費/件</span><span class="lv" id="n-p-mach">—</span></div>
+          <div class="lp-row"><span class="ln" data-i18n="prevFixed">🏢 固定成本攤銷/件</span><span class="lv" id="n-p-fixed">—</span></div>
+          <div class="lp-row"><span class="ln" data-i18n="prevOther">🎨 表面+包裝/件</span><span class="lv" id="n-p-other">—</span></div>
+          <div class="lp-row highlight"><span class="ln" data-i18n="prevUnit">💰 建議報價/件（含利潤）</span><span class="lv" id="n-p-unit">—</span></div>
+        </div>
+
+        <div class="field" style="margin-top:14px">
+          <label data-i18n="lblNotes">備注</label>
+          <textarea id="n-notes" data-i18n-ph="phNotes" placeholder="特別要求、顏色、認證等..."></textarea>
+        </div>
+        <button class="btn-calc new" onclick="calcNew()" data-i18n="btnCalc">立即生成報價 →</button>
+        <div style="height:10px"></div>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="page hidden" id="pg-result">
+      <div class="form-header">
+        <button class="btn-back" onclick="goHome()" data-i18n="btnBackHome">← 主頁</button>
+        <div class="form-title" id="result-header-title">報價單</div>
+      </div>
+      <div class="result-hero">
+        <div class="result-mode-badge" id="r-badge">已有模具</div>
+        <div class="result-quote-id" id="r-qid">QUO-000000</div>
+        <div class="result-price">
+          <div class="unit-lbl" data-i18n="unitLbl">建議單件報價</div>
+          <div class="unit-val" id="r-unit">¥0.00</div>
+          <div class="unit-sub" id="r-sub">—</div>
+        </div>
+      </div>
+      <div class="result-info-grid">
+        <div class="ri-card"><div class="ri-label" data-i18n="lblCustomer">客戶</div><div class="ri-value" id="r-cust">—</div></div>
+        <div class="ri-card"><div class="ri-label" data-i18n="lblProduct">產品</div><div class="ri-value" id="r-prod">—</div></div>
+        <div class="ri-card"><div class="ri-label" data-i18n="lblQty">數量</div><div class="ri-value" id="r-qty">—</div></div>
+        <div class="ri-card"><div class="ri-label" data-i18n="lblMaterial">原料</div><div class="ri-value" id="r-mat">—</div></div>
+        <div class="ri-card"><div class="ri-label" data-i18n="lblLeadtime">交貨期</div><div class="ri-value" id="r-lead">—</div></div>
+        <div class="ri-card"><div class="ri-label" data-i18n="totalAmount">總金額</div><div class="ri-value" id="r-total" style="color:var(--accent)">—</div></div>
+      </div>
+      <div class="breakdown-card">
+        <div class="bc-header"><span data-i18n="bdTitle">成本明細 · Cost Breakdown</span><span id="r-date">—</span></div>
+        <div id="r-breakdown"></div>
+      </div>
+      <button class="btn-contract" onclick="openContractModal()" data-i18n="btnContract">📄 生成中英雙語合同 PDF</button>
+      <div class="btn-actions">
+        <button class="btn-action" onclick="shareQuote()" data-i18n="btnShare">📤 分享報價</button>
+        <button class="btn-action" onclick="newQuote()" data-i18n="btnNewQuote">➕ 新報價</button>
+      </div>
+    </div>
+
+    <!-- HISTORY -->
+    <div class="page hidden" id="pg-history">
+      <div class="form-header">
+        <button class="btn-back" onclick="goHome()" data-i18n="btnBack">← 返回</button>
+        <div class="form-title" data-i18n="histTitle">📋 報價歷史</div>
+      </div>
+      <div class="history-list" id="history-list"></div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="page hidden" id="pg-settings">
+      <div class="form-header">
+        <button class="btn-back" onclick="goHome()">← 返回</button>
+        <div class="form-title" style="color:var(--green)" data-i18n="settingsTitle">⚙️ 設置</div>
+      </div>
+      <div class="scroll-content">
+
+        <!-- Company Info -->
+        <div class="section-hd" data-i18n="secCompanyInfo">公司資料</div>
+        <div class="settings-card">
+          <div class="field"><label data-i18n="lblCompanyName">公司名稱（合同用）</label><input type="text" id="s-company" data-i18n-ph="phCompanyName" placeholder="例：香港XX塑膠製品有限公司"></div>
+          <div class="field"><label data-i18n="lblCompanyNameEn">公司英文名稱</label><input type="text" id="s-company-en" placeholder="e.g. HK XX Plastics Ltd."></div>
+          <div class="field"><label data-i18n="lblDefaultCurrency">預設貨幣</label>
+            <select id="s-currency">
+              <option value="HKD">HKD 港幣</option>
+              <option value="CNY">CNY 人民幣</option>
+              <option value="USD">USD 美元</option>
+            </select>
+          </div>
+          <div class="field"><label data-i18n="lblDefaultProfit">預設利潤率（%）</label><input type="number" id="s-profit" inputmode="decimal" placeholder="20" value="20"></div>
+        </div>
+
+        <!-- Fixed Costs Defaults -->
+        <div class="section-hd" data-i18n="secFixedDefaults">固定成本預設值 <span class="cost-badge badge-fixed">FIXED</span></div>
+        <div class="settings-hint" data-i18n="hintFixedDefaults">儲存後，每次開啟報價表單自動填入</div>
+        <div class="settings-card">
+          <div class="field"><label data-i18n="lblRent">廠房租金（元/月）</label><input type="number" id="s-rent" inputmode="decimal" placeholder="5000"></div>
+          <div class="field"><label data-i18n="lblDepr">設備折舊（元/月）</label><input type="number" id="s-depr" inputmode="decimal" placeholder="3000"></div>
+          <div class="field"><label data-i18n="lblMgmt">管理工資（元/月）</label><input type="number" id="s-mgmt" inputmode="decimal" placeholder="8000"></div>
+          <div class="field"><label data-i18n="lblInsurance">保險稅費（元/月）</label><input type="number" id="s-insurance" inputmode="decimal" placeholder="1000"></div>
+          <div class="field"><label data-i18n="lblMonthVol">月均總產量（件）</label><input type="number" id="s-monthly-vol" inputmode="numeric" placeholder="100000"></div>
+        </div>
+
+        <!-- Variable Cost Defaults -->
+        <div class="section-hd blue" data-i18n="secVarDefaults">浮動成本預設值 <span class="cost-badge badge-var">VARIABLE</span></div>
+        <div class="settings-card">
+          <div class="field"><label data-i18n="lblLabor">人工費（元/h）</label><input type="number" id="s-labor" inputmode="decimal" placeholder="50"></div>
+          <div class="field"><label data-i18n="lblElec">電費（元/h）</label><input type="number" id="s-elec" inputmode="decimal" placeholder="30"></div>
+          <div class="field"><label data-i18n="lblDefect">預設次品率（%）</label><input type="number" id="s-defect" inputmode="decimal" placeholder="3"></div>
+          <div class="field"><label data-i18n="lblRunner">水口料損耗（%）</label><input type="number" id="s-runner" inputmode="decimal" placeholder="8"></div>
+          <div class="field"><label data-i18n="lblPack">包裝費（元/件）</label><input type="number" id="s-pack" inputmode="decimal" placeholder="1.5"></div>
+          <div class="field"><label data-i18n="lblLeadtime">預設交貨期（工作天）</label><input type="number" id="s-leadtime" inputmode="numeric" placeholder="15"></div>
+        </div>
+
+        <!-- Material Price Library -->
+        <div class="section-hd" data-i18n="secMatLib">材料價格庫 <span class="cost-badge badge-var">VARIABLE</span></div>
+        <div class="settings-hint" data-i18n="hintMatLib">選擇原料時自動帶入當前市場價格，可隨時更新</div>
+        <div class="mat-lib-list" id="mat-lib-list"></div>
+        <button class="btn-add-mat" onclick="addMatRow()" data-i18n="btnAddMat">＋ 新增原料</button>
+
+        <!-- Save Button -->
+        <button class="btn-save-settings" onclick="saveSettings()" data-i18n="btnSaveSettings">💾 儲存所有設置</button>
+        <div class="settings-version" id="settings-version"></div>
+        <div style="height:20px"></div>
+      </div>
+    </div>
+
+  </div><!-- /pages -->
+
+  <!-- Tabbar -->
+  <div class="tabbar">
+    <div class="tab active" id="tab-home" onclick="switchTab('home')">
+      <div class="tab-icon">🏠</div><span data-i18n="tabHome">主頁</span>
+    </div>
+    <div class="tab tab-new" id="tab-exist" onclick="openForm('exist')">
+      <div class="tab-icon">🔧</div><span data-i18n="tabExist">已有模具</span>
+    </div>
+    <div class="tab tab-new" id="tab-new" onclick="openForm('new')">
+      <div class="tab-icon">🏗️</div><span data-i18n="tabNew">含開模</span>
+    </div>
+    <div class="tab" id="tab-settings" onclick="openSettings()">
+      <div class="tab-icon">⚙️</div><span data-i18n="tabSettings">設置</span>
+    </div>
+  </div>
+
+</div><!-- /app -->
+
+<div class="toast" id="toast"></div>
+
+<!-- Contract Modal -->
+<div class="modal-overlay" id="contract-modal" onclick="closeContractModal(event)">
+  <div class="modal-box">
+    <div class="modal-handle"></div>
+    <div class="modal-title" data-i18n="contractPreviewTitle">📄 合同預覽 · Contract Preview</div>
+    <div class="contract-preview" id="contract-content"></div>
+    <button class="btn-dl-contract" onclick="downloadPDF()" data-i18n="btnDownloadPDF">⬇️ 下載 PDF / Download PDF</button>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// i18n Language Packs
+// ══════════════════════════════════════════
+const LANG = {
+  tc: {
+    appTitle:'注塑報價', appSub:'Injection Molding Quotation',
+    heroLabel:'即時報價系統 · Live Quotation',
+    heroTitle:'選擇<span>報價</span>類型',
+    modeExistTitle:'已有模具', modeExistDesc:'客戶自備模具，計算生產成本',
+    modeNewTitle:'含開模費', modeNewDesc:'從開模到生產一站式報價',
+    statTotal:'歷史報價', statToday:'今日報價', statAvg:'平均單價',
+    guideText:'① 選擇報價類型 → ② 填寫固定及浮動成本 → ③ 即時預覽<br>④ 確認後生成中英雙語合同 PDF → ⑤ 分享給客戶',
+    btnHistory:'📋 歷史', btnBack:'← 返回', btnBackHome:'← 主頁',
+    existFormTitle:'🔧 已有模具報價', newFormTitle:'🏗️ 含開模費報價',
+    secCustomer:'客戶資料', secFixed:'固定成本', secVariable:'浮動成本',
+    secOrder:'訂單 & 利潤', secMold:'模具費用（一次性）',
+    lblCustomer:'客戶 / 公司', lblContact:'聯絡人', lblProduct:'產品名稱', lblSku:'料號',
+    lblRent:'廠房租金攤銷（元/月）', lblDepr:'設備折舊（元/月）',
+    lblMgmt:'管理工資（元/月）', lblInsurance:'保險稅費（元/月）',
+    lblMonthVol:'本月總產量（件）', hintRent:'按月總產量分攤到每件成本',
+    lblMaterial:'原料種類', lblMatPrice:'原料單價（元/kg）',
+    lblWeight:'件重（克）', lblRunner:'水口料損耗（%）',
+    lblTonnage:'機器噸位', lblMachRate:'機器費（元/h）',
+    lblCavity:'穴數', lblCycle:'週期（秒）', lblDefect:'次品率（%）',
+    lblLabor:'人工費（元/h）', lblElec:'電費（元/h）',
+    lblSurface:'表面處理（元/件）', lblPack:'包裝（元/件）',
+    lblQty:'訂購數量（件）', lblProfit:'利潤率（%）',
+    lblPayment:'付款條件', lblLeadtime:'交貨期（工作天）', lblLeadtimeNew:'交貨期（開模後天數）',
+    lblWarranty:'質保期', lblCurrency:'貨幣', lblNotes:'備注',
+    phCompany:'公司名稱', phContact:'姓名', phProduct:'產品描述',
+    phNotes:'特別要求、顏色、認證等...',
+    lblMoldType:'模具類型', lblMoldMat:'模具鋼材', lblMoldCost:'開模費（元）',
+    lblTrialCost:'試模費（元/次）× 次數', lblMoldDays:'開模交期（天）',
+    lblAmortize:'模具攤銷批量（件）', phMoldCost:'系統估算或手填',
+    hintMoldType:'請先選擇模具類型', hintAmortize:'分攤至此批，算每件模費',
+    optSelect:'請選擇...', optOther:'其他',
+    moldSimple:'簡單模（單穴）', moldMedium:'中型模（多穴）',
+    moldComplex:'複雜模（滑塊）', moldPrecision:'精密模', moldCustom:'自定義',
+    steelP20:'P20（一般）', steel718:'718H（高光）', steelH13:'H13（高壽命）', steelS136:'S136（防腐）',
+    pay1:'訂金50%，交貨前付清', pay2:'訂金30%，餘款月結',
+    pay3:'全數預付', pay4:'月結30天', pay5:'月結60天',
+    war1:'1 年', war2:'半年', war3:'3 個月', war4:'無',
+    previewTitle:'即時成本預覽',
+    prevMold:'🏗️ 模具攤銷/件', prevMat:'📦 材料成本/件',
+    prevMach:'⚙️ 機器+人工+電費/件', prevFixed:'🏢 固定成本攤銷/件',
+    prevOther:'🎨 表面+包裝/件', prevUnit:'💰 建議報價/件（含利潤）',
+    btnCalc:'立即生成報價 →',
+    unitLbl:'建議單件報價', totalAmount:'總金額',
+    bdTitle:'成本明細 · Cost Breakdown',
+    btnContract:'📄 生成中英雙語合同 PDF',
+    btnShare:'📤 分享報價', btnNewQuote:'➕ 新報價',
+    histTitle:'📋 報價歷史', histEmpty:'暫無報價記錄',
+    histEmptySub:'完成第一份報價後自動保存',
+    histClear:'🗑️ 清除所有歷史記錄',
+    confirmClear:'確定清除所有歷史記錄？',
+    toastCleared:'✅ 已清除', toastCopied:'✅ 已複製到剪貼板',
+    toastCopyManual:'請手動複製', toastNeedCalc:'請先計算報價',
+    toastValidate:'⚠️ 請填寫數量、件重和原料單價',
+    toastPdfing:'📄 正在生成 PDF...',
+    toastPdfDone:'✅ PDF 已下載！', toastPdfFail:'⚠️ PDF 生成失敗，請截圖保存',
+    tabHome:'主頁', tabExist:'已有模具', tabNew:'含開模',
+    tabSettings:'設置',
+    settingsTitle:'⚙️ 設置',
+    secCompanyInfo:'公司資料',
+    lblCompanyName:'公司名稱（合同用）', phCompanyName:'例：香港XX塑膠製品有限公司',
+    lblCompanyNameEn:'公司英文名稱',
+    lblDefaultCurrency:'預設貨幣', lblDefaultProfit:'預設利潤率（%）',
+    secFixedDefaults:'固定成本預設值', hintFixedDefaults:'儲存後，每次開啟報價表單自動填入',
+    secVarDefaults:'浮動成本預設值',
+    secMatLib:'材料價格庫', hintMatLib:'選擇原料時自動帶入當前市場價格，可隨時更新',
+    btnAddMat:'＋ 新增原料', btnSaveSettings:'💾 儲存所有設置',
+    toastSettingsSaved:'✅ 設置已儲存，下次開表單自動帶入',
+    matLibHeader:'材料', matLibPrice:'價格（元/kg）',
+    contractPreviewTitle:'📄 合同預覽 · Contract Preview',
+    btnDownloadPDF:'⬇️ 下載 PDF / Download PDF',
+    // Contract strings
+    contractTitle:'注塑產品供應合同',
+    contractTitleEn:'Injection Molding Product Supply Contract',
+    partyA:'一、甲方（買方）/ Party A (Buyer)',
+    partyB:'二、乙方（賣方）/ Party B (Seller)',
+    productDetails:'三、產品明細 / Product Details',
+    pricing:'四、價格條款 / Pricing Terms',
+    paymentTerms:'五、付款條件 / Payment Terms',
+    delivery:'六、交貨條款 / Delivery Terms',
+    warranty:'七、質量保證 / Quality Warranty',
+    confidentiality:'八、保密與知識產權 / Confidentiality & IP',
+    dispute:'九、爭議解決 / Dispute Resolution',
+    remarks:'十、備注 / Remarks',
+    sigA:'甲方簽署 / Party A Signature',
+    sigB:'乙方簽署 / Party B Signature',
+    validNote:'本報價有效期30天 · This quotation is valid for 30 days',
+    contractNo:'合同編號 / Contract No.',
+    cDate:'日期 / Date',
+    cCompany:'公司名稱 / Company', cContact:'聯絡人 / Contact',
+    cProduct:'產品名稱 / Product', cPartNo:'料號 / Part No.',
+    cMaterial:'原材料 / Material', cQty:'訂購數量 / Quantity',
+    cUnitPrice:'單件報價 / Unit Price', cMoldCost:'開模費（一次性）/ Mold Cost (One-off)',
+    cTotalValue:'合同總金額 / Total Contract Value',
+    cPcs:'件 (pcs)',
+    deliClause1text:'交貨期：%s（自合同簽署且首期貨款到賬後起算）',
+    deliClause1en:'Lead Time: %s from contract signing and receipt of initial payment.',
+    deliClause2text:'交貨地點：雙方協議地點，運費由甲方承擔。',
+    deliClause2en:'Delivery location: As agreed; freight charges borne by Buyer.',
+    warClause1text:'乙方保證產品符合雙方確認之圖紙及樣板規格，質保期 %s。',
+    warClause1en:'Seller warrants products conform to agreed drawings and sample specs. Warranty: %s.',
+    warClause2text:'次品率標準：≤ 3%。超出部分由乙方免費補件或退款。',
+    warClause2en:'Acceptable defect rate: ≤ 3%. Excess defects replaced or refunded at no charge.',
+    confClause:'雙方均不得向第三方披露合同細節、設計圖紙及技術資料。',
+    confClauseEn:'Both parties shall keep contract details, drawings and technical data confidential.',
+    dispClause:'本合同受香港法律管轄，爭議提交香港仲裁委員會仲裁解決。',
+    dispClauseEn:'Governed by Hong Kong law. Disputes resolved by HKIAC.',
+    bdSecFixed:'固定成本（Fixed Costs）',
+    bdSecVar:'浮動成本（Variable Costs）',
+    bdSecMold:'模具費用（Mold Costs — One-off）',
+    bdSecSub:'小計（Subtotal）',
+    bdRent:'廠房/設備/管理/稅費 / Fixed Overhead',
+    bdMat:'材料 / Material',
+    bdMach:'機器+人工+電費 / Machine+Labor+Elec',
+    bdSurface:'表面+包裝 / Surface+Pack',
+    bdMoldDev:'開模費 / Mold Development',
+    bdTrialRuns:'試模費 / Trial Runs',
+    bdMoldAmort:'模具攤銷/件 / Mold Amortization',
+    bdDirectCost:'直接成本 / Direct Cost',
+    bdProfit:'利潤 / Profit',
+    bdTotal:'總報價 / Total Quotation',
+    pUnit:'件',
+    msgExistBadge:'✅ 已有模具', msgNewBadge:'🏗️ 含開模費',
+    shareTitle:'注塑報價單',
+    shareProduct:'產品', shareCustomer:'客戶', shareQty:'數量',
+    shareUnit:'單價', shareTotal:'總價', shareDate:'日期', shareLead:'交期',
+    warrantLabels:{
+      '1y':'1年','1 年':'1年','6m':'半年','半年':'半年',
+      '3m':'3個月','3 個月':'3個月','none':'無','無':'無'
+    },
+    paymentLabels:{
+      'd50':'訂金50%，交貨前付清','d30':'訂金30%，餘款月結',
+      'full':'全數預付','n30':'月結30天','n60':'月結60天'
+    },
+    paymentEN:{
+      'd50':'50% deposit upon order; balance before delivery.',
+      'd30':'30% deposit upon order; balance net 30 days.',
+      'full':'100% prepayment required.',
+      'n30':'Net 30 days after delivery.',
+      'n60':'Net 60 days after delivery.'
+    }
+  },
+  sc: {
+    appTitle:'注塑报价', appSub:'注射成型报价系统',
+    heroLabel:'即时报价系统 · Live Quotation',
+    heroTitle:'选择<span>报价</span>类型',
+    modeExistTitle:'已有模具', modeExistDesc:'客户自备模具，计算生产成本',
+    modeNewTitle:'含开模费', modeNewDesc:'从开模到生产一站式报价',
+    statTotal:'历史报价', statToday:'今日报价', statAvg:'平均单价',
+    guideText:'① 选择报价类型 → ② 填写固定及浮动成本 → ③ 即时预览<br>④ 确认后生成中英双语合同 PDF → ⑤ 分享给客户',
+    btnHistory:'📋 历史', btnBack:'← 返回', btnBackHome:'← 主页',
+    existFormTitle:'🔧 已有模具报价', newFormTitle:'🏗️ 含开模费报价',
+    secCustomer:'客户资料', secFixed:'固定成本', secVariable:'浮动成本',
+    secOrder:'订单 & 利润', secMold:'模具费用（一次性）',
+    lblCustomer:'客户 / 公司', lblContact:'联系人', lblProduct:'产品名称', lblSku:'料号',
+    lblRent:'厂房租金摊销（元/月）', lblDepr:'设备折旧（元/月）',
+    lblMgmt:'管理工资（元/月）', lblInsurance:'保险税费（元/月）',
+    lblMonthVol:'本月总产量（件）', hintRent:'按月总产量摊销到每件成本',
+    lblMaterial:'塑料种类', lblMatPrice:'原料单价（元/kg）',
+    lblWeight:'件重（克）', lblRunner:'水口料损耗（%）',
+    lblTonnage:'机器吨位', lblMachRate:'机器费（元/h）',
+    lblCavity:'穴数', lblCycle:'周期（秒）', lblDefect:'次品率（%）',
+    lblLabor:'人工费（元/h）', lblElec:'电费（元/h）',
+    lblSurface:'表面处理（元/件）', lblPack:'包装（元/件）',
+    lblQty:'订购数量（件）', lblProfit:'利润率（%）',
+    lblPayment:'付款条件', lblLeadtime:'交货期（工作天）', lblLeadtimeNew:'交货期（开模后天数）',
+    lblWarranty:'质保期', lblCurrency:'货币', lblNotes:'备注',
+    phCompany:'公司名称', phContact:'姓名', phProduct:'产品描述',
+    phNotes:'特殊要求、颜色、认证等...',
+    lblMoldType:'模具类型', lblMoldMat:'模具钢材', lblMoldCost:'开模费（元）',
+    lblTrialCost:'试模费（元/次）× 次数', lblMoldDays:'开模交期（天）',
+    lblAmortize:'模具摊销批量（件）', phMoldCost:'系统估算或手填',
+    hintMoldType:'请先选择模具类型', hintAmortize:'摊入此批，算每件模费',
+    optSelect:'请选择...', optOther:'其他',
+    moldSimple:'简单模（单穴）', moldMedium:'中型模（多穴）',
+    moldComplex:'复杂模（滑块）', moldPrecision:'精密模', moldCustom:'自定义',
+    steelP20:'P20（一般）', steel718:'718H（高光）', steelH13:'H13（高寿命）', steelS136:'S136（防腐）',
+    pay1:'定金50%，交货前付清', pay2:'定金30%，余款月结',
+    pay3:'全额预付', pay4:'月结30天', pay5:'月结60天',
+    war1:'1 年', war2:'半年', war3:'3 个月', war4:'无',
+    previewTitle:'实时成本预览',
+    prevMold:'🏗️ 模具摊销/件', prevMat:'📦 材料成本/件',
+    prevMach:'⚙️ 机器+人工+电费/件', prevFixed:'🏢 固定成本摊销/件',
+    prevOther:'🎨 表面+包装/件', prevUnit:'💰 建议报价/件（含利润）',
+    btnCalc:'立即生成报价 →',
+    unitLbl:'建议单件报价', totalAmount:'总金额',
+    bdTitle:'成本明细 · Cost Breakdown',
+    btnContract:'📄 生成中英双语合同 PDF',
+    btnShare:'📤 分享报价', btnNewQuote:'➕ 新报价',
+    histTitle:'📋 报价历史', histEmpty:'暂无报价记录',
+    histEmptySub:'完成第一份报价后自动保存',
+    histClear:'🗑️ 清除所有历史记录',
+    confirmClear:'确定清除所有历史记录？',
+    toastCleared:'✅ 已清除', toastCopied:'✅ 已复制到剪贴板',
+    toastCopyManual:'请手动复制', toastNeedCalc:'请先计算报价',
+    toastValidate:'⚠️ 请填写数量、件重和原料单价',
+    toastPdfing:'📄 正在生成 PDF...',
+    toastPdfDone:'✅ PDF 已下载！', toastPdfFail:'⚠️ PDF 生成失败，请截图保存',
+    tabHome:'主页', tabExist:'已有模具', tabNew:'含开模',
+    tabSettings:'设置',
+    settingsTitle:'⚙️ 设置',
+    secCompanyInfo:'公司资料',
+    lblCompanyName:'公司名称（合同用）', phCompanyName:'例：深圳XX塑胶制品有限公司',
+    lblCompanyNameEn:'公司英文名称',
+    lblDefaultCurrency:'默认货币', lblDefaultProfit:'默认利润率（%）',
+    secFixedDefaults:'固定成本默认值', hintFixedDefaults:'保存后，每次打开报价表单自动填入',
+    secVarDefaults:'浮动成本默认值',
+    secMatLib:'材料价格库', hintMatLib:'选择原料时自动带入当前市场价格，可随时更新',
+    btnAddMat:'＋ 新增原料', btnSaveSettings:'💾 保存所有设置',
+    toastSettingsSaved:'✅ 设置已保存，下次打开表单自动带入',
+    matLibHeader:'材料', matLibPrice:'价格（元/kg）',
+    contractPreviewTitle:'📄 合同预览 · Contract Preview',
+    btnDownloadPDF:'⬇️ 下载 PDF / Download PDF',
+    contractTitle:'注塑产品供应合同',
+    contractTitleEn:'Injection Molding Product Supply Contract',
+    partyA:'一、甲方（买方）/ Party A (Buyer)',
+    partyB:'二、乙方（卖方）/ Party B (Seller)',
+    productDetails:'三、产品明细 / Product Details',
+    pricing:'四、价格条款 / Pricing Terms',
+    paymentTerms:'五、付款条件 / Payment Terms',
+    delivery:'六、交货条款 / Delivery Terms',
+    warranty:'七、质量保证 / Quality Warranty',
+    confidentiality:'八、保密与知识产权 / Confidentiality & IP',
+    dispute:'九、争议解决 / Dispute Resolution',
+    remarks:'十、备注 / Remarks',
+    sigA:'甲方签署 / Party A Signature',
+    sigB:'乙方签署 / Party B Signature',
+    validNote:'本报价有效期30天 · This quotation is valid for 30 days',
+    contractNo:'合同编号 / Contract No.',
+    cDate:'日期 / Date',
+    cCompany:'公司名称 / Company', cContact:'联系人 / Contact',
+    cProduct:'产品名称 / Product', cPartNo:'料号 / Part No.',
+    cMaterial:'原材料 / Material', cQty:'订购数量 / Quantity',
+    cUnitPrice:'单件报价 / Unit Price', cMoldCost:'开模费（一次性）/ Mold Cost (One-off)',
+    cTotalValue:'合同总金额 / Total Contract Value',
+    cPcs:'件 (pcs)',
+    deliClause1text:'交货期：%s（自合同签署且首期货款到账后起算）',
+    deliClause1en:'Lead Time: %s from contract signing and receipt of initial payment.',
+    deliClause2text:'交货地点：双方协议地点，运费由甲方承担。',
+    deliClause2en:'Delivery location: As agreed; freight charges borne by Buyer.',
+    warClause1text:'乙方保证产品符合双方确认之图纸及样板规格，质保期 %s。',
+    warClause1en:'Seller warrants products conform to agreed drawings and sample specs. Warranty: %s.',
+    warClause2text:'次品率标准：≤ 3%。超出部分由乙方免费补件或退款。',
+    warClause2en:'Acceptable defect rate: ≤ 3%. Excess defects replaced or refunded at no charge.',
+    confClause:'双方均不得向第三方披露合同细节、设计图纸及技术资料。',
+    confClauseEn:'Both parties shall keep contract details, drawings and technical data confidential.',
+    dispClause:'本合同受香港法律管辖，争议提交香港仲裁委员会仲裁解决。',
+    dispClauseEn:'Governed by Hong Kong law. Disputes resolved by HKIAC.',
+    bdSecFixed:'固定成本（Fixed Costs）',
+    bdSecVar:'浮动成本（Variable Costs）',
+    bdSecMold:'模具费用（Mold Costs — One-off）',
+    bdSecSub:'小计（Subtotal）',
+    bdRent:'厂房/设备/管理/税费 / Fixed Overhead',
+    bdMat:'材料 / Material',
+    bdMach:'机器+人工+电费 / Machine+Labor+Elec',
+    bdSurface:'表面+包装 / Surface+Pack',
+    bdMoldDev:'开模费 / Mold Development',
+    bdTrialRuns:'试模费 / Trial Runs',
+    bdMoldAmort:'模具摊销/件 / Mold Amortization',
+    bdDirectCost:'直接成本 / Direct Cost',
+    bdProfit:'利润 / Profit',
+    bdTotal:'总报价 / Total Quotation',
+    pUnit:'件',
+    msgExistBadge:'✅ 已有模具', msgNewBadge:'🏗️ 含开模费',
+    shareTitle:'注塑报价单',
+    shareProduct:'产品', shareCustomer:'客户', shareQty:'数量',
+    shareUnit:'单价', shareTotal:'总价', shareDate:'日期', shareLead:'交期',
+    warrantLabels:{
+      '1y':'1年','1 年':'1年','6m':'半年','半年':'半年',
+      '3m':'3个月','3 个月':'3个月','none':'无','无':'无'
+    },
+    paymentLabels:{
+      'd50':'定金50%，交货前付清','d30':'定金30%，余款月结',
+      'full':'全额预付','n30':'月结30天','n60':'月结60天'
+    },
+    paymentEN:{
+      'd50':'50% deposit upon order; balance before delivery.',
+      'd30':'30% deposit upon order; balance net 30 days.',
+      'full':'100% prepayment required.',
+      'n30':'Net 30 days after delivery.',
+      'n60':'Net 60 days after delivery.'
+    }
+  }
+};
+
+// ══════════════════════════════════════════
+// State
+// ══════════════════════════════════════════
+let currentLang = localStorage.getItem('imq_lang') || 'tc';
+let lastResult = null;
+const machineRates = {60:80,80:100,120:130,160:160,250:200,350:250,500:320,800:420};
+const moldPriceMatrix = {
+  simple:{p20:15000,'718h':20000,h13:22000,s136:28000},
+  medium:{p20:35000,'718h':50000,h13:55000,s136:70000},
+  complex:{p20:70000,'718h':95000,h13:105000,s136:130000},
+  precision:{p20:100000,'718h':150000,h13:170000,s136:220000},
+  custom:{p20:0,'718h':0,h13:0,s136:0}
+};
+
+// ══════════════════════════════════════════
+// i18n Engine
+// ══════════════════════════════════════════
+function t(key) { return LANG[currentLang][key] || LANG.tc[key] || key; }
+
+function applyLang() {
+  const L = LANG[currentLang];
+  // data-i18n text
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if(L[key] !== undefined) el.textContent = L[key];
+  });
+  // data-i18n-html (allows inner HTML like <span>)
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if(L[key] !== undefined) el.innerHTML = L[key];
+  });
+  // data-i18n-ph placeholders
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const key = el.getAttribute('data-i18n-ph');
+    if(L[key] !== undefined) el.placeholder = L[key];
+  });
+  // Font body class
+  document.body.classList.toggle('sc', currentLang === 'sc');
+  // Toggle button states
+  document.getElementById('btn-tc').classList.toggle('active', currentLang === 'tc');
+  document.getElementById('btn-sc').classList.toggle('active', currentLang === 'sc');
+  // Update select options that have data-i18n
+  document.querySelectorAll('option[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if(L[key] !== undefined) el.textContent = L[key];
+  });
+  // Re-render history if on history page
+  if(document.getElementById('pg-history') && !document.getElementById('pg-history').classList.contains('hidden')) {
+    renderHistory();
+  }
+  updateStats();
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('imq_lang', lang);
+  applyLang();
+  toast(lang === 'tc' ? '🇭🇰 繁體中文' : '🇨🇳 简体中文');
+}
+
+// ══════════════════════════════════════════
+// Utilities
+// ══════════════════════════════════════════
+const g  = id => document.getElementById(id);
+const gv = (id,def=0) => { const v=parseFloat(g(id)?.value); return isNaN(v)?def:v; };
+const gs = id => (g(id)?.value||'').trim();
+const fmt  = n => n.toLocaleString('zh-TW',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmtI = n => Math.round(n).toLocaleString('zh-TW');
+const todayStr = () => new Date().toLocaleDateString('zh-TW');
+const genId = () => 'QUO-'+Date.now().toString().slice(-6);
+
+function toast(msg) {
+  const el=g('toast'); el.textContent=msg; el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),2200);
+}
+
+function autoMachineRate(p) {
+  const ton=parseInt(gs(p+'-tonnage'));
+  g(p+'-machrate').value=machineRates[ton]||160;
+}
+
+function autoMoldCost() {
+  const type=gs('n-moldtype'); const mat=gs('n-moldmat');
+  if(!type||type==='custom'){ g('n-mold-hint').textContent=t('hintMoldType'); return; }
+  g('n-moldcost').value=moldPriceMatrix[type]?.[mat]||0;
+  g('n-mold-hint').textContent=`${t('steelP20').replace('（一般）','')} ${mat.toUpperCase()} ${t('hintMoldType').replace('请先选择模具类型','').replace('請先選擇模具類型','')}`;
+  g('n-mold-hint').textContent=`参考估算 / 參考估算：${mat.toUpperCase()}`;
+  liveCalc('n');
+}
+
+// ══════════════════════════════════════════
+// Core Calculation
+// ══════════════════════════════════════════
+function calcCore(p) {
+  const qty    = gv(p+'-qty');
+  const weight = gv(p+'-weight');
+  const matPr  = gv(p+'-matprice');
+  const runner = gv(p+'-runner',8)/100;
+  const cavity = gv(p+'-cavity',1)||1;
+  const cycle  = gv(p+'-cycle',30)||30;
+  const defect = gv(p+'-defect',3)/100;
+  const machR  = gv(p+'-machrate',160);
+  const laborH = gv(p+'-labor',50);
+  const elecH  = gv(p+'-elec',30);
+  const surface= gv(p+'-surface',0);
+  const pack   = gv(p+'-pack',1.5);
+  const totalFixed = gv(p+'-rent',0)+gv(p+'-depr',0)+gv(p+'-mgmt',0)+gv(p+'-insurance',0);
+  const monthVol = gv(p+'-monthly-vol',1)||1;
+  const fixedPerPc = totalFixed/monthVol;
+  const matPerPc = (weight/1000)*matPr*(1+runner);
+  const pcsPerHour = (3600/cycle)*cavity;
+  const hrsNeeded = qty*(1+defect)/pcsPerHour;
+  const varPerPc = (machR+laborH+elecH)/pcsPerHour;
+  const directPerPc = matPerPc+varPerPc+fixedPerPc+surface+pack;
+  const profit = gv(p+'-profit',20)/100;
+  const unitPrice = directPerPc*(1+profit);
+  return {qty,matPerPc,varPerPc,fixedPerPc,surface,pack,directPerPc,profit,unitPrice,hrsNeeded,pcsPerHour};
+}
+
+// ══════════════════════════════════════════
+// Live Preview
+// ══════════════════════════════════════════
+function liveCalc(p) {
+  try {
+    const r = calcCore(p);
+    const cur = gs(p+'-currency')||'HKD';
+    const s = c => `${cur} ${fmt(c)}`;
+    if(p==='n') {
+      const moldCost=gv('n-moldcost',0), trialC=gv('n-trial-cost',3000), trialN=gv('n-trial-n',2);
+      const amortize=gv('n-amortize',r.qty)||r.qty||1;
+      const moldPerPc=(moldCost+trialC*trialN)/amortize;
+      const unitW = (r.directPerPc+moldPerPc)*(1+r.profit);
+      g('n-p-mold').textContent=s(moldPerPc);
+      g('n-p-mat').textContent=s(r.matPerPc);
+      g('n-p-mach').textContent=s(r.varPerPc);
+      g('n-p-fixed').textContent=s(r.fixedPerPc);
+      g('n-p-other').textContent=s(r.surface+r.pack);
+      g('n-p-unit').textContent=s(unitW);
+      g('n-prev-total').textContent=r.qty?s(unitW*r.qty):'—';
+    } else {
+      g('e-p-mat').textContent=s(r.matPerPc);
+      g('e-p-mach').textContent=s(r.varPerPc);
+      g('e-p-fixed').textContent=s(r.fixedPerPc);
+      g('e-p-other').textContent=s(r.surface+r.pack);
+      g('e-p-unit').textContent=s(r.unitPrice);
+      g('e-prev-total').textContent=r.qty?s(r.unitPrice*r.qty):'—';
+    }
+  } catch(e){}
+}
+
+// ══════════════════════════════════════════
+// Final Calculation
+// ══════════════════════════════════════════
+function calcExist() {
+  const r = calcCore('e');
+  if(!r.qty||!r.matPerPc){ toast(t('toastValidate')); return; }
+  const cur=gs('e-currency')||'HKD', qty=r.qty;
+  const profPct=Math.round(r.profit*100);
+  const rows=[
+    {section:t('bdSecFixed')},
+    {name:t('bdRent'),value:r.fixedPerPc*qty,perPc:r.fixedPerPc,badge:'fixed'},
+    {section:t('bdSecVar')},
+    {name:`${t('bdMat')} (${gs('e-mat')||'—'})`,value:r.matPerPc*qty,perPc:r.matPerPc,badge:'var'},
+    {name:t('bdMach'),value:r.varPerPc*qty,perPc:r.varPerPc,badge:'var'},
+    {name:t('bdSurface'),value:(r.surface+r.pack)*qty,perPc:r.surface+r.pack,badge:'var'},
+    {section:t('bdSecSub')},
+    {name:t('bdDirectCost'),value:r.directPerPc*qty,perPc:r.directPerPc,bold:true},
+    {name:`${t('bdProfit')} ${profPct}%`,value:(r.unitPrice-r.directPerPc)*qty,perPc:r.unitPrice-r.directPerPc,green:true},
+    {total:true,name:t('bdTotal'),value:r.unitPrice*qty,perPc:r.unitPrice},
+  ];
+  const res={
+    mode:'exist',qid:genId(),date:todayStr(),currency:cur,
+    customer:gs('e-cust'),contact:gs('e-contact'),product:gs('e-prod'),
+    sku:gs('e-sku'),material:gs('e-mat'),qty,unitPrice:r.unitPrice,
+    totalPrice:r.unitPrice*qty,leadtime:`${gv('e-leadtime',15)} ${t('lblLeadtime').includes('工作天')||t('lblLeadtime').includes('工作天')?'工作天':'工作天'}`,
+    payment:gs('e-payment'),warranty:gs('e-warranty'),notes:gs('e-notes'),
+    rows,moldTotal:0,moldPerPc:0
+  };
+  saveHistory(res);
+  showResult(res);
+}
+
+function calcNew() {
+  const r=calcCore('n');
+  if(!r.qty||!r.matPerPc){ toast(t('toastValidate')); return; }
+  const cur=gs('n-currency')||'HKD', qty=r.qty;
+  const moldCost=gv('n-moldcost',0), trialC=gv('n-trial-cost',3000), trialN=gv('n-trial-n',2);
+  const moldTotal=moldCost+trialC*trialN;
+  const amortize=gv('n-amortize',qty)||qty||1;
+  const moldPerPc=moldTotal/amortize;
+  const totalDirPerPc=r.directPerPc+moldPerPc;
+  const unitPrice=totalDirPerPc*(1+r.profit);
+  const profPct=Math.round(r.profit*100);
+  const moldDays=gv('n-molddays',30), leadDays=gv('n-leadtime',15);
+  const rows=[
+    {section:t('bdSecMold')},
+    {name:t('bdMoldDev'),value:moldCost,perPc:null},
+    {name:`${t('bdTrialRuns')}×${trialN}`,value:trialC*trialN,perPc:null},
+    {name:t('bdMoldAmort'),value:moldPerPc*qty,perPc:moldPerPc,badge:'fixed'},
+    {section:t('bdSecFixed')},
+    {name:t('bdRent'),value:r.fixedPerPc*qty,perPc:r.fixedPerPc,badge:'fixed'},
+    {section:t('bdSecVar')},
+    {name:`${t('bdMat')} (${gs('n-mat')||'—'})`,value:r.matPerPc*qty,perPc:r.matPerPc,badge:'var'},
+    {name:t('bdMach'),value:r.varPerPc*qty,perPc:r.varPerPc,badge:'var'},
+    {name:t('bdSurface'),value:(r.surface+r.pack)*qty,perPc:r.surface+r.pack,badge:'var'},
+    {section:t('bdSecSub')},
+    {name:t('bdDirectCost'),value:totalDirPerPc*qty,perPc:totalDirPerPc,bold:true},
+    {name:`${t('bdProfit')} ${profPct}%`,value:(unitPrice-totalDirPerPc)*qty,perPc:unitPrice-totalDirPerPc,green:true},
+    {total:true,name:t('bdTotal'),value:unitPrice*qty,perPc:unitPrice},
+  ];
+  const res={
+    mode:'new',qid:genId(),date:todayStr(),currency:cur,
+    customer:gs('n-cust'),contact:gs('n-contact'),product:gs('n-prod'),
+    sku:gs('n-sku'),material:gs('n-mat'),qty,unitPrice,
+    totalPrice:unitPrice*qty,moldTotal,moldPerPc,
+    leadtime:`${t('lblMoldDays').split('（')[0]} ${moldDays}天 + ${leadDays}天`,
+    payment:gs('n-payment'),warranty:gs('n-warranty'),notes:gs('n-notes'),
+    rows
+  };
+  saveHistory(res);
+  showResult(res);
+}
+
+// ══════════════════════════════════════════
+// Show Result
+// ══════════════════════════════════════════
+function showResult(res) {
+  lastResult=res;
+  const isExist=res.mode==='exist';
+  const cur=res.currency;
+  g('result-header-title').textContent=isExist?t('existFormTitle'):t('newFormTitle');
+  g('result-header-title').className='form-title '+(isExist?'exist':'new');
+  g('r-badge').textContent=isExist?t('msgExistBadge'):t('msgNewBadge');
+  g('r-badge').className='result-mode-badge result-badge-'+(isExist?'exist':'new');
+  g('r-qid').textContent=res.qid;
+  g('r-unit').textContent=`${cur} ${fmt(res.unitPrice)}`;
+  g('r-sub').textContent=`${t('pUnit')} · Per Piece  |  ${t('totalAmount')} ${cur} ${fmt(res.totalPrice)}`;
+  g('r-cust').textContent=res.customer||'—';
+  g('r-prod').textContent=res.product||'—';
+  g('r-qty').textContent=fmtI(res.qty)+' '+t('pUnit');
+  g('r-mat').textContent=res.material||'—';
+  g('r-lead').textContent=res.leadtime;
+  g('r-total').textContent=`${cur} ${fmt(res.totalPrice)}`;
+  g('r-date').textContent=res.date;
+  const bd=g('r-breakdown'); bd.innerHTML='';
+  res.rows.forEach(row=>{
+    if(row.section){ const d=document.createElement('div'); d.className='bc-section'; d.textContent=row.section; bd.appendChild(d); return; }
+    const d=document.createElement('div');
+    d.className='bc-row'+(row.total?' total-row':'');
+    const badgeH=row.badge?`<span class="cost-badge badge-${row.badge}" style="font-size:8px;margin-left:4px">${row.badge==='fixed'?(currentLang==='sc'?'固定':'固定'):(currentLang==='sc'?'浮动':'浮動')}</span>`:'';
+    const pcH=row.perPc!=null?`<span style="color:var(--muted);font-size:10px;margin-right:4px">/${t('pUnit')} ${fmt(row.perPc)}</span>`:'';
+    d.innerHTML=`<span class="bn">${row.name}${badgeH}</span><span class="bv" style="${row.green?'color:var(--green)':''}">${pcH}${cur} ${fmt(row.value)}</span>`;
+    bd.appendChild(d);
+  });
+  showPage('result');
+}
+
+// ══════════════════════════════════════════
+// Contract
+// ══════════════════════════════════════════
+function openContractModal() {
+  if(!lastResult){ toast(t('toastNeedCalc')); return; }
+  buildContractHTML();
+  g('contract-modal').classList.add('open');
+}
+function closeContractModal(e) {
+  if(e.target===g('contract-modal')) g('contract-modal').classList.remove('open');
+}
+function getWarrantyLabel(val) {
+  const map=t('warrantLabels');
+  return map[val]||val;
+}
+function getPaymentLabel(val) {
+  const map=t('paymentLabels');
+  return map[val]||val;
+}
+function getPaymentEN(val) {
+  const map=t('paymentEN');
+  return map[val]||val;
+}
+
+function buildContractHTML() {
+  const r=lastResult; const cur=r.currency; const isNew=r.mode==='new';
+  const co = getCompanyName();
+  const coEn = getCompanyNameEn();
+  const warrantyLabel=getWarrantyLabel(r.warranty);
+  const paymentLabel=getPaymentLabel(r.payment);
+  const paymentEnLabel=getPaymentEN(r.payment);
+  const html=`
+<div class="cp-company">${co}</div>
+<div class="cp-subtitle">${coEn} · 注塑成型專業廠商 · Professional Injection Molding Manufacturer</div>
+<hr class="cp-divider">
+<div class="cp-contract-title">${t('contractTitle')}</div>
+<div class="cp-contract-en">${t('contractTitleEn')}</div>
+<div style="text-align:right;font-size:10px;color:#999">${t('contractNo')}: ${r.qid} &nbsp;|&nbsp; ${t('cDate')}: ${r.date}</div>
+<hr class="cp-divider-thin">
+<div class="cp-section">${t('partyA')}</div>
+<div class="cp-row"><span class="label">${t('cCompany')}</span><span>${r.customer||'＿＿＿＿'}</span></div>
+<div class="cp-row"><span class="label">${t('cContact')}</span><span>${r.contact||'＿＿＿＿'}</span></div>
+<div class="cp-section">${t('partyB')}</div>
+<div class="cp-row"><span class="label">${t('cCompany')}</span><span>${co}</span></div>
+<div class="cp-section">${t('productDetails')}</div>
+<div class="cp-row"><span class="label">${t('cProduct')}</span><span>${r.product||'—'}</span></div>
+<div class="cp-row"><span class="label">${t('cPartNo')}</span><span>${r.sku||'—'}</span></div>
+<div class="cp-row"><span class="label">${t('cMaterial')}</span><span>${r.material||'—'}</span></div>
+<div class="cp-row"><span class="label">${t('cQty')}</span><span>${fmtI(r.qty)} ${t('cPcs')}</span></div>
+<div class="cp-section">${t('pricing')}</div>
+<div class="cp-row"><span class="label">${t('cUnitPrice')}</span><span>${cur} ${fmt(r.unitPrice)}</span></div>
+${isNew?`<div class="cp-row"><span class="label">${t('cMoldCost')}</span><span>${cur} ${fmt(r.moldTotal)}</span></div>`:''}
+<div class="cp-total-box"><span class="ct-lbl">${t('cTotalValue')}</span><span class="ct-val">${cur} ${fmt(r.totalPrice)}</span></div>
+<div class="cp-section">${t('paymentTerms')}</div>
+<div class="cp-clause">${paymentLabel}</div>
+<div class="cp-clause-en">${paymentEnLabel}</div>
+<div class="cp-section">${t('delivery')}</div>
+<div class="cp-clause">${t('deliClause1text').replace('%s',r.leadtime)}</div>
+<div class="cp-clause-en">${t('deliClause1en').replace('%s',r.leadtime)}</div>
+<div class="cp-clause">${t('deliClause2text')}</div>
+<div class="cp-clause-en">${t('deliClause2en')}</div>
+<div class="cp-section">${t('warranty')}</div>
+<div class="cp-clause">${t('warClause1text').replace('%s',warrantyLabel)}</div>
+<div class="cp-clause-en">${t('warClause1en').replace('%s',warrantyLabel)}</div>
+<div class="cp-clause">${t('warClause2text')}</div>
+<div class="cp-clause-en">${t('warClause2en')}</div>
+<div class="cp-section">${t('confidentiality')}</div>
+<div class="cp-clause">${t('confClause')}</div>
+<div class="cp-clause-en">${t('confClauseEn')}</div>
+<div class="cp-section">${t('dispute')}</div>
+<div class="cp-clause">${t('dispClause')}</div>
+<div class="cp-clause-en">${t('dispClauseEn')}</div>
+${r.notes?`<div class="cp-section">${t('remarks')}</div><div class="cp-clause">${r.notes}</div>`:''}
+<div class="cp-sig">
+  <div class="cp-sig-block">${t('sigA')}<br>${r.customer||'＿＿＿＿'}</div>
+  <div style="width:20px"></div>
+  <div class="cp-sig-block">${t('sigB')}<br>${co}</div>
+</div>
+<div style="text-align:center;font-size:9px;color:#aaa;margin-top:12px">${t('validNote')}</div>`;
+  g('contract-content').innerHTML=html;
+}
+
+async function downloadPDF() {
+  toast(t('toastPdfing'));
+  try {
+    const {jsPDF}=window.jspdf; const doc=new jsPDF('p','mm','a4');
+    const r=lastResult; const cur=r.currency;
+    const warrantyLabel=getWarrantyLabel(r.warranty);
+    const paymentEnLabel=getPaymentEN(r.payment);
+    doc.setFont('helvetica','bold'); doc.setFontSize(14); doc.setTextColor(0);
+    doc.text('INJECTION MOLDING PRODUCT SUPPLY CONTRACT',105,22,{align:'center'});
+    doc.setFontSize(10); doc.setFont('helvetica','normal'); doc.setTextColor(80);
+    doc.text(`${t('contractTitleEn')}`,105,30,{align:'center'});
+    doc.setLineWidth(0.5); doc.setDrawColor(0); doc.line(20,34,190,34);
+    doc.setFontSize(9); doc.text(`Contract No: ${r.qid}    Date: ${r.date}    Lang: ${currentLang==='tc'?'Traditional':'Simplified'}`,20,40);
+    const sections=[
+      ['Party A (Buyer)',`Company: ${r.customer||'N/A'}    Contact: ${r.contact||'N/A'}`],
+      ['Party B (Seller)','[YOUR COMPANY NAME]'],
+      ['Product Details',`Product: ${r.product||'N/A'}  Part No: ${r.sku||'N/A'}  Material: ${r.material||'N/A'}  Qty: ${fmtI(r.qty)} pcs`],
+      ['Pricing',`Unit Price: ${cur} ${fmt(r.unitPrice)}    Total: ${cur} ${fmt(r.totalPrice)}`+
+        (r.mode==='new'?`\nMold Development (One-off): ${cur} ${fmt(r.moldTotal)}`:'')],
+      ['Payment Terms', paymentEnLabel],
+      ['Delivery',`Lead Time: ${r.leadtime}\nFreight: Borne by Buyer.`],
+      ['Warranty',`Period: ${warrantyLabel}. Defect rate: ≤ 3%. Excess defects replaced or refunded.`],
+      ['Confidentiality','Both parties shall keep contract details confidential from third parties.'],
+      ['Dispute Resolution','Governed by Hong Kong Law. Disputes resolved by HKIAC.'],
+      ...(r.notes?[['Remarks',r.notes.substring(0,120)]]:[[]])
+    ];
+    let y=50;
+    sections.forEach(([title,content])=>{
+      if(!title) return;
+      doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.setTextColor(0);
+      doc.text(title,20,y); y+=6;
+      doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(60);
+      const lines=doc.splitTextToSize(content||'',170);
+      lines.forEach(l=>{ doc.text(l,20,y); y+=5; });
+      y+=4;
+      if(y>260){ doc.addPage(); y=20; }
+    });
+    y+=10;
+    doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(0);
+    doc.line(20,y,80,y); doc.line(110,y,190,y);
+    doc.text('Party A Signature',20,y+5); doc.text('Party B Signature',110,y+5);
+    doc.setFontSize(8); doc.setTextColor(150);
+    doc.text('This quotation is valid for 30 days.',105,y+15,{align:'center'});
+    doc.save(`${r.qid}_Contract.pdf`);
+    toast(t('toastPdfDone'));
+  } catch(e){ toast(t('toastPdfFail')); console.error(e); }
+}
+
+// ══════════════════════════════════════════
+// History
+// ══════════════════════════════════════════
+function saveHistory(res) {
+  const h=JSON.parse(localStorage.getItem('imq_history')||'[]');
+  h.unshift({qid:res.qid,date:res.date,mode:res.mode,customer:res.customer,
+    product:res.product,qty:res.qty,unitPrice:res.unitPrice,
+    totalPrice:res.totalPrice,currency:res.currency});
+  if(h.length>100) h.splice(100);
+  localStorage.setItem('imq_history',JSON.stringify(h));
+  updateStats();
+}
+function loadHistory() { return JSON.parse(localStorage.getItem('imq_history')||'[]'); }
+
+function renderHistory() {
+  const history=loadHistory(); const container=g('history-list');
+  if(!history.length){
+    container.innerHTML=`<div class="hist-empty"><div class="he-icon">📋</div><div>${t('histEmpty')}</div><div style="font-size:12px;margin-top:6px;color:var(--muted)">${t('histEmptySub')}</div></div>`;
+    return;
+  }
+  container.innerHTML=history.map(h=>`
+<div class="hist-card">
+  <div class="hc-top">
+    <div class="hc-product">${h.product||t('histEmpty')}</div>
+    <div class="hc-price">${h.currency} ${fmt(h.unitPrice)}/${t('pUnit')}</div>
+  </div>
+  <div class="hc-meta">
+    <span class="hc-tag hc-tag-${h.mode==='exist'?'exist':'new'}">${h.mode==='exist'?t('modeExistTitle'):t('modeNewTitle')}</span>
+    <span class="hc-tag hc-tag-gray">${h.customer||'—'}</span>
+    <span class="hc-tag hc-tag-gray">${fmtI(h.qty)}${t('pUnit')}</span>
+    <span class="hc-tag hc-tag-gray">${h.date}</span>
+    <span class="hc-tag hc-tag-gray">${h.qid}</span>
+  </div>
+</div>`).join('');
+  container.innerHTML+=`<button class="hist-clear-btn" onclick="clearHistory()">${t('histClear')}</button>`;
+}
+
+function clearHistory() {
+  if(confirm(t('confirmClear'))){ localStorage.removeItem('imq_history'); renderHistory(); updateStats(); toast(t('toastCleared')); }
+}
+
+function updateStats() {
+  const h=loadHistory(); g('stat-count').textContent=h.length;
+  const td=new Date().toLocaleDateString('zh-TW');
+  g('stat-today').textContent=h.filter(x=>x.date===td).length;
+  g('stat-avg').textContent=h.length?fmt(h.reduce((s,x)=>s+x.unitPrice,0)/h.length):'—';
+}
+
+// ══════════════════════════════════════════
+// Navigation
+// ══════════════════════════════════════════
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
+  g('pg-'+name).classList.remove('hidden');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  if(name==='home') g('tab-home').classList.add('active');
+  else if(name==='exist') g('tab-exist').classList.add('active');
+  else if(name==='new') g('tab-new').classList.add('active');
+  else if(name==='settings') g('tab-settings').classList.add('active');
+}
+
+function switchTab(n){ showPage(n); if(n==='home') updateStats(); }
+function goHome(){ showPage('home'); updateStats(); }
+function newQuote(){ showPage('home'); updateStats(); }
+
+function openForm(mode) {
+  autoMachineRate(mode==='exist'?'e':'n');
+  applySettingsToForm(mode==='exist'?'e':'n');
+  showPage(mode);
+  liveCalc('e'); liveCalc('n');
+}
+
+function showHistory(){ renderHistory(); showPage('history'); }
+
+// ══════════════════════════════════════════
+// Settings
+// ══════════════════════════════════════════
+const DEFAULT_MATS = [
+  {name:'PP 聚丙烯', price:12},
+  {name:'ABS', price:18},
+  {name:'PE 聚乙烯', price:11},
+  {name:'PC 聚碳酸酯', price:32},
+  {name:'POM 聚甲醛', price:28},
+  {name:'Nylon PA66', price:30},
+  {name:'TPE', price:22},
+  {name:'PS 聚苯乙烯', price:14},
+];
+
+function loadSettings() {
+  return JSON.parse(localStorage.getItem('imq_settings')||'{}');
+}
+
+function openSettings() {
+  const s = loadSettings();
+  // Company
+  g('s-company').value = s.company||'';
+  g('s-company-en').value = s.companyEn||'';
+  g('s-currency').value = s.currency||'HKD';
+  g('s-profit').value = s.profit||'20';
+  // Fixed
+  g('s-rent').value = s.rent||'';
+  g('s-depr').value = s.depr||'';
+  g('s-mgmt').value = s.mgmt||'';
+  g('s-insurance').value = s.insurance||'';
+  g('s-monthly-vol').value = s.monthlyVol||'';
+  // Variable
+  g('s-labor').value = s.labor||'50';
+  g('s-elec').value = s.elec||'30';
+  g('s-defect').value = s.defect||'3';
+  g('s-runner').value = s.runner||'8';
+  g('s-pack').value = s.pack||'1.5';
+  g('s-leadtime').value = s.leadtime||'15';
+  // Material lib
+  renderMatLib(s.materials || DEFAULT_MATS);
+  showPage('settings');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  g('tab-settings').classList.add('active');
+}
+
+function renderMatLib(mats) {
+  const list = g('mat-lib-list');
+  list.innerHTML = '';
+  mats.forEach((m, i) => {
+    const row = document.createElement('div');
+    row.className = 'mat-row';
+    row.innerHTML = `
+      <input class="mat-row-name" type="text" value="${m.name}" placeholder="材料名稱" data-idx="${i}">
+      <input class="mat-row-price" type="number" inputmode="decimal" value="${m.price}" placeholder="0" data-idx="${i}">
+      <span class="mat-row-unit">元/kg</span>
+      <button class="mat-row-del" onclick="delMatRow(${i})">✕</button>`;
+    list.appendChild(row);
+  });
+}
+
+function getCurrentMats() {
+  const names = document.querySelectorAll('.mat-row-name');
+  const prices = document.querySelectorAll('.mat-row-price');
+  const mats = [];
+  names.forEach((n, i) => {
+    const name = n.value.trim();
+    const price = parseFloat(prices[i].value)||0;
+    if(name) mats.push({name, price});
+  });
+  return mats;
+}
+
+function addMatRow() {
+  const mats = getCurrentMats();
+  mats.push({name:'', price:0});
+  renderMatLib(mats);
+  // focus last name input
+  const inputs = document.querySelectorAll('.mat-row-name');
+  if(inputs.length) inputs[inputs.length-1].focus();
+}
+
+function delMatRow(idx) {
+  const mats = getCurrentMats();
+  mats.splice(idx, 1);
+  renderMatLib(mats);
+}
+
+function saveSettings() {
+  const mats = getCurrentMats();
+  if(!mats.length){ toast('⚠️ 請至少保留一種原料'); return; }
+  const s = {
+    company: g('s-company').value.trim(),
+    companyEn: g('s-company-en').value.trim(),
+    currency: g('s-currency').value,
+    profit: g('s-profit').value,
+    rent: g('s-rent').value,
+    depr: g('s-depr').value,
+    mgmt: g('s-mgmt').value,
+    insurance: g('s-insurance').value,
+    monthlyVol: g('s-monthly-vol').value,
+    labor: g('s-labor').value,
+    elec: g('s-elec').value,
+    defect: g('s-defect').value,
+    runner: g('s-runner').value,
+    pack: g('s-pack').value,
+    leadtime: g('s-leadtime').value,
+    materials: mats,
+    savedAt: new Date().toLocaleString('zh-TW')
+  };
+  localStorage.setItem('imq_settings', JSON.stringify(s));
+  toast(t('toastSettingsSaved'));
+  showSettingsVersion(s);
+  // Update both form mat selects with new prices
+  updateMatSelectOptions('e', mats);
+  updateMatSelectOptions('n', mats);
+}
+
+function showSettingsVersion(s) {
+  const el = g('settings-version');
+  if(!el) return;
+  const saved = s || loadSettings();
+  if(saved && saved.savedAt) {
+    el.textContent = (currentLang==='sc'?'上次保存：':'上次儲存：') + saved.savedAt;
+  }
+}
+
+function applySettingsToForm(prefix) {
+  const s = loadSettings();
+  if(!Object.keys(s).length) return;
+  const set = (id, val) => { if(val && g(id)) g(id).value = val; };
+  // Fixed costs
+  set(prefix+'-rent', s.rent);
+  set(prefix+'-depr', s.depr);
+  set(prefix+'-mgmt', s.mgmt);
+  set(prefix+'-insurance', s.insurance);
+  set(prefix+'-monthly-vol', s.monthlyVol);
+  // Variable
+  set(prefix+'-labor', s.labor||'50');
+  set(prefix+'-elec', s.elec||'30');
+  set(prefix+'-defect', s.defect||'3');
+  set(prefix+'-runner', s.runner||'8');
+  set(prefix+'-pack', s.pack||'1.5');
+  set(prefix+'-leadtime', s.leadtime||'15');
+  set(prefix+'-profit', s.profit||'20');
+  if(s.currency && g(prefix+'-currency')) g(prefix+'-currency').value = s.currency;
+  // Material select — update options with prices
+  updateMatSelectOptions(prefix, s.materials||DEFAULT_MATS);
+}
+
+function updateMatSelectOptions(prefix, mats) {
+  const sel = g(prefix+'-mat');
+  if(!sel) return;
+  // Keep first "請選擇" option, replace rest
+  const firstOpt = sel.options[0];
+  sel.innerHTML = '';
+  sel.appendChild(firstOpt);
+  mats.forEach(m => {
+    const opt = document.createElement('option');
+    opt.value = m.name;
+    opt.textContent = `${m.name}  ·  ${m.price} 元/kg`;
+    opt.setAttribute('data-price', m.price);
+    sel.appendChild(opt);
+  });
+  // Other option
+  const otherOpt = document.createElement('option');
+  otherOpt.value = '其他'; otherOpt.textContent = t('optOther');
+  sel.appendChild(otherOpt);
+  // Bind auto-fill price on change
+  sel.onchange = () => {
+    const selected = sel.options[sel.selectedIndex];
+    const price = selected.getAttribute('data-price');
+    if(price) {
+      g(prefix+'-matprice').value = price;
+    }
+    liveCalc(prefix);
+  };
+}
+
+// Update contract to use saved company name
+function getCompanyName() {
+  const s = loadSettings();
+  return s.company || '【您的公司名稱】';
+}
+function getCompanyNameEn() {
+  const s = loadSettings();
+  return s.companyEn || '[YOUR COMPANY NAME]';
+}
+
+function shareQuote() {
+  if(!lastResult){ toast(t('toastNeedCalc')); return; }
+  const r=lastResult;
+  const text=`【${t('shareTitle')}】${r.qid}\n${t('shareProduct')}：${r.product||'—'}\n${t('shareCustomer')}：${r.customer||'—'}\n${t('shareQty')}：${fmtI(r.qty)}${t('pUnit')}\n${t('shareUnit')}：${r.currency} ${fmt(r.unitPrice)}/${t('pUnit')}\n${t('shareTotal')}：${r.currency} ${fmt(r.totalPrice)}\n${t('shareLead')}：${r.leadtime}\n${t('shareDate')}：${r.date}`;
+  if(navigator.share) navigator.share({title:t('shareTitle'),text}).catch(()=>copyText(text));
+  else copyText(text);
+}
+
+function copyText(text) {
+  navigator.clipboard.writeText(text).then(()=>toast(t('toastCopied'))).catch(()=>toast(t('toastCopyManual')));
+}
+
+// ══════════════════════════════════════════
+// Init
+// ══════════════════════════════════════════
+window.addEventListener('load',()=>{
+  autoMachineRate('e'); autoMachineRate('n');
+  applyLang();
+  updateStats();
+  // Pre-load settings into forms
+  applySettingsToForm('e');
+  applySettingsToForm('n');
+  // Show last saved time in settings page
+  showSettingsVersion(null);
+});
+</script>
+</body>
+</html>
