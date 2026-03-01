@@ -1805,6 +1805,7 @@ function saveHistory(res) {
 }
 function loadHistory() { return JSON.parse(localStorage.getItem('imq_history')||'[]'); }
 
+function showHistory(){ renderHistory(); showPage('history'); g('tab-home')?.classList.remove('active'); }
 function renderHistory() {
   const history=loadHistory(); const container=g('history-list');
   if(!history.length){
@@ -1837,7 +1838,7 @@ function updateStats() {
   const h=loadHistory(); g('stat-count').textContent=h.length;
   const td=new Date().toLocaleDateString('zh-TW');
   g('stat-today').textContent=h.filter(x=>x.date===td).length;
-  g('stat-avg') && (g('stat-avg').textContent=h.length?fmt(h.reduce((s,x)=>s+x.unitPrice,0)/h.length):'—');
+  { const _sa=g('stat-avg'); if(_sa) _sa.textContent=h.length?fmt(h.reduce((s,x)=>s+x.unitPrice,0)/h.length):'—'; }
   updateHomeOrderStats();
 }
 
@@ -2408,115 +2409,7 @@ function getMatOptions(selectedMat, selectedPrice) {
   return `<option value="">請選擇...</option>${options}<option value="其他" ${selectedMat==='其他'?'selected':''}>其他</option>`;
 }
 
-function renderExistParts() {
-  const list = g('e-parts-list');
-  if(!list) return;
-  const s = loadSettings();
-  const elecRate = parseFloat(s.elecRate||'0.85');
-  const laborH = parseFloat(s.labor||'50');
-  const mPerWorker = parseFloat(s.machinesPerWorker||'1');
 
-  list.innerHTML = existParts.map((p,i) => {
-    // Calculate live cost for this part
-    const w = parseFloat(p.weight)||0;
-    const matPr = parseFloat(p.matPrice)||0;
-    const runner = (parseFloat(p.runner)||8)/100;
-    const ton = parseInt(p.tonnage)||120;
-    const power = HAITIAN_POWER[ton]||22;
-    const cycle = parseFloat(p.cycle)||30;
-    const cavity = parseInt(p.cavity)||1;
-    const qty = parseInt(p.qty)||0;
-    const profit = (parseFloat(g('e-profit')?.value)||20)/100;
-    const defect = (parseFloat(g('e-defect')?.value)||3)/100;
-    const totalFixed = parseFloat(g('e-rent')?.value)||0;
-    const monthVol = parseFloat(g('e-monthly-vol')?.value)||1;
-    const fixedPerPc = monthVol>0 ? totalFixed/monthVol : 0;
-
-    const matCost = w>0&&matPr>0 ? (w/1000)*matPr*(1+runner)/(1-defect) : 0;
-    const pcsPerHour = (3600/cycle)*cavity;
-    const elecPerPc = (power*elecRate)/pcsPerHour;
-    const laborPerPc = (laborH/mPerWorker)/pcsPerHour;
-    const surface = parseFloat(p.surface)||0;
-    const pack = parseFloat(p.pack)||0;
-    const directCost = matCost+elecPerPc+laborPerPc+fixedPerPc+surface+pack;
-    const unitPrice = directCost*(1+profit);
-    const totalAmt = unitPrice*qty;
-
-    const cur = gs('e-currency')||'HKD';
-    const hasCost = unitPrice > 0;
-
-    return `<div class="mold-row" style="margin-bottom:10px">
-      <div class="mold-row-header">
-        <span class="mold-row-num" style="background:var(--blue-dim);color:var(--blue)">零件 ${i+1}</span>
-        <div style="display:flex;align-items:center;gap:8px">
-          ${hasCost?`<span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent)">${cur} ${unitPrice.toFixed(2)}/件</span>`:''}
-          ${existParts.length>1?`<button class="mold-row-del" onclick="delExistPart(${i})">✕</button>`:''}
-        </div>
-      </div>
-      <div class="grid2">
-        <div class="field"><label>件號 / 名稱</label>
-          <input type="text" value="${p.name||''}" placeholder="件${i+1}" 
-            oninput="updateExistPart(${i},'name',this.value)">
-        </div>
-        <div class="field"><label>件重（克）</label>
-          <input type="number" inputmode="decimal" value="${p.weight||''}" placeholder="0"
-            oninput="updateExistPart(${i},'weight',this.value);liveExistCalc()">
-        </div>
-      </div>
-      <div class="field"><label>原料種類</label>
-        <select onchange="updateExistPartMat(${i},this)">
-          ${getMatOptions(p.mat, p.matPrice)}
-        </select>
-      </div>
-      <div class="field" id="ep-matprice-row-${i}" style="${(!p.mat||p.mat==='其他')?'':'display:none'}">
-        <label>原料單價（元/kg）</label>
-        <input type="number" inputmode="decimal" value="${p.matPrice||''}" placeholder="手動輸入"
-          oninput="updateExistPart(${i},'matPrice',this.value);liveExistCalc()">
-      </div>
-      <div class="grid2" style="margin-top:4px">
-        <div class="field"><label>機器噸位</label>
-          <select onchange="updateExistPart(${i},'tonnage',this.value);liveExistCalc()">
-            ${[60,80,120,160,250,350,500,800].map(t=>`<option value="${t}" ${parseInt(p.tonnage)===t?'selected':''}>${t}T · ${HAITIAN_POWER[t]}kW</option>`).join('')}
-          </select>
-        </div>
-        <div class="field"><label>穴數</label>
-          <input type="number" inputmode="numeric" value="${p.cavity||1}" placeholder="1"
-            oninput="updateExistPart(${i},'cavity',this.value);liveExistCalc()">
-        </div>
-      </div>
-      <div class="grid2">
-        <div class="field"><label>週期（秒/件）</label>
-          <input type="number" inputmode="decimal" value="${p.cycle||30}" placeholder="30"
-            oninput="updateExistPart(${i},'cycle',this.value);liveExistCalc()">
-        </div>
-        <div class="field"><label>水口料損耗（%）</label>
-          <input type="number" inputmode="decimal" value="${p.runner||8}" placeholder="8"
-            oninput="updateExistPart(${i},'runner',this.value);liveExistCalc()">
-        </div>
-      </div>
-      <div class="grid2">
-        <div class="field"><label>表面處理（元/件）</label>
-          <input type="number" inputmode="decimal" value="${p.surface||0}" placeholder="0"
-            oninput="updateExistPart(${i},'surface',this.value);liveExistCalc()">
-        </div>
-        <div class="field"><label>包裝費（元/件）</label>
-          <input type="number" inputmode="decimal" value="${p.pack||1.5}" placeholder="1.5"
-            oninput="updateExistPart(${i},'pack',this.value);liveExistCalc()">
-        </div>
-      </div>
-      <div class="field"><label>訂購數量（件）</label>
-        <input type="number" inputmode="numeric" value="${p.qty||''}" placeholder="10000"
-          oninput="updateExistPart(${i},'qty',this.value);liveExistCalc()">
-      </div>
-      ${hasCost&&qty>0?`<div class="mold-total-bar" style="margin-top:8px">
-        <span>小計</span>
-        <span class="mold-total-val">${cur} ${totalAmt.toLocaleString('zh-TW',{minimumFractionDigits:2,maximumFractionDigits:2})}</span>
-      </div>`:''}
-    </div>`;
-  }).join('');
-  updateIcons();
-  liveExistSummary();
-}
 
 function addExistPart() {
   existParts.push({
@@ -2589,14 +2482,14 @@ function liveExistSummary() {
   });
 
   const validParts = partResults.filter(p=>p.unitPrice>0);
-  const summarySection = g('e-summary-section');
+  const summarySection = g('e-summary-section')||g('parts-summary-section');
   if(!summarySection) return;
 
   if(!validParts.length){ summarySection.style.display='none'; return; }
   summarySection.style.display='block';
 
   const grandTotal = validParts.reduce((s,p)=>s+p.total,0);
-  const summaryContent = g('e-summary-content');
+  const summaryContent = g('e-summary-content')||g('parts-summary-content');
   if(summaryContent) {
     summaryContent.innerHTML = `<table class="iq-summary-table-inner">
       <thead><tr>
@@ -2629,86 +2522,13 @@ function liveExistSummary() {
 let moldRows = [{id:1, name:'副模1', cost:'', steel:'p20', type:'simple'}];
 let moldMode = 'full'; // 'full' or 'shared'
 
-function setMoldMode(mode) {
-  moldMode = mode;
-  g('mmb-full').classList.toggle('active', mode==='full');
-  g('mmb-shared').classList.toggle('active', mode==='shared');
-  g('n-shared-section').style.display = mode==='shared' ? '' : 'none';
-  g('n-full-amortize').style.display = mode==='full' ? '' : 'none';
-  liveCalc('n');
-}
 
-function calcSharedMold() {
-  const total = parseFloat(g('n-mold-total')?.value)||0;
-  const custRatio = parseFloat(g('n-cust-ratio')?.value)||0;
-  const custAmt = total * custRatio / 100;
-  const myAmt = total - custAmt;
-  if(g('n-cust-amount')) g('n-cust-amount').value = custAmt.toFixed(0);
-  if(g('n-my-amount')) g('n-my-amount').value = myAmt.toFixed(0);
-  updateRecovery();
-  liveCalc('n');
-}
 
-function updateRecovery() {
-  const myAmt = parseFloat(g('n-my-amount')?.value)||0;
-  const produced = parseFloat(g('n-produced')?.value)||0;
-  const amortize = parseFloat(g('n-amortize')?.value)||0;
-  if(!myAmt || !amortize) return;
-  const perPc = myAmt / amortize;
-  const recovered = Math.min(produced * perPc, myAmt);
-  const remaining = myAmt - recovered;
-  const pct = (recovered/myAmt*100).toFixed(1);
-  const hint = g('n-recovery-hint');
-  if(hint) {
-    if(remaining <= 0) {
-      hint.textContent = '✅ 已完全回本，可調低單價';
-      hint.style.color = 'var(--green)';
-    } else {
-      hint.textContent = `已回本 ${pct}%，還差 ¥${remaining.toFixed(0)}`;
-      hint.style.color = 'var(--accent)';
-    }
-  }
-  liveCalc('n');
-}
 
-function renderMoldRows() {
-  const list = g('n-molds-list');
-  if(!list) return;
-  list.innerHTML = moldRows.map((m,i) => `
-    <div class="mold-row">
-      <div class="mold-row-header">
-        <span class="mold-row-num">第 ${i+1} 副模具</span>
-        ${moldRows.length>1?`<button class="mold-row-del" onclick="delMoldRow(${i})">✕</button>`:''}
-      </div>
-      <div class="grid2">
-        <div class="field"><label>模具名稱</label><input type="text" value="${m.name||''}" placeholder="副模${i+1}" oninput="updateMoldRow(${i},'name',this.value)"></div>
-        <div class="field">
-          <label>模具鋼材</label>
-          <select onchange="updateMoldRow(${i},'steel',this.value)">
-            <option value="p20" ${m.steel==='p20'?'selected':''}>P20（一般）</option>
-            <option value="718h" ${m.steel==='718h'?'selected':''}>718H（高光）</option>
-            <option value="h13" ${m.steel==='h13'?'selected':''}>H13（高壽命）</option>
-            <option value="s136" ${m.steel==='s136'?'selected':''}>S136（防腐）</option>
-          </select>
-        </div>
-      </div>
-      <div class="grid2">
-        <div class="field">
-          <label>模具類型</label>
-          <select onchange="updateMoldRow(${i},'type',this.value);autoMoldRowCost(${i})">
-            <option value="simple" ${m.type==='simple'?'selected':''}>簡單模（單穴）</option>
-            <option value="medium" ${m.type==='medium'?'selected':''}>中型模（多穴）</option>
-            <option value="complex" ${m.type==='complex'?'selected':''}>複雜模（滑塊）</option>
-            <option value="precision" ${m.type==='precision'?'selected':''}>精密模</option>
-            <option value="custom" ${m.type==='custom'?'selected':''}>自定義</option>
-          </select>
-        </div>
-        <div class="field"><label>開模費（元）</label><input type="number" inputmode="decimal" value="${m.cost||''}" placeholder="系統估算" oninput="updateMoldRow(${i},'cost',this.value);updateMoldTotal()"></div>
-      </div>
-    </div>`).join('');
-  updateMoldTotal();
-  updateIcons();
-}
+
+
+
+
 
 function addMoldRow() {
   moldRows.push({id:Date.now(), name:`副模${moldRows.length+1}`, cost:'', steel:'p20', type:'simple'});
@@ -2744,10 +2564,10 @@ function updateMoldTotal() {
   // Update hidden moldcost field for calcNew()
   if(g('n-moldcost')) g('n-moldcost').value = total;
   // Show total bar
-  const list = g('n-molds-list');
+  const list = g('n-molds-list')||g('mold-list');
   if(list && moldRows.length > 1) {
     const existingBar = list.nextElementSibling;
-    let bar = g('mold-total-bar');
+    let bar = g('mold-total-display');
     if(!bar) {
       bar = document.createElement('div');
       bar.id = 'mold-total-bar';
@@ -2806,10 +2626,10 @@ function onIQMatChange() {
   g('iq-matprice-row').style.display = isOther ? '' : 'none';
   if(price) {
     g('iq-matprice').value = price;
-    g('iq-matprice-hidden').value = price;
+    // iq-matprice-hidden removed
   } else if(isOther) {
     g('iq-matprice').value = '';
-    g('iq-matprice-hidden').value = '';
+    // iq-matprice-hidden removed
   }
   liveCalcIQ();
 }
@@ -3137,5 +2957,104 @@ window.addEventListener('load',()=>{
 });
 
 </script>
+
+<div class="toast" id="toast"></div>
+
+<!-- Add/Edit Customer Modal -->
+<div class="cust-modal-overlay" id="cust-modal" onclick="closeCustModal(event)">
+  <div class="cust-modal-box">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="cust-modal-title">👤 新增客戶</div>
+    <input type="hidden" id="cm-id">
+    <div class="field"><label>公司名稱 / Company</label><input type="text" id="cm-company" placeholder="公司名稱"></div>
+    <div class="grid2">
+      <div class="field"><label>聯絡人</label><input type="text" id="cm-contact" placeholder="姓名"></div>
+      <div class="field"><label>職位</label><input type="text" id="cm-title" placeholder="採購經理"></div>
+    </div>
+    <div class="grid2">
+      <div class="field"><label>電話</label><input type="tel" id="cm-phone" inputmode="tel" placeholder="+852 xxxx xxxx"></div>
+      <div class="field"><label>WhatsApp</label><input type="tel" id="cm-whatsapp" inputmode="tel" placeholder="+852 xxxx xxxx"></div>
+    </div>
+    <div class="field"><label>Email</label><input type="email" id="cm-email" inputmode="email" placeholder="email@example.com"></div>
+    <div class="grid2">
+      <div class="field">
+        <label>地區</label>
+        <select id="cm-region">
+          <option value="香港">香港</option>
+          <option value="深圳">深圳</option>
+          <option value="廣州">廣州</option>
+          <option value="東莞">東莞</option>
+          <option value="其他大灣區">其他大灣區</option>
+          <option value="台灣">台灣</option>
+          <option value="海外">海外</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>行業</label>
+        <select id="cm-industry">
+          <option value="電子產品">電子產品</option>
+          <option value="無人機">無人機</option>
+          <option value="家電">家電</option>
+          <option value="汽車配件">汽車配件</option>
+          <option value="醫療器械">醫療器械</option>
+          <option value="玩具">玩具</option>
+          <option value="其他">其他</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label>客戶狀態</label>
+      <select id="cm-status">
+        <option value="new">🔵 新客戶</option>
+        <option value="following">🟡 跟進中</option>
+        <option value="won">🟢 成交客戶</option>
+        <option value="lost">🔴 流失客戶</option>
+      </select>
+    </div>
+    <div class="field"><label>業務員</label><input type="text" id="cm-sales" placeholder="負責業務員姓名"></div>
+    <div class="field"><label>備注 / 跟進記錄</label><textarea id="cm-notes" placeholder="跟進記錄、特殊要求、付款習慣等..." style="min-height:80px"></textarea></div>
+    <div class="grid2" style="margin-top:8px">
+      <button class="btn-action" onclick="closeCustModal(null)">取消</button>
+      <button class="btn-calc exist" style="margin:0;padding:14px;font-size:15px" onclick="saveCustomer()">💾 儲存</button>
+    </div>
+    <button id="btn-del-customer" class="hist-clear-btn" style="margin-top:10px;display:none" onclick="deleteCustomer()">🗑️ 刪除此客戶</button>
+  </div>
+</div>
+
+<!-- Order Detail Modal -->
+<div class="cust-modal-overlay" id="order-modal" onclick="closeOrderModal(event)">
+  <div class="cust-modal-box">
+    <div class="modal-handle"></div>
+    <div class="modal-title">📦 訂單詳情</div>
+    <div id="order-detail-content"></div>
+    <div class="field" style="margin-top:12px">
+      <label>更新訂單狀態</label>
+      <select id="order-status-select" onchange="updateOrderStatus()">
+        <option value="pending">⏳ 待安排生產</option>
+        <option value="production">🏭 生產中</option>
+        <option value="ready">📦 待出貨</option>
+        <option value="shipped">🚚 已出貨</option>
+        <option value="collected">✅ 已收款完成</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>跟進備注</label>
+      <textarea id="order-note-input" placeholder="更新跟進記錄..." style="min-height:70px"></textarea>
+    </div>
+    <button class="btn-calc exist" style="padding:14px;font-size:15px" onclick="saveOrderNote()">💾 儲存更新</button>
+    <button class="btn-action" style="width:100%;margin-top:8px;padding:12px" onclick="closeOrderModal(null)">關閉</button>
+  </div>
+</div>
+
+<!-- Contract Modal -->
+<div class="modal-overlay" id="contract-modal" onclick="closeContractModal(event)">
+  <div class="modal-box">
+    <div class="modal-handle"></div>
+    <div class="modal-title" data-i18n="contractPreviewTitle">📄 合同預覽 · Contract Preview</div>
+    <div class="contract-preview" id="contract-content"></div>
+    <button class="btn-dl-contract" onclick="downloadPDF()" data-i18n="btnDownloadPDF">⬇️ 下載 PDF / Download PDF</button>
+  </div>
+</div>
+
 </body>
 </html>
