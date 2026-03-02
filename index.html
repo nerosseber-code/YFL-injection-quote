@@ -1833,8 +1833,9 @@ function renderHistory() {
     'inquiry':'inquiry','exist':'exist','new':'new'
   };
   container.innerHTML = history.map((h,i)=>`
-<div class="hist-card" onclick="viewHistory(${i})" style="cursor:pointer">
-  <div class="hc-top">
+<div class="hist-card" onclick="viewHistory(${i})" style="cursor:pointer;position:relative">
+  <button onclick="event.stopPropagation();deleteHistory(${i})" style="position:absolute;top:10px;right:10px;background:rgba(251,113,133,.15);border:1px solid rgba(251,113,133,.3);color:var(--red);width:28px;height:28px;border-radius:8px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1">✕</button>
+  <div class="hc-top" style="padding-right:36px">
     <div class="hc-product">${h.product||h.parts?.map(p=>p.name).join('+')||'—'}</div>
     <div class="hc-price" style="font-family:'JetBrains Mono',monospace">${h.currency||'HKD'} ${h.grandTotal?fmt(h.grandTotal):h.moldTotal?fmt(h.moldTotal):fmt(h.unitPrice||0)}</div>
   </div>
@@ -1877,6 +1878,15 @@ function clearHistory() {
 // DEFAULT_MATS defined in core
 
 
+
+function deleteHistory(idx) {
+  const h = loadHistory();
+  h.splice(idx, 1);
+  localStorage.setItem('imq_history', JSON.stringify(h));
+  updateStats();
+  renderHistory();
+  toast('已刪除');
+}
 
 function openSettings() {
   const s = loadSettings();
