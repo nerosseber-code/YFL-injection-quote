@@ -1234,14 +1234,14 @@ function buildPartItemsDOM(list, cur){
         </div>
       </div>
       <!-- Cost breakdown (updated in-place) -->
-      <div id="pcost-${i}" style="min-height:0;background:var(--bg);border-radius:8px;padding:8px 10px;margin-bottom:8px;font-size:11px;font-family:'JetBrains Mono',monospace"></div>
+      <div id="pcost-${i}" style="visibility:hidden;max-height:0;overflow:hidden;background:var(--bg);border-radius:8px;padding:8px 10px;margin-bottom:8px;font-size:11px;font-family:'JetBrains Mono',monospace"></div>
       <div class="grid2">
         <div class="field"><label>件號 / 名稱</label>
           <input type="text" value="${p.name||''}" placeholder="件${i+1}"
             oninput="partItems[${i}].name=this.value">
         </div>
         <div class="field"><label>件重（克）</label>
-          <input type="text" inputmode="decimal" value="${p.weight||''}" placeholder="0"
+          <input type="text" inputmode="decimal" value="${p.weight??''}" placeholder="0"
             oninput="partItems[${i}].weight=this.value;debounce(\'pcost\',updatePartCostPreviews,200)">
         </div>
       </div>
@@ -1264,27 +1264,27 @@ function buildPartItemsDOM(list, cur){
           </select>
         </div>
         <div class="field"><label>穴數</label>
-          <input type="text" inputmode="numeric" value="${p.cavity||1}" placeholder="1"
+          <input type="text" inputmode="numeric" value="${p.cavity??''}" placeholder="1"
             oninput="partItems[${i}].cavity=this.value;debounce(\'pcost\',updatePartCostPreviews,200)">
         </div>
       </div>
       <div class="grid2">
         <div class="field"><label>週期（秒/件）</label>
-          <input type="text" inputmode="decimal" value="${p.cycle||30}" placeholder="30"
+          <input type="text" inputmode="decimal" value="${p.cycle??''}" placeholder="30"
             oninput="partItems[${i}].cycle=this.value;debounce(\'pcost\',updatePartCostPreviews,200)">
         </div>
         <div class="field"><label>水口料損耗（%）</label>
-          <input type="text" inputmode="decimal" value="${p.runner||8}" placeholder="8"
+          <input type="text" inputmode="decimal" value="${p.runner??''}" placeholder="8"
             oninput="partItems[${i}].runner=this.value;debounce(\'pcost\',updatePartCostPreviews,200)">
         </div>
       </div>
       <div class="grid2">
         <div class="field"><label>表面處理（元/件）</label>
-          <input type="text" inputmode="decimal" value="${p.surface||0}" placeholder="0"
+          <input type="text" inputmode="decimal" value="${p.surface??''}" placeholder="0"
             oninput="partItems[${i}].surface=this.value;debounce(\'pcost\',updatePartCostPreviews,200)">
         </div>
         <div class="field"><label>包裝費（元/件）</label>
-          <input type="text" inputmode="decimal" value="${p.pack||1.5}" placeholder="1.5"
+          <input type="text" inputmode="decimal" value="${p.pack??''}" placeholder="1.5"
             oninput="partItems[${i}].pack=this.value;debounce(\'pcost\',updatePartCostPreviews,200)">
         </div>
       </div>
@@ -1304,20 +1304,26 @@ function updatePartCostPreviews(cur){
   cur = cur || gs('p-currency')||'HKD';
   partItems.forEach((p,i)=>{
     const cost = calcPartCost(p);
-    const unitPrice = cost?.unitPrice||0;
+    const unitPrice = cost ? cost.unitPrice : 0;
     const qty = parseInt(p.qty)||0;
 
-    // Update unit price badge (only if changed to avoid cursor jump)
+    // Unit price badge — only write if changed (prevents cursor jump)
     const upEl = g('pup-'+i);
-    const newPriceText = unitPrice>0 ? cur+' '+unitPrice.toFixed(2)+'/件' : '';
-    if(upEl && upEl.textContent !== newPriceText) upEl.textContent = newPriceText;
+    if(upEl){
+      const txt = unitPrice>0 ? cur+' '+unitPrice.toFixed(2)+'/件' : '';
+      if(upEl.textContent !== txt) upEl.textContent = txt;
+    }
 
-    // Update cost breakdown (skip if price unchanged to prevent cursor flicker)
+    // Cost breakdown — only rebuild if unitPrice changed
     const costEl = g('pcost-'+i);
-    if(costEl && cost && costEl.dataset.lastPrice !== unitPrice.toFixed(4)){
-      costEl.dataset.lastPrice = unitPrice.toFixed(4);
-      costEl.style.display = 'block';
-      costEl.innerHTML = `
+    if(costEl){
+      const priceKey = unitPrice.toFixed(4);
+      if(cost && costEl.dataset.lastPrice !== priceKey){
+        costEl.dataset.lastPrice = priceKey;
+        // Use visibility instead of display to avoid layout reflow
+        costEl.style.visibility = 'visible';
+        costEl.style.maxHeight = '300px';
+        costEl.innerHTML = `
         <div style="display:flex;justify-content:space-between;color:var(--muted);margin-bottom:3px"><span>📦 材料</span><span>${cost.matCost.toFixed(3)}</span></div>
         <div style="display:flex;justify-content:space-between;color:var(--muted);margin-bottom:3px"><span>⚡ 電費</span><span>${cost.elecPerPc.toFixed(3)}</span></div>
         <div style="display:flex;justify-content:space-between;color:var(--muted);margin-bottom:3px"><span>👷 人工</span><span>${cost.laborPerPc.toFixed(3)}</span></div>
@@ -1327,18 +1333,24 @@ function updatePartCostPreviews(cur){
         <div style="display:flex;justify-content:space-between;border-top:1px solid var(--border);padding-top:4px;margin-top:4px"><span style="color:var(--muted)">直接成本</span><span>${cost.directCost.toFixed(3)}</span></div>
         <div style="display:flex;justify-content:space-between;margin-top:2px"><span style="color:var(--muted)">+ 利潤</span><span>${(cost.unitPrice-cost.directCost).toFixed(3)}</span></div>
         <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:13px;font-weight:700"><span style="color:var(--accent)">建議報價</span><span style="color:var(--accent)">${unitPrice.toFixed(2)}</span></div>`;
-    } else if(costEl){
-      costEl.innerHTML = '';
+      } else if(!cost && costEl.dataset.lastPrice !== '0'){
+        costEl.dataset.lastPrice = '0';
+        costEl.style.visibility = 'hidden';
+        costEl.style.maxHeight = '0';
+      }
     }
 
-    // Update subtotal bar
+    // Subtotal bar — only toggle display if state changes
     const stBar = g('psubtotal-'+i);
     const stVal = g('pst-'+i);
     if(stBar && stVal){
-      if(unitPrice>0 && qty>0){
-        stBar.style.display = 'flex';
-        stVal.textContent = cur+' '+(unitPrice*qty).toFixed(0);
-      } else {
+      const show = unitPrice>0 && qty>0;
+      const currentlyShown = stBar.style.display !== 'none';
+      if(show){
+        const newTxt = cur+' '+(unitPrice*qty).toFixed(0);
+        if(!currentlyShown) stBar.style.display = 'flex';
+        if(stVal.textContent !== newTxt) stVal.textContent = newTxt;
+      } else if(currentlyShown){
         stBar.style.display = 'none';
       }
     }
@@ -2577,7 +2589,7 @@ function renderIQParts() {
       </div>
       <div class="grid2">
         <div class="field"><label>件號 / 名稱</label><input type="text" value="${p.partNo||''}" placeholder="件${i+1}" oninput="updateIQPart(${i},'partNo',this.value)"></div>
-        <div class="field"><label>件重（克）</label><input type="number" inputmode="decimal" value="${p.weight||''}" placeholder="0" oninput="updateIQPart(${i},'weight',this.value);liveCalcIQ()"></div>
+        <div class="field"><label>件重（克）</label><input type="number" inputmode="decimal" value="${p.weight??''}" placeholder="0" oninput="updateIQPart(${i},'weight',this.value);liveCalcIQ()"></div>
       </div>
     </div>`).join('');
   updateIcons();
