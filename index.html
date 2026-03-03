@@ -1562,6 +1562,7 @@ function debounce(key, fn, ms) {
 function genId(){return 'Q'+Date.now().toString(36).toUpperCase();}
 function todayStr(){return new Date().toLocaleDateString('zh-TW');}
 function fmt(n){return (Math.round(n*100)/100).toFixed(2);}
+function fmtI(n){return Math.round(n||0).toLocaleString();}
 
 function saveHistory(res){
   const h=JSON.parse(localStorage.getItem('imq_history')||'[]');
@@ -2185,13 +2186,13 @@ function copyText(text) {
 // Init
 // ══════════════════════════════════════════
 window.addEventListener('load',()=>{
-  autoMachineRate('n'); // exist form uses per-part tonnage now
-  applyLang();
-  updateStats();
-  applySettingsToForm('e');
-  applySettingsToForm('n');
-  showSettingsVersion(null);
-  updateIcons();
+  try{
+    applyLang();
+    updateStats();
+    updateHomeOrderStats();
+    showSettingsVersion(null);
+    updateIcons();
+  }catch(e){console.error('Init:',e);}
 });
 
 
@@ -2415,6 +2416,32 @@ function filterOrders(filter) {
   renderOrders();
 }
 
+
+function showInquiryResult(h){
+  lastResult = h;
+  g('result-title').textContent = '🔍 詢價報告';
+  const cur = h.currency||'HKD';
+  const content = `<div style="padding:16px">
+    <div style="background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:14px">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:4px">${h.qid||''} · ${h.date||''}</div>
+      <div style="font-size:20px;font-weight:700;margin-bottom:8px">${h.product||'詢價報告'}</div>
+      <div style="font-size:13px;color:var(--muted)">客戶：${h.customer||'—'}</div>
+    </div>
+    <div style="background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:14px">
+      <div style="font-size:13px;color:var(--muted);margin-bottom:8px">報價詳情</div>
+      ${(h.parts||[]).map(p=>`
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
+          <span>${p.partNo||p.name||'零件'}</span>
+          <span style="color:var(--accent);font-weight:600">${cur} ${(p.unitPrice||0).toFixed(2)}/件</span>
+        </div>`).join('')}
+      ${h.grandTotal?`<div style="display:flex;justify-content:space-between;padding:10px 0;font-weight:700"><span>合計</span><span style="color:var(--accent)">${cur} ${fmt(h.grandTotal)}</span></div>`:''}
+    </div>
+    <button class="btn-calc" style="background:var(--card2);margin-bottom:10px" onclick="goHome()">← 返回主頁</button>
+  </div>`;
+  g('result-content').innerHTML = content;
+  showPage('result');
+}
+
 function renderOrders() {
   let orders = loadOrders();
   if(orderFilter!=='all') orders = orders.filter(o=>o.status===orderFilter);
@@ -2588,7 +2615,7 @@ function onMatChange(p) {
   const row = g(p+'-matprice-row');
   if(row) row.style.display = isOther ? '' : 'none';
   if(price) g(p+'-matprice').value = price;
-  liveCalc(p);
+  liveCalcIQ();
 }
 
 function onIQTonnageChange() {
