@@ -560,8 +560,16 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
         <!-- 訂單設置 -->
         <div class="section-hd">訂單設置</div>
         <div class="grid2">
-          <div class="field"><label>利潤率（%）</label><input type="text" id="p-profit" inputmode="decimal" placeholder="20" value="20" oninput="calcPartsLive()"></div>
-          <div class="field"><label>次品率（%）</label><input type="text" id="p-defect" inputmode="decimal" placeholder="3" value="3" oninput="calcPartsLive()"></div>
+          <div class="field"><label>目標利潤率（%）</label><input type="text" id="p-profit" inputmode="decimal" placeholder="20" value="20" oninput="calcPartsLive()"></div>
+          <div class="field"><label>最低利潤率（%）</label><input type="text" id="p-min-profit" inputmode="decimal" placeholder="8" value="8" oninput="calcPartsLive()"></div>
+          <div class="field"><label>良品率（%）</label><input type="text" id="p-defect" inputmode="decimal" placeholder="97" value="97" oninput="calcPartsLive()"></div>
+          <div class="field"><label>人工類型</label>
+            <select id="p-labor-coef" onchange="calcPartsLive()">
+              <option value="0.5">🤖 全自動（0.5）</option>
+              <option value="0.7" selected>⚙️ 普通件（0.7）</option>
+              <option value="1.0">🔩 嵌件人工（1.0）</option>
+            </select>
+          </div>
         </div>
         <div class="grid2">
           <div class="field">
@@ -772,7 +780,8 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
               <option value="USD">USD 美元</option>
             </select>
           </div>
-          <div class="field"><label data-i18n="lblDefaultProfit">預設利潤率（%）</label><input type="text" id="s-profit" inputmode="decimal" placeholder="20" value="20"></div>
+          <div class="field"><label>預設目標利潤率（%）</label><input type="text" id="s-profit" inputmode="decimal" placeholder="20" value="20"></div>
+          <div class="field"><label>預設最低利潤率（%）</label><input type="text" id="s-min-profit" inputmode="decimal" placeholder="8" value="8"></div>
         </div>
 
         <!-- Fixed Costs Defaults -->
@@ -1141,7 +1150,8 @@ function openPartsQuote(mode){
   
   const s = loadSettings();
   if(g('p-profit')) g('p-profit').value = s.profit||'20';
-  if(g('p-defect')) g('p-defect').value = s.defect||'3';
+  if(g('p-min-profit')) g('p-min-profit').value = s.minProfit||'8';
+  if(g('p-defect')) g('p-defect').value = s.defect||'97';
   if(g('p-currency')) g('p-currency').value = s.currency||'HKD';
   
   const banner = g('parts-mode-banner');
@@ -1194,26 +1204,43 @@ function calcPartCost(p){
   const surface = parseFloat(p.surface)||0;
   const pack = parseFloat(p.pack)||0;
   const profit = (parseFloat(gs('p-profit'))||20)/100;
-  const defect = (parseFloat(gs('p-defect'))||3)/100;
+  const minProfit = (parseFloat(gs('p-min-profit'))||8)/100;
+  const yieldRate = 1 - (parseFloat(gs('p-defect'))||3)/100; // e.g. 97%
+  const laborCoef = parseFloat(gs('p-labor-coef'))||0.7; // labor type coefficient
 
   if(!w || !matPr) return null;
 
-  const matCost = (w/1000)*matPr*(1+runner)/(1-defect);
-  const pcsPerHour = (3600/cycle)*cavity;
-  const elecPerPc = (power*costs.elecRate)/pcsPerHour;
-  const laborPerPc = (costs.laborH/costs.mPerWorker)/pcsPerHour;
-  
-  // Public mold amortize (hidden from contract)
+  // ── Material cost (water gate loss only) ──
+  const matCost = (w/1000) * matPr * (1 + runner);
+
+  // ── Machine costs ──
+  const pcsPerHour = (3600/cycle) * cavity;
+  const elecPerPc = (power * costs.elecRate) / pcsPerHour;
+
+  // ── Labor cost with type coefficient ──
+  // laborCoef: 0.5=auto, 0.7=normal, 1.0=insert parts
+  const laborPerPc = (costs.laborH * laborCoef / costs.mPerWorker) / pcsPerHour;
+
+  // ── Public mold amortize (hidden from contract) ──
   let amortPerPc = 0;
   if(currentPartsMode === 'public'){
     const moldCost = parseFloat(gs('p-mold-cost'))||0;
     const amortQty = parseFloat(gs('p-amortize'))||1;
     amortPerPc = amortQty>0 ? moldCost/amortQty : 0;
   }
-  
-  const directCost = matCost+elecPerPc+laborPerPc+costs.fixedPerPc+surface+pack+amortPerPc;
-  const unitPrice = directCost*(1+profit);
-  return {matCost, elecPerPc, laborPerPc, fixedPerPc:costs.fixedPerPc, amortPerPc, surface, pack, directCost, unitPrice};
+
+  // ── Direct cost (before yield correction) ──
+  const directCostRaw = matCost + elecPerPc + laborPerPc + costs.fixedPerPc + surface + pack + amortPerPc;
+
+  // ── Yield correction: spread scrap cost across good parts ──
+  const directCost = yieldRate > 0 ? directCostRaw / yieldRate : directCostRaw;
+
+  // ── Pricing ──
+  const unitPrice = directCost * (1 + profit);
+  const minPrice  = directCost * (1 + minProfit);
+
+  return {matCost, elecPerPc, laborPerPc, fixedPerPc:costs.fixedPerPc,
+          amortPerPc, surface, pack, directCost, unitPrice, minPrice, yieldRate, laborCoef};
 }
 
 function renderPartItems(){
@@ -1346,7 +1373,9 @@ function updatePartCostPreviews(cur){
         ${cost.amortPerPc>0?`<div style="display:flex;justify-content:space-between;color:var(--green);margin-bottom:3px"><span>🔄 模具攤銷</span><span>${cost.amortPerPc.toFixed(3)}</span></div>`:''}
         <div style="display:flex;justify-content:space-between;border-top:1px solid var(--border);padding-top:4px;margin-top:4px"><span style="color:var(--muted)">直接成本</span><span>${cost.directCost.toFixed(3)}</span></div>
         <div style="display:flex;justify-content:space-between;margin-top:2px"><span style="color:var(--muted)">+ 利潤</span><span>${(cost.unitPrice-cost.directCost).toFixed(3)}</span></div>
-        <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:13px;font-weight:700"><span style="color:var(--accent)">建議報價</span><span style="color:var(--accent)">${unitPrice.toFixed(2)}</span></div>`;
+        <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:13px;font-weight:700"><span style="color:var(--accent)">建議報價</span><span style="color:var(--accent)">${unitPrice.toFixed(2)}</span></div>
+        <div style="display:flex;justify-content:space-between;margin-top:3px;font-size:12px"><span style="color:#f59e0b">最低成交價</span><span style="color:#f59e0b;font-weight:600">${cost.minPrice.toFixed(2)}</span></div>
+        <div style="display:flex;justify-content:space-between;margin-top:3px;font-size:10px;color:var(--muted)"><span>良品率修正</span><span>${(cost.yieldRate*100).toFixed(0)}% 良率</span></div>`;
       } else if(!cost && costEl.dataset.lastPrice !== '0'){
         costEl.dataset.lastPrice = '0';
         costEl.style.visibility = 'hidden';
@@ -1378,7 +1407,7 @@ function updatePartsSummary(){
     const cost = calcPartCost(p);
     const qty = parseInt(p.qty)||0;
     return {name:p.name||`件${i+1}`, mat:p.mat||'—', weight:parseFloat(p.weight)||0,
-            tonnage:p.tonnage||120, qty, unitPrice:cost?.unitPrice||0,
+            tonnage:p.tonnage||120, qty, unitPrice:cost?.unitPrice||0, minPrice:cost?.minPrice||0,
             total:(cost?.unitPrice||0)*qty};
   }).filter(p=>p.unitPrice>0);
 
@@ -1397,6 +1426,7 @@ function updatePartsSummary(){
           <td>${p.mat}</td><td>${p.tonnage}T</td>
           <td>${p.qty>0?p.qty.toLocaleString():'—'}</td>
           <td style="color:var(--accent);font-family:'JetBrains Mono',monospace">${cur} ${p.unitPrice.toFixed(2)}</td>
+          <td style="color:#f59e0b;font-family:'JetBrains Mono',monospace">${cur} ${(p.minPrice||0).toFixed(2)}</td>
           <td style="font-family:'JetBrains Mono',monospace">${p.qty>0?cur+' '+p.total.toFixed(0):'—'}</td>
         </tr>`).join('')}
         ${results.length>1?`<tr style="font-weight:700;background:var(--card2)">
@@ -1494,7 +1524,8 @@ function showPartsResult(res){ lastResult = res;
             <th style="text-align:left;padding:4px 0">件號</th>
             <th style="text-align:left;padding:4px 0">原料</th>
             <th style="text-align:right;padding:4px 0">數量</th>
-            <th style="text-align:right;padding:4px 0">單價</th>
+            <th style="text-align:right;padding:4px 0">建議價</th>
+            <th style="text-align:right;padding:4px 0" style="color:#f59e0b">底價</th>
             <th style="text-align:right;padding:4px 0">小計</th>
           </tr></thead>
           <tbody>
