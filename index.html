@@ -187,7 +187,6 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
 .cp-contract-title{text-align:center;font-size:14px;font-weight:700;margin-bottom:2px}
 .cp-contract-en{text-align:center;font-size:10px;color:#666;margin-bottom:14px}
 .cp-divider{border:none;border-top:2px solid #000;margin:10px 0}
-.cp-divider-thin{border:none;border-top:1px solid #ccc;margin:8px 0}
 .cp-section{font-weight:700;font-size:12px;margin:12px 0 4px}
 .cp-row{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #f0f0f0;font-size:11px}
 .cp-row .label{color:#555}
@@ -218,7 +217,6 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
 .cost-table th{color:var(--muted);font-weight:600;background:rgba(255,255,255,.02)}
 .cost-table td:last-child,.cost-table th:last-child{text-align:right;font-family:'JetBrains Mono',monospace}
 
-/* Responsive */
 @media (max-width:380px){
   .hero-title{font-size:24px}
   .mode-cards{grid-template-columns:1fr}
@@ -229,7 +227,6 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
 </head>
 <body>
 <div class="app">
-  <!-- Topbar -->
   <div class="topbar">
     <div class="topbar-left">
       <div>
@@ -249,9 +246,7 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
     </div>
   </div>
 
-  <!-- Pages -->
   <div class="pages">
-    <!-- Home -->
     <div class="page" id="page-home">
       <div class="home-hero">
         <div class="hero-label" data-i18n="heroLabel">Advanced Estimation Platform</div>
@@ -307,7 +302,6 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
       </div>
     </div>
 
-    <!-- Part Form -->
     <div class="page hidden" id="page-part">
       <div class="form-header">
         <button class="btn-back" onclick="goHome()" data-i18n="btnBack">← 返回</button>
@@ -401,9 +395,7 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
         <button class="btn-calc exist" onclick="calcPart()" data-i18n="btnCalcPart">CALCULATE</button>
       </div>
     </div>
-
-    <!-- Multi Parts Form -->
-    <div class="page hidden" id="page-parts">
+        <div class="page hidden" id="page-parts">
       <div class="form-header">
         <button class="btn-back" onclick="goHome()" data-i18n="btnBack">← 返回</button>
         <div class="form-title new" data-i18n="formPartsTitle">多零件套料報價</div>
@@ -442,7 +434,6 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
       </div>
     </div>
 
-    <!-- Mold Form -->
     <div class="page hidden" id="page-mold">
       <div class="form-header">
         <button class="btn-back" onclick="goHome()" data-i18n="btnBack">← 返回</button>
@@ -511,7 +502,6 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
       </div>
     </div>
 
-    <!-- Inquiry Form -->
     <div class="page hidden" id="page-inquiry">
       <div class="form-header">
         <button class="btn-back" onclick="goHome()" data-i18n="btnBack">← 返回</button>
@@ -592,7 +582,6 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
       </div>
     </div>
 
-    <!-- Result Page -->
     <div class="page hidden" id="page-result">
       <div class="form-header">
         <button class="btn-back" onclick="goHome()" data-i18n="btnBack">← 返回</button>
@@ -601,7 +590,6 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
       <div class="scroll-content" id="result-content"></div>
     </div>
 
-    <!-- History Page -->
     <div class="page hidden" id="page-history">
       <div class="form-header">
         <button class="btn-back" onclick="goHome()" data-i18n="btnBack">← 返回</button>
@@ -610,7 +598,6 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
       <div class="history-list" id="history-list"></div>
     </div>
 
-    <!-- Settings Page -->
     <div class="page hidden" id="page-settings">
       <div class="form-header">
         <button class="btn-back" onclick="goHome()" data-i18n="btnBack">← 返回</button>
@@ -691,7 +678,6 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
     </div>
   </div>
 
-  <!-- Tabbar -->
   <div class="tabbar">
     <div class="tab active" onclick="goHome()">
       <div class="tab-icon">
@@ -723,384 +709,124 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
 <div class="toast" id="toast">Saved</div>
 
 <script>
-/* =========================
-   I18N
-========================= */
 const I18N = {
   tw: {
-    appTitle:"MOLD IQ",
-    appSubtitle:"Injection Quote System · New/Existing",
-    btnSettings:"⚙️",
-    btnHistory:"📁",
-    heroLabel:"Advanced Estimation Platform",
-    heroLine1:"INJECTION",
-    heroLine2:"QUOTE SYSTEM",
-    statHistory:"歷史報價",
-    statProducts:"模組功能",
-    statLang:"語言切換",
-    tagQuote:"QUOTE",
-    tagBundle:"SET",
-    tagMold:"TOOL",
-    tagFast:"FAST",
-    modePartTitle:"注塑件報價",
-    modePartDesc:"適用於單個塑膠件的單價與成本分析，包含固定成本、可變成本、良品率與利潤。",
-    modePartsTitle:"多零件套料報價",
-    modePartsDesc:"多個注塑件組合成一套產品，支援每件成本、每套單價與最低成交價匯總。",
-    modeMoldTitle:"模具報價 / 合同",
-    modeMoldDesc:"支援多副模具匯總、付款比例、產權歸屬與合同 PDF 輸出。",
-    modeInquiryTitle:"詢價預報",
-    modeInquiryDesc:"快速輸入重量、材料、週期、穴數等資訊，生成預估單價。",
+    appTitle:"MOLD IQ", appSubtitle:"Injection Quote System · New/Existing", btnSettings:"⚙️", btnHistory:"📁",
+    heroLabel:"Advanced Estimation Platform", heroLine1:"INJECTION", heroLine2:"QUOTE SYSTEM",
+    statHistory:"歷史報價", statProducts:"模組功能", statLang:"語言切換",
+    tagQuote:"QUOTE", tagBundle:"SET", tagMold:"TOOL", tagFast:"FAST",
+    modePartTitle:"注塑件報價", modePartDesc:"適用於單個塑膠件的單價與成本分析，包含固定成本、可變成本、良品率與利潤。",
+    modePartsTitle:"多零件套料報價", modePartsDesc:"多個注塑件組合成一套產品，支援每件成本、每套單價與最低成交價匯總。",
+    modeMoldTitle:"模具報價 / 合同", modeMoldDesc:"支援多副模具匯總、付款比例、產權歸屬與合同 PDF 輸出。",
+    modeInquiryTitle:"詢價預報", modeInquiryDesc:"快速輸入重量、材料、週期、穴數等資訊，生成預估單價。",
     guideText:"使用說明：先在右上角設定頁輸入工廠固定成本、月產能、人工與電費，之後再進入各模組進行報價。系統將自動記錄歷史結果，可供日後查詢與合同輸出。",
-    btnBack:"← 返回",
-    formPartTitle:"注塑件報價",
-    secBasic:"BASIC INFO",
-    lblProductName:"產品名稱 / Product Name",
-    lblWeight:"成品重量 (g)",
-    lblQty:"訂單數量 (pcs)",
-    lblMaterialPrice:"材料單價 (元/kg)",
-    badgeVariable:"可變",
-    lblRunner:"水口/損耗 (%)",
-    secMachine:"MACHINE & PROCESS",
-    lblTonnage:"機台噸位",
-    lblCycle:"成型週期 (s)",
-    lblCavity:"模穴數",
-    lblSurface:"表面處理 / 後加工 (元/pcs)",
-    lblPack:"包材費 (元/pcs)",
-    secQuality:"QUALITY & PROFIT",
-    lblGoodRate:"良品率 (%)",
-    hintGoodRate:"此處為良品率，不是次品率",
-    lblProfit:"利潤率 (%)",
-    lblLaborCoef:"人工系數",
-    previewTitle:"即時計算預覽",
-    pvMat:"材料成本",
-    pvElec:"電費",
-    pvLabor:"人工",
-    pvFixed:"固定成本攤銷",
-    pvUnit:"預估單價",
-    btnCalcPart:"CALCULATE",
-    formPartsTitle:"多零件套料報價",
-    secSetBasic:"SET BASIC INFO",
-    lblSetName:"套件名稱 / Set Name",
-    lblSetQty:"套件數量 (sets)",
-    lblSetProfit:"套件利潤率 (%)",
-    secPartList:"PART LIST",
-    btnAddPart:"+ 新增零件 / Add Part",
-    setPreviewTitle:"套料匯總預覽",
-    pvSetCost:"每套成本",
-    pvSetPrice:"每套建議單價",
-    pvSetTotal:"總報價",
-    btnCalcParts:"CALCULATE SET",
-    formMoldTitle:"模具報價 / 合同",
-    secContractParty:"PARTY INFO",
-    lblPartyA:"甲方 / Party A",
-    lblPartyB:"乙方 / Party B",
-    lblCurrency:"幣種 / Currency",
-    lblPaymentTerm:"付款方式",
-    secMoldList:"MOLD LIST",
-    lblMoldCount:"模具數量",
-    secOwnership:"OWNERSHIP / SHARE",
-    lblPartyAAmount:"甲方出資",
-    lblPartyBAmount:"乙方出資",
-    lblRemarks:"備註 / Remarks",
-    btnCalcMold:"GENERATE CONTRACT",
-    formInquiryTitle:"詢價預報",
-    secFastInput:"FAST INPUT",
-    lblInquiryName:"詢價名稱 / Item Name",
-    lblInquiryQty:"數量 (pcs)",
-    previewFastTitle:"快速預覽",
-    btnCalcInquiry:"FAST CALCULATE",
-    resultTitle:"報價結果",
-    historyTitle:"歷史報價",
-    settingsTitle:"系統設定",
-    secFactoryFixed:"FACTORY FIXED COST",
-    lblRent:"廠房租金 / 月",
-    badgeFixed:"固定",
-    lblAdmin:"管理費 / 月",
-    lblDepreciation:"設備折舊 / 月",
-    lblMisc:"其他固定費 / 月",
-    secProduction:"PRODUCTION PLAN",
-    lblDayVol:"日產量 (pcs/day)",
-    lblWorkDays:"月工作天數",
-    secVariableCost:"VARIABLE COST DEFAULT",
-    lblElecRate:"電價 / 度",
-    lblLaborHour:"人工時薪",
-    lblMachinesPerWorker:"看機數",
-    lblDefaultPack:"預設包材費",
-    lblDefaultRunner:"預設水口 (%)",
-    lblDefaultMinProfit:"預設最低利潤率 (%)",
-    btnSaveSettings:"SAVE SETTINGS",
-    tabHome:"首頁",
-    tabSet:"套料",
-    tabMold:"模具",
-    tabHistory:"歷史",
-        contractPreviewTitle:"📄 合同預覽 · Contract Preview",
-    btnDownloadPDF:"⬇️ 下載 PDF / Download PDF",
-    saved:"已保存",
-    deleted:"已刪除",
-    noHistory:"暫無歷史報價",
-    noHistoryHint:"完成一次報價後，系統會自動保存到這裡",
-    clearHistory:"清空歷史",
-    partName:"零件",
-    suggestedUnitPrice:"建議單價",
-    lowestDealPrice:"最低成交價",
-    subtotal:"小計",
-    totalQuote:"總報價",
-    ownershipResult:"產權歸屬",
-    partyAOwn:"甲方所有",
-    partyBOwn:"乙方所有",
-    sharedOwn:"共同所有",
-    invalidInput:"請檢查輸入數值",
-    pleaseAddPart:"請至少新增 1 個零件"
+    btnBack:"← 返回", formPartTitle:"注塑件報價", secBasic:"BASIC INFO",
+    lblProductName:"產品名稱 / Product Name", lblWeight:"成品重量 (g)", lblQty:"訂單數量 (pcs)",
+    lblMaterialPrice:"材料單價 (元/kg)", badgeVariable:"可變", lblRunner:"水口/損耗 (%)",
+    secMachine:"MACHINE & PROCESS", lblTonnage:"機台噸位", lblCycle:"成型週期 (s)", lblCavity:"模穴數",
+    lblSurface:"表面處理 / 後加工 (元/pcs)", lblPack:"包材費 (元/pcs)",
+    secQuality:"QUALITY & PROFIT", lblGoodRate:"良品率 (%)", hintGoodRate:"此處為良品率，不是次品率",
+    lblProfit:"利潤率 (%)", lblLaborCoef:"人工系數", previewTitle:"即時計算預覽", pvMat:"材料成本",
+    pvElec:"電費", pvLabor:"人工", pvFixed:"固定成本攤銷", pvUnit:"預估單價", btnCalcPart:"CALCULATE",
+    formPartsTitle:"多零件套料報價", secSetBasic:"SET BASIC INFO", lblSetName:"套件名稱 / Set Name",
+    lblSetQty:"套件數量 (sets)", lblSetProfit:"套件利潤率 (%)", secPartList:"PART LIST",
+    btnAddPart:"+ 新增零件 / Add Part", setPreviewTitle:"套料匯總預覽", pvSetCost:"每套成本",
+    pvSetPrice:"每套建議單價", pvSetTotal:"總報價", btnCalcParts:"CALCULATE SET",
+    formMoldTitle:"模具報價 / 合同", secContractParty:"PARTY INFO", lblPartyA:"甲方 / Party A",
+    lblPartyB:"乙方 / Party B", lblCurrency:"幣種 / Currency", lblPaymentTerm:"付款方式",
+    secMoldList:"MOLD LIST", lblMoldCount:"模具數量", secOwnership:"OWNERSHIP / SHARE",
+    lblPartyAAmount:"甲方出資", lblPartyBAmount:"乙方出資", lblRemarks:"備註 / Remarks", btnCalcMold:"GENERATE CONTRACT",
+    formInquiryTitle:"詢價預報", secFastInput:"FAST INPUT", lblInquiryName:"詢價名稱 / Item Name", lblInquiryQty:"數量 (pcs)",
+    previewFastTitle:"快速預覽", btnCalcInquiry:"FAST CALCULATE", resultTitle:"報價結果", historyTitle:"歷史報價",
+    settingsTitle:"系統設定", secFactoryFixed:"FACTORY FIXED COST", lblRent:"廠房租金 / 月", badgeFixed:"固定",
+    lblAdmin:"管理費 / 月", lblDepreciation:"設備折舊 / 月", lblMisc:"其他固定費 / 月",
+    secProduction:"PRODUCTION PLAN", lblDayVol:"日產量 (pcs/day)", lblWorkDays:"月工作天數",
+    secVariableCost:"VARIABLE COST DEFAULT", lblElecRate:"電價 / 度", lblLaborHour:"人工時薪",
+    lblMachinesPerWorker:"看機數", lblDefaultPack:"預設包材費", lblDefaultRunner:"預設水口 (%)",
+    lblDefaultMinProfit:"預設最低利潤率 (%)", btnSaveSettings:"SAVE SETTINGS",
+    tabHome:"首頁", tabSet:"套料", tabMold:"模具", tabHistory:"歷史",
+    contractPreviewTitle:"📄 合同預覽 · Contract Preview", btnDownloadPDF:"⬇️ 下載 PDF / Download PDF",
+    saved:"已保存", deleted:"已刪除", noHistory:"暫無歷史報價", noHistoryHint:"完成一次報價後，系統會自動保存到這裡",
+    clearHistory:"清空歷史", partName:"零件", suggestedUnitPrice:"建議單價", lowestDealPrice:"最低成交價",
+    subtotal:"小計", totalQuote:"總報價", ownershipResult:"產權歸屬", partyAOwn:"甲方所有", partyBOwn:"乙方所有",
+    sharedOwn:"共同所有", invalidInput:"請檢查輸入數值", pleaseAddPart:"請至少新增 1 個零件"
   },
   sc: {
-    appTitle:"MOLD IQ",
-    appSubtitle:"Injection Quote System · New/Existing",
-    btnSettings:"⚙️",
-    btnHistory:"📁",
-    heroLabel:"Advanced Estimation Platform",
-    heroLine1:"INJECTION",
-    heroLine2:"QUOTE SYSTEM",
-    statHistory:"历史报价",
-    statProducts:"模块功能",
-    statLang:"语言切换",
-    tagQuote:"QUOTE",
-    tagBundle:"SET",
-    tagMold:"TOOL",
-    tagFast:"FAST",
-    modePartTitle:"注塑件报价",
-    modePartDesc:"适用于单个塑胶件的单价与成本分析，包含固定成本、可变成本、良品率与利润。",
-    modePartsTitle:"多零件套料报价",
-    modePartsDesc:"多个注塑件组合成一套产品，支持每件成本、每套单价与最低成交价汇总。",
-    modeMoldTitle:"模具报价 / 合同",
-    modeMoldDesc:"支持多副模具汇总、付款比例、产权归属与合同 PDF 输出。",
-    modeInquiryTitle:"询价预报",
-    modeInquiryDesc:"快速输入重量、材料、周期、穴数等信息，生成预估单价。",
+    appTitle:"MOLD IQ", appSubtitle:"Injection Quote System · New/Existing", btnSettings:"⚙️", btnHistory:"📁",
+    heroLabel:"Advanced Estimation Platform", heroLine1:"INJECTION", heroLine2:"QUOTE SYSTEM",
+    statHistory:"历史报价", statProducts:"模块功能", statLang:"语言切换",
+    tagQuote:"QUOTE", tagBundle:"SET", tagMold:"TOOL", tagFast:"FAST",
+    modePartTitle:"注塑件报价", modePartDesc:"适用于单个塑胶件的单价与成本分析，包含固定成本、可变成本、良品率与利润。",
+    modePartsTitle:"多零件套料报价", modePartsDesc:"多个注塑件组合成一套产品，支持每件成本、每套单价与最低成交价汇总。",
+    modeMoldTitle:"模具报价 / 合同", modeMoldDesc:"支持多副模具汇总、付款比例、产权归属与合同 PDF 输出。",
+    modeInquiryTitle:"询价预报", modeInquiryDesc:"快速输入重量、材料、周期、穴数等信息，生成预估单价。",
     guideText:"使用说明：先在右上角设置页输入工厂固定成本、月产能、人工与电费，之后再进入各模块进行报价。系统将自动记录历史结果，可供日后查询与合同输出。",
-    btnBack:"← 返回",
-    formPartTitle:"注塑件报价",
-    secBasic:"BASIC INFO",
-    lblProductName:"产品名称 / Product Name",
-    lblWeight:"成品重量 (g)",
-    lblQty:"订单数量 (pcs)",
-    lblMaterialPrice:"材料单价 (元/kg)",
-    badgeVariable:"可变",
-    lblRunner:"水口/损耗 (%)",
-    secMachine:"MACHINE & PROCESS",
-    lblTonnage:"机台吨位",
-    lblCycle:"成型周期 (s)",
-    lblCavity:"模穴数",
-    lblSurface:"表面处理 / 后加工 (元/pcs)",
-    lblPack:"包材费 (元/pcs)",
-    secQuality:"QUALITY & PROFIT",
-    lblGoodRate:"良品率 (%)",
-    hintGoodRate:"此处为良品率，不是次品率",
-    lblProfit:"利润率 (%)",
-    lblLaborCoef:"人工系数",
-    previewTitle:"即时计算预览",
-    pvMat:"材料成本",
-    pvElec:"电费",
-    pvLabor:"人工",
-    pvFixed:"固定成本摊销",
-    pvUnit:"预估单价",
-    btnCalcPart:"CALCULATE",
-    formPartsTitle:"多零件套料报价",
-    secSetBasic:"SET BASIC INFO",
-    lblSetName:"套件名称 / Set Name",
-    lblSetQty:"套件数量 (sets)",
-    lblSetProfit:"套件利润率 (%)",
-    secPartList:"PART LIST",
-    btnAddPart:"+ 新增零件 / Add Part",
-    setPreviewTitle:"套料汇总预览",
-    pvSetCost:"每套成本",
-    pvSetPrice:"每套建议单价",
-    pvSetTotal:"总报价",
-    btnCalcParts:"CALCULATE SET",
-    formMoldTitle:"模具报价 / 合同",
-    secContractParty:"PARTY INFO",
-    lblPartyA:"甲方 / Party A",
-    lblPartyB:"乙方 / Party B",
-    lblCurrency:"币种 / Currency",
-    lblPaymentTerm:"付款方式",
-    secMoldList:"MOLD LIST",
-    lblMoldCount:"模具数量",
-    secOwnership:"OWNERSHIP / SHARE",
-    lblPartyAAmount:"甲方出资",
-    lblPartyBAmount:"乙方出资",
-    lblRemarks:"备注 / Remarks",
-    btnCalcMold:"GENERATE CONTRACT",
-    formInquiryTitle:"询价预报",
-    secFastInput:"FAST INPUT",
-    lblInquiryName:"询价名称 / Item Name",
-    lblInquiryQty:"数量 (pcs)",
-    previewFastTitle:"快速预览",
-    btnCalcInquiry:"FAST CALCULATE",
-    resultTitle:"报价结果",
-    historyTitle:"历史报价",
-    settingsTitle:"系统设置",
-    secFactoryFixed:"FACTORY FIXED COST",
-    lblRent:"厂房租金 / 月",
-    badgeFixed:"固定",
-    lblAdmin:"管理费 / 月",
-    lblDepreciation:"设备折旧 / 月",
-    lblMisc:"其他固定费 / 月",
-    secProduction:"PRODUCTION PLAN",
-    lblDayVol:"日产量 (pcs/day)",
-    lblWorkDays:"月工作天数",
-    secVariableCost:"VARIABLE COST DEFAULT",
-    lblElecRate:"电价 / 度",
-    lblLaborHour:"人工时薪",
-    lblMachinesPerWorker:"看机数",
-    lblDefaultPack:"预设包材费",
-    lblDefaultRunner:"预设水口 (%)",
-    lblDefaultMinProfit:"预设最低利润率 (%)",
-    btnSaveSettings:"SAVE SETTINGS",
-    tabHome:"首页",
-    tabSet:"套料",
-    tabMold:"模具",
-    tabHistory:"历史",
-    contractPreviewTitle:"📄 合同预览 · Contract Preview",
-    btnDownloadPDF:"⬇️ 下载 PDF / Download PDF",
-    saved:"已保存",
-    deleted:"已删除",
-    noHistory:"暂无历史报价",
-    noHistoryHint:"完成一次报价后，系统会自动保存到这里",
-    clearHistory:"清空历史",
-    partName:"零件",
-    suggestedUnitPrice:"建议单价",
-    lowestDealPrice:"最低成交价",
-    subtotal:"小计",
-    totalQuote:"总报价",
-    ownershipResult:"产权归属",
-    partyAOwn:"甲方所有",
-    partyBOwn:"乙方所有",
-    sharedOwn:"共同所有",
-    invalidInput:"请检查输入数值",
-    pleaseAddPart:"请至少新增 1 个零件"
+    btnBack:"← 返回", formPartTitle:"注塑件报价", secBasic:"BASIC INFO",
+    lblProductName:"产品名称 / Product Name", lblWeight:"成品重量 (g)", lblQty:"订单数量 (pcs)",
+    lblMaterialPrice:"材料单价 (元/kg)", badgeVariable:"可变", lblRunner:"水口/损耗 (%)",
+    secMachine:"MACHINE & PROCESS", lblTonnage:"机台吨位", lblCycle:"成型周期 (s)", lblCavity:"模穴数",
+    lblSurface:"表面处理 / 后加工 (元/pcs)", lblPack:"包材费 (元/pcs)",
+    secQuality:"QUALITY & PROFIT", lblGoodRate:"良品率 (%)", hintGoodRate:"此处为良品率，不是次品率",
+    lblProfit:"利润率 (%)", lblLaborCoef:"人工系数", previewTitle:"即时计算预览", pvMat:"材料成本",
+    pvElec:"电费", pvLabor:"人工", pvFixed:"固定成本摊销", pvUnit:"预估单价", btnCalcPart:"CALCULATE",
+    formPartsTitle:"多零件套料报价", secSetBasic:"SET BASIC INFO", lblSetName:"套件名称 / Set Name",
+    lblSetQty:"套件数量 (sets)", lblSetProfit:"套件利润率 (%)", secPartList:"PART LIST",
+    btnAddPart:"+ 新增零件 / Add Part", setPreviewTitle:"套料汇总预览", pvSetCost:"每套成本",
+    pvSetPrice:"每套建议单价", pvSetTotal:"总报价", btnCalcParts:"CALCULATE SET",
+    formMoldTitle:"模具报价 / 合同", secContractParty:"PARTY INFO", lblPartyA:"甲方 / Party A",
+    lblPartyB:"乙方 / Party B", lblCurrency:"币种 / Currency", lblPaymentTerm:"付款方式",
+    secMoldList:"MOLD LIST", lblMoldCount:"模具数量", secOwnership:"OWNERSHIP / SHARE",
+    lblPartyAAmount:"甲方出资", lblPartyBAmount:"乙方出资", lblRemarks:"备注 / Remarks", btnCalcMold:"GENERATE CONTRACT",
+    formInquiryTitle:"询价预报", secFastInput:"FAST INPUT", lblInquiryName:"询价名称 / Item Name", lblInquiryQty:"数量 (pcs)",
+    previewFastTitle:"快速预览", btnCalcInquiry:"FAST CALCULATE", resultTitle:"报价结果", historyTitle:"历史报价",
+    settingsTitle:"系统设置", secFactoryFixed:"FACTORY FIXED COST", lblRent:"厂房租金 / 月", badgeFixed:"固定",
+    lblAdmin:"管理费 / 月", lblDepreciation:"设备折旧 / 月", lblMisc:"其他固定费 / 月",
+    secProduction:"PRODUCTION PLAN", lblDayVol:"日产量 (pcs/day)", lblWorkDays:"月工作天数",
+    secVariableCost:"VARIABLE COST DEFAULT", lblElecRate:"电价 / 度", lblLaborHour:"人工时薪",
+    lblMachinesPerWorker:"看机数", lblDefaultPack:"预设包材费", lblDefaultRunner:"预设水口 (%)",
+    lblDefaultMinProfit:"预设最低利润率 (%)", btnSaveSettings:"SAVE SETTINGS",
+    tabHome:"首页", tabSet:"套料", tabMold:"模具", tabHistory:"历史",
+    contractPreviewTitle:"📄 合同预览 · Contract Preview", btnDownloadPDF:"⬇️ 下载 PDF / Download PDF",
+    saved:"已保存", deleted:"已删除", noHistory:"暂无历史报价", noHistoryHint:"完成一次报价后，系统会自动保存到这里",
+    clearHistory:"清空历史", partName:"零件", suggestedUnitPrice:"建议单价", lowestDealPrice:"最低成交价",
+    subtotal:"小计", totalQuote:"总报价", ownershipResult:"产权归属", partyAOwn:"甲方所有", partyBOwn:"乙方所有",
+    sharedOwn:"共同所有", invalidInput:"请检查输入数值", pleaseAddPart:"请至少新增 1 个零件"
   },
-  en: {
-    appTitle:"MOLD IQ",
-    appSubtitle:"Injection Quote System · New/Existing",
-    btnSettings:"⚙️",
-    btnHistory:"📁",
-    heroLabel:"Advanced Estimation Platform",
-    heroLine1:"INJECTION",
-    heroLine2:"QUOTE SYSTEM",
-    statHistory:"History",
-    statProducts:"Modules",
-    statLang:"Languages",
-    tagQuote:"QUOTE",
-    tagBundle:"SET",
-    tagMold:"TOOL",
-    tagFast:"FAST",
-    modePartTitle:"Single Part Quote",
-    modePartDesc:"For individual plastic part costing, including fixed cost, variable cost, yield and profit.",
-    modePartsTitle:"Multi-Part Set Quote",
-    modePartsDesc:"Combine multiple plastic parts into one set, with per-part cost, set price and lowest deal price summary.",
-    modeMoldTitle:"Mold Quote / Contract",
-    modeMoldDesc:"Supports multiple molds, payment share, ownership and PDF contract export.",
-    modeInquiryTitle:"Quick Inquiry",
-    modeInquiryDesc:"Quickly estimate unit price using weight, material, cycle time and cavity count.",
+    en: {
+    appTitle:"MOLD IQ", appSubtitle:"Injection Quote System · New/Existing", btnSettings:"⚙️", btnHistory:"📁",
+    heroLabel:"Advanced Estimation Platform", heroLine1:"INJECTION", heroLine2:"QUOTE SYSTEM",
+    statHistory:"History", statProducts:"Modules", statLang:"Languages",
+    tagQuote:"QUOTE", tagBundle:"SET", tagMold:"TOOL", tagFast:"FAST",
+    modePartTitle:"Single Part Quote", modePartDesc:"For individual plastic part costing, including fixed cost, variable cost, yield and profit.",
+    modePartsTitle:"Multi-Part Set Quote", modePartsDesc:"Combine multiple plastic parts into one set, with per-part cost, set price and lowest deal price summary.",
+    modeMoldTitle:"Mold Quote / Contract", modeMoldDesc:"Supports multiple molds, payment share, ownership and PDF contract export.",
+    modeInquiryTitle:"Quick Inquiry", modeInquiryDesc:"Quickly estimate unit price using weight, material, cycle time and cavity count.",
     guideText:"Usage: first go to Settings and enter fixed cost, production volume, labor and electricity cost, then use each module for quoting. History will be stored automatically.",
-    btnBack:"← Back",
-    formPartTitle:"Single Part Quote",
-    secBasic:"BASIC INFO",
-    lblProductName:"Product Name",
-    lblWeight:"Part Weight (g)",
-    lblQty:"Order Qty (pcs)",
-    lblMaterialPrice:"Material Price (per kg)",
-    badgeVariable:"Variable",
-    lblRunner:"Runner / Scrap (%)",
-    secMachine:"MACHINE & PROCESS",
-    lblTonnage:"Machine Tonnage",
-    lblCycle:"Cycle Time (s)",
-    lblCavity:"Cavity",
-    lblSurface:"Surface / Secondary Process",
-    lblPack:"Packing Cost",
-    secQuality:"QUALITY & PROFIT",
-    lblGoodRate:"Good Rate (%)",
-    hintGoodRate:"This field is good rate, not defect rate",
-    lblProfit:"Profit Rate (%)",
-    lblLaborCoef:"Labor Factor",
-    previewTitle:"Live Preview",
-    pvMat:"Material",
-    pvElec:"Electricity",
-    pvLabor:"Labor",
-    pvFixed:"Fixed Cost",
-    pvUnit:"Unit Price",
-    btnCalcPart:"CALCULATE",
-    formPartsTitle:"Multi-Part Set Quote",
-    secSetBasic:"SET BASIC INFO",
-    lblSetName:"Set Name",
-    lblSetQty:"Set Qty",
-    lblSetProfit:"Set Profit (%)",
-    secPartList:"PART LIST",
-    btnAddPart:"+ Add Part",
-    setPreviewTitle:"Set Summary Preview",
-    pvSetCost:"Cost / Set",
-    pvSetPrice:"Suggested Price / Set",
-    pvSetTotal:"Total Quote",
-    btnCalcParts:"CALCULATE SET",
-    formMoldTitle:"Mold Quote / Contract",
-    secContractParty:"PARTY INFO",
-    lblPartyA:"Party A",
-    lblPartyB:"Party B",
-    lblCurrency:"Currency",
-    lblPaymentTerm:"Payment Term",
-    secMoldList:"MOLD LIST",
-    lblMoldCount:"Mold Count",
-    secOwnership:"OWNERSHIP / SHARE",
-    lblPartyAAmount:"Party A Investment",
-    lblPartyBAmount:"Party B Investment",
-    lblRemarks:"Remarks",
-    btnCalcMold:"GENERATE CONTRACT",
-    formInquiryTitle:"Quick Inquiry",
-    secFastInput:"FAST INPUT",
-    lblInquiryName:"Item Name",
-    lblInquiryQty:"Qty (pcs)",
-    previewFastTitle:"Quick Preview",
-    btnCalcInquiry:"FAST CALCULATE",
-    resultTitle:"Quote Result",
-    historyTitle:"History",
-    settingsTitle:"Settings",
-    secFactoryFixed:"FACTORY FIXED COST",
-    lblRent:"Rent / Month",
-    badgeFixed:"Fixed",
-    lblAdmin:"Admin / Month",
-    lblDepreciation:"Depreciation / Month",
-    lblMisc:"Misc Fixed / Month",
-    secProduction:"PRODUCTION PLAN",
-    lblDayVol:"Daily Output (pcs/day)",
-    lblWorkDays:"Work Days / Month",
-    secVariableCost:"VARIABLE COST DEFAULT",
-    lblElecRate:"Electricity Rate",
-    lblLaborHour:"Labor / Hour",
-    lblMachinesPerWorker:"Machines / Worker",
-    lblDefaultPack:"Default Packing",
-    lblDefaultRunner:"Default Runner (%)",
-    lblDefaultMinProfit:"Default Min Profit (%)",
-    btnSaveSettings:"SAVE SETTINGS",
-    tabHome:"Home",
-    tabSet:"Set",
-    tabMold:"Mold",
-    tabHistory:"History",
-    contractPreviewTitle:"📄 Contract Preview",
-    btnDownloadPDF:"⬇️ Download PDF",
-    saved:"Saved",
-    deleted:"Deleted",
-    noHistory:"No history yet",
-    noHistoryHint:"After calculation, results will be saved here automatically.",
-    clearHistory:"Clear History",
-    partName:"Part",
-    suggestedUnitPrice:"Suggested Unit Price",
-    lowestDealPrice:"Lowest Deal Price",
-    subtotal:"Subtotal",
-    totalQuote:"Total Quote",
-    ownershipResult:"Ownership",
-    partyAOwn:"Owned by Party A",
-    partyBOwn:"Owned by Party B",
-    sharedOwn:"Co-owned",
-    invalidInput:"Please check input values",
-    pleaseAddPart:"Please add at least 1 part"
+    btnBack:"← Back", formPartTitle:"Single Part Quote", secBasic:"BASIC INFO",
+    lblProductName:"Product Name", lblWeight:"Part Weight (g)", lblQty:"Order Qty (pcs)", lblMaterialPrice:"Material Price (per kg)",
+    badgeVariable:"Variable", lblRunner:"Runner / Scrap (%)", secMachine:"MACHINE & PROCESS", lblTonnage:"Machine Tonnage",
+    lblCycle:"Cycle Time (s)", lblCavity:"Cavity", lblSurface:"Surface / Secondary Process", lblPack:"Packing Cost",
+    secQuality:"QUALITY & PROFIT", lblGoodRate:"Good Rate (%)", hintGoodRate:"This field is good rate, not defect rate",
+    lblProfit:"Profit Rate (%)", lblLaborCoef:"Labor Factor", previewTitle:"Live Preview", pvMat:"Material", pvElec:"Electricity",
+    pvLabor:"Labor", pvFixed:"Fixed Cost", pvUnit:"Unit Price", btnCalcPart:"CALCULATE",
+    formPartsTitle:"Multi-Part Set Quote", secSetBasic:"SET BASIC INFO", lblSetName:"Set Name", lblSetQty:"Set Qty", lblSetProfit:"Set Profit (%)",
+    secPartList:"PART LIST", btnAddPart:"+ Add Part", setPreviewTitle:"Set Summary Preview", pvSetCost:"Cost / Set", pvSetPrice:"Suggested Price / Set",
+    pvSetTotal:"Total Quote", btnCalcParts:"CALCULATE SET", formMoldTitle:"Mold Quote / Contract", secContractParty:"PARTY INFO",
+    lblPartyA:"Party A", lblPartyB:"Party B", lblCurrency:"Currency", lblPaymentTerm:"Payment Term", secMoldList:"MOLD LIST",
+    lblMoldCount:"Mold Count", secOwnership:"OWNERSHIP / SHARE", lblPartyAAmount:"Party A Investment", lblPartyBAmount:"Party B Investment",
+    lblRemarks:"Remarks", btnCalcMold:"GENERATE CONTRACT", formInquiryTitle:"Quick Inquiry", secFastInput:"FAST INPUT",
+    lblInquiryName:"Item Name", lblInquiryQty:"Qty (pcs)", previewFastTitle:"Quick Preview", btnCalcInquiry:"FAST CALCULATE",
+    resultTitle:"Quote Result", historyTitle:"History", settingsTitle:"Settings", secFactoryFixed:"FACTORY FIXED COST",
+    lblRent:"Rent / Month", badgeFixed:"Fixed", lblAdmin:"Admin / Month", lblDepreciation:"Depreciation / Month", lblMisc:"Misc Fixed / Month",
+    secProduction:"PRODUCTION PLAN", lblDayVol:"Daily Output (pcs/day)", lblWorkDays:"Work Days / Month", secVariableCost:"VARIABLE COST DEFAULT",
+    lblElecRate:"Electricity Rate", lblLaborHour:"Labor / Hour", lblMachinesPerWorker:"Machines / Worker", lblDefaultPack:"Default Packing",
+    lblDefaultRunner:"Default Runner (%)", lblDefaultMinProfit:"Default Min Profit (%)", btnSaveSettings:"SAVE SETTINGS",
+    tabHome:"Home", tabSet:"Set", tabMold:"Mold", tabHistory:"History", contractPreviewTitle:"📄 Contract Preview",
+    btnDownloadPDF:"⬇️ Download PDF", saved:"Saved", deleted:"Deleted", noHistory:"No history yet",
+    noHistoryHint:"After calculation, results will be saved here automatically.", clearHistory:"Clear History",
+    partName:"Part", suggestedUnitPrice:"Suggested Unit Price", lowestDealPrice:"Lowest Deal Price", subtotal:"Subtotal",
+    totalQuote:"Total Quote", ownershipResult:"Ownership", partyAOwn:"Owned by Party A", partyBOwn:"Owned by Party B",
+    sharedOwn:"Co-owned", invalidInput:"Please check input values", pleaseAddPart:"Please add at least 1 part"
   }
 };
 
@@ -1114,7 +840,6 @@ let SETTINGS_KEY = 'mold_iq_settings_v10';
 
 function t(key){ return (I18N[CURRENT_LANG] && I18N[CURRENT_LANG][key]) || key; }
 function g(id){ return document.getElementById(id); }
-function qs(sel){ return document.querySelector(sel); }
 function qsa(sel){ return document.querySelectorAll(sel); }
 
 function switchLang(lang){
@@ -1144,9 +869,6 @@ function showToast(msg){
   showToast._tm = setTimeout(()=>el.classList.remove('show'), 1600);
 }
 
-/* =========================
-   Helpers
-========================= */
 function num(v, d = 0){
   const n = parseFloat(v);
   return Number.isFinite(n) ? n : d;
@@ -1155,9 +877,7 @@ function clampMin(v, min, fallback = min){
   const n = num(v, fallback);
   return n < min ? min : n;
 }
-function money(n, d=3){
-  return num(n).toFixed(d);
-}
+function money(n, d=3){ return num(n).toFixed(d); }
 function symbolByCurrency(cur){
   if(cur === 'USD') return '$';
   if(cur === 'JPY') return '¥';
@@ -1172,17 +892,23 @@ function fmtDate(ts){
   const mi = String(d.getMinutes()).padStart(2,'0');
   return `${y}-${m}-${day} ${h}:${mi}`;
 }
+function escapeHtml(str){
+  return String(str ?? '')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+}
+function escapeAttr(str){ return escapeHtml(str); }
 
-/* =========================
-   Page Navigation
-========================= */
 function setActiveTab(key){
   qsa('.tabbar .tab').forEach(tab=>tab.classList.remove('active','tab-new'));
   const tabs = qsa('.tabbar .tab');
-  if(key === 'home'){ tabs[0].classList.add('active'); }
-  if(key === 'parts'){ tabs[1].classList.add('active','tab-new'); }
-  if(key === 'mold'){ tabs[2].classList.add('active'); }
-  if(key === 'history'){ tabs[3].classList.add('active'); }
+  if(key === 'home') tabs[0].classList.add('active');
+  if(key === 'parts') tabs[1].classList.add('active','tab-new');
+  if(key === 'mold') tabs[2].classList.add('active');
+  if(key === 'history') tabs[3].classList.add('active');
 }
 function showPage(pageId){
   qsa('.page').forEach(p=>p.classList.add('hidden'));
@@ -1195,29 +921,15 @@ function goHistory(){ showPage('history'); renderHistory(); }
 function openSettings(){ showPage('settings'); loadSettingsToUI(); }
 function openForm(type){
   showPage(type);
-  if(type==='parts' && PART_ITEMS.length===0){
-    addPartItem();
-  }
-  if(type==='mold'){
-    renderMoldItems();
-  }
-  if(type==='part'){
-    applyPartDefaults();
-  }
-  if(type==='inquiry'){
-    applyInquiryDefaults();
-  }
+  if(type==='parts' && PART_ITEMS.length===0) addPartItem();
+  if(type==='mold') renderMoldItems();
+  if(type==='part') applyPartDefaults();
+  if(type==='inquiry') applyInquiryDefaults();
 }
 
-/* =========================
-   Settings
-========================= */
 function loadSettings(){
-  try{
-    return JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
-  }catch(e){
-    return {};
-  }
+  try{ return JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}'); }
+  catch(e){ return {}; }
 }
 function saveSettings(){
   const settings = {
@@ -1257,15 +969,9 @@ function loadSettingsToUI(){
 }
 function getFixedPerPc(){
   const s = loadSettings();
-  const rent = num(s.rent);
-  const admin = num(s.admin);
-  const depreciation = num(s.depreciation);
-  const misc = num(s.misc);
-  const dayVol = num(s.dayVol);
-  const workDays = num(s.workDays);
-  const monthVol = dayVol * workDays;
+  const fixedMonthly = num(s.rent) + num(s.admin) + num(s.depreciation) + num(s.misc);
+  const monthVol = num(s.dayVol) * num(s.workDays);
   if(monthVol <= 0) return 0;
-  const fixedMonthly = rent + admin + depreciation + misc;
   return fixedMonthly / monthVol;
 }
 function applyPartDefaults(){
@@ -1283,23 +989,15 @@ function applyInquiryDefaults(){
   if(g('q-good-rate') && !g('q-good-rate').value) g('q-good-rate').value = '97';
 }
 
-/* =========================
-   History
-========================= */
 function getHistory(){
-  try{
-    return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
-  }catch(e){
-    return [];
-  }
+  try{ return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); }
+  catch(e){ return []; }
 }
-function setHistory(arr){
-  localStorage.setItem(HISTORY_KEY, JSON.stringify(arr));
-}
+function setHistory(arr){ localStorage.setItem(HISTORY_KEY, JSON.stringify(arr)); }
 function addHistory(item){
   const arr = getHistory();
   arr.unshift(item);
-  setHistory(arr.slice(0, 100));
+  setHistory(arr.slice(0,100));
   updateStats();
 }
 function clearHistory(){
@@ -1323,7 +1021,7 @@ function renderHistory(){
   box.innerHTML = arr.map((it,idx)=>`
     <div class="hist-card" onclick="openHistoryItem(${idx})">
       <div class="hc-top">
-        <div class="hc-product">${escapeHtml(it.name || '-') }</div>
+        <div class="hc-product">${escapeHtml(it.name || '-')}</div>
         <div class="hc-price">${escapeHtml(it.displayPrice || '-')}</div>
       </div>
       <div class="hc-meta">
@@ -1343,9 +1041,6 @@ function openHistoryItem(idx){
   showPage('result');
 }
 
-/* =========================
-   Part Quote
-========================= */
 function calcPartQuoteFromData(data){
   const weight = num(data.weight);
   const matPrice = num(data.matPrice);
@@ -1356,7 +1051,7 @@ function calcPartQuoteFromData(data){
   const surface = num(data.surface);
   const pack = num(data.pack);
   const profitRate = num(data.profitRate);
-  const goodRate = clampMin(data.goodRate, 1, 97);  // 修正：良品率 %
+  const goodRate = clampMin(data.goodRate, 1, 97);
   const laborCoef = num(data.laborCoef, 1);
 
   const s = loadSettings();
@@ -1366,45 +1061,25 @@ function calcPartQuoteFromData(data){
 
   const pcsPerHour = (3600 / cycle) * cavity;
   const fixedPerPc = getFixedPerPc();
-
   const totalWeight = weight * (1 + runnerRate / 100);
   const matPerPc = (totalWeight / 1000) * matPrice;
-
-  const elecPerHour = tonnage * 0.6 * elecRate;
-  const elecPerPc = pcsPerHour > 0 ? elecPerHour / pcsPerHour : 0;
-
-  const laborPerPc = pcsPerHour > 0
-    ? ((laborH / machinesPerWorker) * laborCoef) / pcsPerHour
-    : 0;
-
+  const elecPerPc = pcsPerHour > 0 ? (tonnage * 0.6 * elecRate) / pcsPerHour : 0;
+  const laborPerPc = pcsPerHour > 0 ? ((laborH / machinesPerWorker) * laborCoef) / pcsPerHour : 0;
   const baseCost = matPerPc + elecPerPc + laborPerPc + surface + pack + fixedPerPc;
-
   const yieldRate = goodRate / 100;
   const adjustedCost = yieldRate > 0 ? baseCost / yieldRate : baseCost;
-
   const quote = adjustedCost * (1 + profitRate / 100);
   const minDealPrice = adjustedCost * (1 + Math.max(0, profitRate * 0.4) / 100);
 
-  return {
-    matPerPc, elecPerPc, laborPerPc, fixedPerPc, surface, pack,
-    baseCost, yieldRate, adjustedCost, quote, minDealPrice,
-    totalWeight, pcsPerHour
-  };
+  return { matPerPc, elecPerPc, laborPerPc, fixedPerPc, surface, pack, baseCost, yieldRate, adjustedCost, quote, minDealPrice };
 }
 
 function updatePartLive(){
   const res = calcPartQuoteFromData({
-    weight:g('p-weight').value,
-    matPrice:g('p-mat-price').value,
-    runnerRate:g('p-runner').value,
-    tonnage:g('p-tonnage').value,
-    cycle:g('p-cycle').value,
-    cavity:g('p-cavity').value,
-    surface:g('p-surface').value,
-    pack:g('p-pack').value,
-    profitRate:g('p-profit').value,
-    goodRate:g('p-good-rate').value,
-    laborCoef:g('p-labor-coef').value
+    weight:g('p-weight').value, matPrice:g('p-mat-price').value, runnerRate:g('p-runner').value,
+    tonnage:g('p-tonnage').value, cycle:g('p-cycle').value, cavity:g('p-cavity').value,
+    surface:g('p-surface').value, pack:g('p-pack').value, profitRate:g('p-profit').value,
+    goodRate:g('p-good-rate').value, laborCoef:g('p-labor-coef').value
   });
   g('pv-part-mat').textContent = money(res.matPerPc);
   g('pv-part-elec').textContent = money(res.elecPerPc);
@@ -1417,45 +1092,21 @@ function calcPart(){
   const name = g('p-name').value.trim();
   const qty = num(g('p-qty').value);
   const data = {
-    name, qty,
-    weight:g('p-weight').value,
-    matPrice:g('p-mat-price').value,
-    runnerRate:g('p-runner').value,
-    tonnage:g('p-tonnage').value,
-    cycle:g('p-cycle').value,
-    cavity:g('p-cavity').value,
-    surface:g('p-surface').value,
-    pack:g('p-pack').value,
-    profitRate:g('p-profit').value,
-    goodRate:g('p-good-rate').value,
-    laborCoef:g('p-labor-coef').value
+    weight:g('p-weight').value, matPrice:g('p-mat-price').value, runnerRate:g('p-runner').value,
+    tonnage:g('p-tonnage').value, cycle:g('p-cycle').value, cavity:g('p-cavity').value,
+    surface:g('p-surface').value, pack:g('p-pack').value, profitRate:g('p-profit').value,
+    goodRate:g('p-good-rate').value, laborCoef:g('p-labor-coef').value
   };
   const res = calcPartQuoteFromData(data);
-  if(!name || !qty || !num(data.weight) || !num(data.matPrice)){
-    alert(t('invalidInput')); return;
-  }
+  if(!name || !qty || !num(data.weight) || !num(data.matPrice)){ alert(t('invalidInput')); return; }
   const total = res.quote * qty;
-  const result = {
-    type:'part',
-    name,
-    currency:'RMB',
-    data,
-    breakdown:res,
-    price:res.quote,
-    minDealPrice:res.minDealPrice,
-    qty,
-    total,
-    displayPrice:`¥${money(res.quote)}`
-  };
+  const result = { type:'part', name, currency:'RMB', data, breakdown:res, price:res.quote, minDealPrice:res.minDealPrice, qty, total, displayPrice:`¥${money(res.quote)}` };
   CURRENT_RESULT = result;
   renderResult(result);
   addHistory({ts:Date.now(), type:'part', name, currency:'RMB', displayPrice:`¥${money(res.quote)}`, result});
   showPage('result');
 }
-  /* =========================
-   Multi Part Set Quote
-========================= */
-function makePartItemDefaults(){
+  function makePartItemDefaults(){
   const s = loadSettings();
   return {
     id: Date.now() + Math.random().toString(16).slice(2),
@@ -1474,18 +1125,27 @@ function makePartItemDefaults(){
     laborCoef:'1.0'
   };
 }
-function addPartItem(){
-  PART_ITEMS.push(makePartItemDefaults());
-  renderPartItems();
-}
-function removePartItem(id){
-  PART_ITEMS = PART_ITEMS.filter(x=>x.id!==id);
-  renderPartItems();
+function addPartItem(){ PART_ITEMS.push(makePartItemDefaults()); renderPartItems(); }
+function removePartItem(id){ PART_ITEMS = PART_ITEMS.filter(x=>x.id!==id); renderPartItems(); }
+
+function renderPartSummaryContent(p){
+  const res = calcPartQuoteFromData({
+    weight:p.weight, matPrice:p.matPrice, runnerRate:p.runner, tonnage:p.tonnage, cycle:p.cycle,
+    cavity:p.cavity, surface:p.surface, pack:p.pack, profitRate:p.profit, goodRate:p.goodRate, laborCoef:p.laborCoef
+  });
+  const perSetQty = num(p.perSetQty, 1);
+  const setCost = res.adjustedCost * perSetQty;
+  const setPrice = res.quote * perSetQty;
+  return `
+    <div class="part-summary-row"><span class="label">${t('pvUnit')}</span><span class="value">${money(res.quote)}</span></div>
+    <div class="part-summary-row"><span class="label">每套成本</span><span class="value">${money(setCost)}</span></div>
+    <div class="part-summary-row"><span class="label">每套售價</span><span class="value">${money(setPrice)}</span></div>
+  `;
 }
 function renderPartItems(){
   const box = g('parts-container');
   box.innerHTML = PART_ITEMS.map((p,idx)=>`
-    <div class="part-card">
+    <div class="part-card" id="part-card-${p.id}">
       <div class="part-card-header">
         <div class="part-card-title">${t('partName')} ${idx+1}</div>
         <button class="part-remove-btn" onclick="removePartItem('${p.id}')">✕</button>
@@ -1497,94 +1157,50 @@ function renderPartItems(){
       </div>
 
       <div class="grid3">
-        <div class="field">
-          <label>每套用量</label>
-          <input type="number" step="1" value="${escapeAttr(p.perSetQty)}" oninput="updatePartItem('${p.id}','perSetQty',this.value)">
-        </div>
-        <div class="field">
-          <label>${t('lblWeight')}</label>
-          <input type="number" step="0.01" value="${escapeAttr(p.weight)}" oninput="updatePartItem('${p.id}','weight',this.value)">
-        </div>
-        <div class="field">
-          <label>${t('lblMaterialPrice')}</label>
-          <input type="number" step="0.01" value="${escapeAttr(p.matPrice)}" oninput="updatePartItem('${p.id}','matPrice',this.value)">
-        </div>
+        <div class="field"><label>每套用量</label><input type="number" step="1" value="${escapeAttr(p.perSetQty)}" oninput="updatePartItem('${p.id}','perSetQty',this.value)"></div>
+        <div class="field"><label>${t('lblWeight')}</label><input type="number" step="0.01" value="${escapeAttr(p.weight)}" oninput="updatePartItem('${p.id}','weight',this.value)"></div>
+        <div class="field"><label>${t('lblMaterialPrice')}</label><input type="number" step="0.01" value="${escapeAttr(p.matPrice)}" oninput="updatePartItem('${p.id}','matPrice',this.value)"></div>
       </div>
 
       <div class="grid3">
-        <div class="field">
-          <label>${t('lblRunner')}</label>
-          <input type="number" step="0.1" value="${escapeAttr(p.runner)}" oninput="updatePartItem('${p.id}','runner',this.value)">
-        </div>
-        <div class="field">
-          <label>${t('lblTonnage')}</label>
-          <input type="number" step="1" value="${escapeAttr(p.tonnage)}" oninput="updatePartItem('${p.id}','tonnage',this.value)">
-        </div>
-        <div class="field">
-          <label>${t('lblCycle')}</label>
-          <input type="number" step="0.1" value="${escapeAttr(p.cycle)}" oninput="updatePartItem('${p.id}','cycle',this.value)">
-        </div>
+        <div class="field"><label>${t('lblRunner')}</label><input type="number" step="0.1" value="${escapeAttr(p.runner)}" oninput="updatePartItem('${p.id}','runner',this.value)"></div>
+        <div class="field"><label>${t('lblTonnage')}</label><input type="number" step="1" value="${escapeAttr(p.tonnage)}" oninput="updatePartItem('${p.id}','tonnage',this.value)"></div>
+        <div class="field"><label>${t('lblCycle')}</label><input type="number" step="0.1" value="${escapeAttr(p.cycle)}" oninput="updatePartItem('${p.id}','cycle',this.value)"></div>
       </div>
 
       <div class="grid3">
-        <div class="field">
-          <label>${t('lblCavity')}</label>
-          <input type="number" step="1" value="${escapeAttr(p.cavity)}" oninput="updatePartItem('${p.id}','cavity',this.value)">
-        </div>
-        <div class="field">
-          <label>${t('lblSurface')}</label>
-          <input type="number" step="0.001" value="${escapeAttr(p.surface)}" oninput="updatePartItem('${p.id}','surface',this.value)">
-        </div>
-        <div class="field">
-          <label>${t('lblPack')}</label>
-          <input type="number" step="0.001" value="${escapeAttr(p.pack)}" oninput="updatePartItem('${p.id}','pack',this.value)">
-        </div>
+        <div class="field"><label>${t('lblCavity')}</label><input type="number" step="1" value="${escapeAttr(p.cavity)}" oninput="updatePartItem('${p.id}','cavity',this.value)"></div>
+        <div class="field"><label>${t('lblSurface')}</label><input type="number" step="0.001" value="${escapeAttr(p.surface)}" oninput="updatePartItem('${p.id}','surface',this.value)"></div>
+        <div class="field"><label>${t('lblPack')}</label><input type="number" step="0.001" value="${escapeAttr(p.pack)}" oninput="updatePartItem('${p.id}','pack',this.value)"></div>
       </div>
 
       <div class="grid3">
-        <div class="field">
-          <label>${t('lblGoodRate')}</label>
-          <input type="number" step="0.1" value="${escapeAttr(p.goodRate)}" oninput="updatePartItem('${p.id}','goodRate',this.value)">
-        </div>
-        <div class="field">
-          <label>${t('lblProfit')}</label>
-          <input type="number" step="0.1" value="${escapeAttr(p.profit)}" oninput="updatePartItem('${p.id}','profit',this.value)">
-        </div>
-        <div class="field">
-          <label>${t('lblLaborCoef')}</label>
-          <input type="number" step="0.1" value="${escapeAttr(p.laborCoef)}" oninput="updatePartItem('${p.id}','laborCoef',this.value)">
-        </div>
+        <div class="field"><label>${t('lblGoodRate')}</label><input type="number" step="0.1" value="${escapeAttr(p.goodRate)}" oninput="updatePartItem('${p.id}','goodRate',this.value)"></div>
+        <div class="field"><label>${t('lblProfit')}</label><input type="number" step="0.1" value="${escapeAttr(p.profit)}" oninput="updatePartItem('${p.id}','profit',this.value)"></div>
+        <div class="field"><label>${t('lblLaborCoef')}</label><input type="number" step="0.1" value="${escapeAttr(p.laborCoef)}" oninput="updatePartItem('${p.id}','laborCoef',this.value)"></div>
       </div>
 
-      ${renderPartSummary(p)}
+      <div class="part-summary" id="part-summary-${p.id}">
+        ${renderPartSummaryContent(p)}
+      </div>
     </div>
   `).join('');
   g('parts-count').textContent = `${PART_ITEMS.length} parts`;
   updatePartsLive();
 }
-function updatePartItem(id,key,val){
-  const item = PART_ITEMS.find(x=>x.id===id);
+function updatePartCardSummary(id){
+  const item = PART_ITEMS.find(x => x.id === id);
   if(!item) return;
-  item[key]=val;
-  renderPartItems();
+  const summaryEl = g(`part-summary-${id}`);
+  if(!summaryEl) return;
+  summaryEl.innerHTML = renderPartSummaryContent(item);
 }
-function renderPartSummary(p){
-  const res = calcPartQuoteFromData({
-    weight:p.weight, matPrice:p.matPrice, runnerRate:p.runner,
-    tonnage:p.tonnage, cycle:p.cycle, cavity:p.cavity,
-    surface:p.surface, pack:p.pack, profitRate:p.profit,
-    goodRate:p.goodRate, laborCoef:p.laborCoef
-  });
-  const perSetQty = num(p.perSetQty,1);
-  const setCost = res.adjustedCost * perSetQty;
-  const setPrice = res.quote * perSetQty;
-  return `
-    <div class="part-summary">
-      <div class="part-summary-row"><span class="label">${t('pvUnit')}</span><span class="value">${money(res.quote)}</span></div>
-      <div class="part-summary-row"><span class="label">每套成本</span><span class="value">${money(setCost)}</span></div>
-      <div class="part-summary-row"><span class="label">每套售價</span><span class="value">${money(setPrice)}</span></div>
-    </div>
-  `;
+function updatePartItem(id, key, val){
+  const item = PART_ITEMS.find(x => x.id === id);
+  if(!item) return;
+  item[key] = val;
+  updatePartCardSummary(id);
+  updatePartsLive();
 }
 function calcPartsQuote(){
   const setName = g('ps-name').value.trim();
@@ -1595,24 +1211,18 @@ function calcPartsQuote(){
   let lines = [];
   let totalCostPerSet = 0;
   let totalSuggestedPerSet = 0;
-  let totalMinPerSet = 0;
 
   for(const p of PART_ITEMS){
     const res = calcPartQuoteFromData({
-      weight:p.weight, matPrice:p.matPrice, runnerRate:p.runner,
-      tonnage:p.tonnage, cycle:p.cycle, cavity:p.cavity,
-      surface:p.surface, pack:p.pack, profitRate:p.profit,
-      goodRate:p.goodRate, laborCoef:p.laborCoef
+      weight:p.weight, matPrice:p.matPrice, runnerRate:p.runner, tonnage:p.tonnage, cycle:p.cycle,
+      cavity:p.cavity, surface:p.surface, pack:p.pack, profitRate:p.profit, goodRate:p.goodRate, laborCoef:p.laborCoef
     });
     const perSetQty = num(p.perSetQty,1);
     const costPerSet = res.adjustedCost * perSetQty;
     const suggestedPerSet = res.quote * perSetQty;
     const minPerSet = res.minDealPrice * perSetQty;
-
     totalCostPerSet += costPerSet;
     totalSuggestedPerSet += suggestedPerSet;
-    totalMinPerSet += minPerSet;
-
     lines.push({
       name:p.name || '-',
       perSetQty,
@@ -1621,19 +1231,15 @@ function calcPartsQuote(){
       unitMin:res.minDealPrice,
       costPerSet,
       suggestedPerSet,
-      minPerSet,
-      breakdown:res,
-      source:{...p}
+      minPerSet
     });
   }
 
-  const setSuggestedWithProfit = totalCostPerSet * (1 + setProfit/100);
-  const setMinDeal = totalCostPerSet * (1 + Math.max(0, setProfit*0.4)/100);
-
-  const totalQuote = setSuggestedWithProfit * setQty;
+  const setUnitPrice = totalCostPerSet * (1 + setProfit/100);
+  const minDealPrice = totalCostPerSet * (1 + Math.max(0, setProfit*0.4)/100);
+  const totalQuote = setUnitPrice * setQty;
   const pieceCountPerSet = lines.reduce((a,b)=>a + num(b.perSetQty), 0);
   const pieceUnitPrice = pieceCountPerSet > 0 ? totalSuggestedPerSet / pieceCountPerSet : 0;
-  const setUnitPrice = setSuggestedWithProfit;
 
   return {
     type:'parts',
@@ -1644,36 +1250,52 @@ function calcPartsQuote(){
     pieceCountPerSet,
     pieceUnitPrice,
     setUnitPrice,
-    minDealPrice:setMinDeal,
+    minDealPrice,
     totalCostPerSet,
     totalSuggestedPerSet,
-    totalMinPerSet,
     totalQuote,
     lines,
     displayPrice:`¥${money(setUnitPrice)}`
   };
 }
 function updatePartsLive(){
-  const result = calcPartsQuote();
-  if(!result) return;
-  g('pv-set-cost').textContent = money(result.totalCostPerSet);
-  g('pv-set-price').textContent = money(result.setUnitPrice);
-  g('pv-set-total').textContent = money(result.totalQuote,2);
+  if(!PART_ITEMS.length){
+    g('pv-set-cost').textContent = '0.000';
+    g('pv-set-price').textContent = '0.000';
+    g('pv-set-total').textContent = '0.00';
+    g('parts-count').textContent = '0 parts';
+    return;
+  }
+
+  const setQty = num(g('ps-qty')?.value);
+  const setProfit = num(g('ps-profit')?.value);
+  let totalCostPerSet = 0;
+
+  for(const p of PART_ITEMS){
+    const res = calcPartQuoteFromData({
+      weight:p.weight, matPrice:p.matPrice, runnerRate:p.runner, tonnage:p.tonnage, cycle:p.cycle,
+      cavity:p.cavity, surface:p.surface, pack:p.pack, profitRate:p.profit, goodRate:p.goodRate, laborCoef:p.laborCoef
+    });
+    totalCostPerSet += res.adjustedCost * num(p.perSetQty, 1);
+  }
+
+  const setUnitPrice = totalCostPerSet * (1 + setProfit / 100);
+  const totalQuote = setUnitPrice * setQty;
+
+  g('pv-set-cost').textContent = money(totalCostPerSet);
+  g('pv-set-price').textContent = money(setUnitPrice);
+  g('pv-set-total').textContent = money(totalQuote, 2);
+  g('parts-count').textContent = `${PART_ITEMS.length} parts`;
 }
 function calcParts(){
   const result = calcPartsQuote();
-  if(!result || !result.name || !result.setQty){
-    alert(t('invalidInput')); return;
-  }
+  if(!result || !result.name || !result.setQty){ alert(t('invalidInput')); return; }
   CURRENT_RESULT = result;
   renderResult(result);
   addHistory({ts:Date.now(), type:'parts', name:result.name, currency:'RMB', displayPrice:result.displayPrice, result});
   showPage('result');
 }
 
-/* =========================
-   Mold Quote
-========================= */
 function renderMoldItems(){
   const n = clampMin(g('m-count').value, 1, 1);
   const box = g('mold-items-container');
@@ -1682,33 +1304,15 @@ function renderMoldItems(){
     html += `
       <div class="part-card">
         <div class="part-card-header"><div class="part-card-title">Mold ${i+1}</div></div>
-        <div class="field">
-          <label>模具名稱 / Mold Name</label>
-          <input id="m-name-${i}" placeholder="如：上蓋模 / Top Cover Mold">
-        </div>
+        <div class="field"><label>模具名稱 / Mold Name</label><input id="m-name-${i}" placeholder="如：上蓋模 / Top Cover Mold"></div>
         <div class="grid3">
-          <div class="field">
-            <label>模具金額</label>
-            <input id="m-price-${i}" type="number" step="0.01" placeholder="50000">
-          </div>
-          <div class="field">
-            <label>穴數</label>
-            <input id="m-cavity-${i}" type="number" step="1" placeholder="2">
-          </div>
-          <div class="field">
-            <label>鋼材</label>
-            <input id="m-steel-${i}" placeholder="NAK80 / S136">
-          </div>
+          <div class="field"><label>模具金額</label><input id="m-price-${i}" type="number" step="0.01" placeholder="50000"></div>
+          <div class="field"><label>穴數</label><input id="m-cavity-${i}" type="number" step="1" placeholder="2"></div>
+          <div class="field"><label>鋼材</label><input id="m-steel-${i}" placeholder="NAK80 / S136"></div>
         </div>
         <div class="grid2">
-          <div class="field">
-            <label>壽命 (shots)</label>
-            <input id="m-life-${i}" type="number" step="1" placeholder="500000">
-          </div>
-          <div class="field">
-            <label>備註</label>
-            <input id="m-note-${i}" placeholder="熱流道 / 冷流道">
-          </div>
+          <div class="field"><label>壽命 (shots)</label><input id="m-life-${i}" type="number" step="1" placeholder="500000"></div>
+          <div class="field"><label>備註</label><input id="m-note-${i}" placeholder="熱流道 / 冷流道"></div>
         </div>
       </div>
     `;
@@ -1745,33 +1349,17 @@ function calcMoldQuote(){
   else if(investB > investA) ownership = t('partyBOwn');
 
   const sym = symbolByCurrency(currency);
-
-  return {
-    type:'mold',
-    name: `${partyA || '-'} / ${partyB || '-'}`,
-    currency,
-    partyA, partyB, paymentTerm, remarks,
-    molds,
-    moldTotal,
-    investA, investB,
-    ownership,
-    displayPrice:`${sym}${money(moldTotal,2)}`
-  };
+  return { type:'mold', name:`${partyA || '-'} / ${partyB || '-'}`, currency, partyA, partyB, paymentTerm, remarks, molds, moldTotal, investA, investB, ownership, displayPrice:`${sym}${money(moldTotal,2)}` };
 }
 function calcMold(){
   const result = calcMoldQuote();
-  if(!result.partyA || !result.partyB || !result.molds.length){
-    alert(t('invalidInput')); return;
-  }
+  if(!result.partyA || !result.partyB || !result.molds.length){ alert(t('invalidInput')); return; }
   CURRENT_RESULT = result;
   renderResult(result);
   addHistory({ts:Date.now(), type:'mold', name:result.name, currency:result.currency, displayPrice:result.displayPrice, result});
   showPage('result');
 }
 
-/* =========================
-   Inquiry Quote
-========================= */
 function calcInquiryQuoteFromData(data){
   const weight = num(data.weight);
   const matPrice = num(data.matPrice);
@@ -1791,41 +1379,22 @@ function calcInquiryQuoteFromData(data){
 
   const pcsPerHour = (3600 / cycle) * cavity;
   const fixedPerPc = getFixedPerPc();
-
   const totalWeight = weight * (1 + runnerRate / 100);
   const matPerPc = (totalWeight / 1000) * matPrice;
   const elecPerPc = pcsPerHour > 0 ? (tonnage * 0.6 * elecRate) / pcsPerHour : 0;
   const laborPerPc = pcsPerHour > 0 ? (laborH / machinesPerWorker) / pcsPerHour : 0;
-
   const baseCost = matPerPc + elecPerPc + laborPerPc + surface + pack + fixedPerPc;
   const adjustedCost = baseCost / (goodRate / 100);
   const unitPrice = adjustedCost * (1 + profitRate / 100);
   const minDealPrice = adjustedCost * (1 + Math.max(0, profitRate * 0.4)/100);
 
-  return {
-    unitPrice,
-    minDealPrice,
-    baseCost,
-    fixedPerPc,
-    matPerPc,
-    elecPerPc,
-    laborPerPc,
-    adjustedCost,
-    pcsPerHour
-  };
+  return { unitPrice, minDealPrice, baseCost, fixedPerPc, matPerPc, elecPerPc, laborPerPc, adjustedCost };
 }
 function updateInquiryLive(){
   const res = calcInquiryQuoteFromData({
-    weight:g('q-weight').value,
-    matPrice:g('q-mat-price').value,
-    runnerRate:g('q-runner').value,
-    tonnage:g('q-tonnage').value,
-    cycle:g('q-cycle').value,
-    cavity:g('q-cavity').value,
-    surface:g('q-surface').value,
-    pack:g('q-pack').value,
-    profitRate:g('q-profit').value,
-    goodRate:g('q-good-rate').value
+    weight:g('q-weight').value, matPrice:g('q-mat-price').value, runnerRate:g('q-runner').value,
+    tonnage:g('q-tonnage').value, cycle:g('q-cycle').value, cavity:g('q-cavity').value,
+    surface:g('q-surface').value, pack:g('q-pack').value, profitRate:g('q-profit').value, goodRate:g('q-good-rate').value
   });
   g('pv-q-mat').textContent = money(res.matPerPc);
   g('pv-q-fixed').textContent = money(res.fixedPerPc);
@@ -1836,283 +1405,120 @@ function calcInquiry(){
   const name = g('q-name').value.trim();
   const qty = num(g('q-qty').value);
   const res = calcInquiryQuoteFromData({
-    weight:g('q-weight').value,
-    matPrice:g('q-mat-price').value,
-    runnerRate:g('q-runner').value,
-    tonnage:g('q-tonnage').value,
-    cycle:g('q-cycle').value,
-    cavity:g('q-cavity').value,
-    surface:g('q-surface').value,
-    pack:g('q-pack').value,
-    profitRate:g('q-profit').value,
-    goodRate:g('q-good-rate').value
+    weight:g('q-weight').value, matPrice:g('q-mat-price').value, runnerRate:g('q-runner').value,
+    tonnage:g('q-tonnage').value, cycle:g('q-cycle').value, cavity:g('q-cavity').value,
+    surface:g('q-surface').value, pack:g('q-pack').value, profitRate:g('q-profit').value, goodRate:g('q-good-rate').value
   });
-  if(!name || !qty || !num(g('q-weight').value) || !num(g('q-mat-price').value)){
-    alert(t('invalidInput')); return;
-  }
+  if(!name || !qty || !num(g('q-weight').value) || !num(g('q-mat-price').value)){ alert(t('invalidInput')); return; }
   const total = res.unitPrice * qty;
-  const result = {
-    type:'inquiry',
-    name,
-    currency:'RMB',
-    qty,
-    price:res.unitPrice,
-    minDealPrice:res.minDealPrice,
-    total,
-    breakdown:res,
-    data:{
-      weight:g('q-weight').value,
-      matPrice:g('q-mat-price').value,
-      runnerRate:g('q-runner').value,
-      tonnage:g('q-tonnage').value,
-      cycle:g('q-cycle').value,
-      cavity:g('q-cavity').value,
-      surface:g('q-surface').value,
-      pack:g('q-pack').value,
-      profitRate:g('q-profit').value,
-      goodRate:g('q-good-rate').value
-    },
-    displayPrice:`¥${money(res.unitPrice)}`
-  };
+  const result = { type:'inquiry', name, currency:'RMB', qty, price:res.unitPrice, minDealPrice:res.minDealPrice, total, breakdown:res, displayPrice:`¥${money(res.unitPrice)}` };
   CURRENT_RESULT = result;
   renderResult(result);
   addHistory({ts:Date.now(), type:'inquiry', name, currency:'RMB', displayPrice:result.displayPrice, result});
   showPage('result');
 }
 
-/* =========================
-   Result Render
-========================= */
 function renderResult(result){
   const box = g('result-content');
   if(result.type === 'part'){
-    box.innerHTML = renderPartResult(result);
-  }else if(result.type === 'parts'){
-    box.innerHTML = renderPartsResult(result);
-  }else if(result.type === 'mold'){
-    box.innerHTML = renderMoldResult(result);
-  }else if(result.type === 'inquiry'){
-    box.innerHTML = renderInquiryResult(result);
-  }else{
-    box.innerHTML = '<div class="guide-box">No result</div>';
+    box.innerHTML = `
+      <div class="result-hero"><div class="result-title">${escapeHtml(result.name)}</div><div class="result-price">¥${money(result.price)}</div><div class="result-sub">${result.qty} pcs · ${t('totalQuote')}: ¥${money(result.total,2)}</div></div>
+      <div class="result-info">
+        <div class="ri-card"><div class="ri-label">${t('suggestedUnitPrice')}</div><div class="ri-value">¥${money(result.price)}</div></div>
+        <div class="ri-card"><div class="ri-label">${t('lowestDealPrice')}</div><div class="ri-value">¥${money(result.minDealPrice)}</div></div>
+      </div>
+      <div class="breakdown-card">
+        <div class="bc-header"><span>COST BREAKDOWN</span><span>RMB / pcs</span></div>
+        <div class="bc-row"><span class="bn">${t('pvMat')}</span><span class="bv">${money(result.breakdown.matPerPc)}</span></div>
+        <div class="bc-row"><span class="bn">${t('pvElec')}</span><span class="bv">${money(result.breakdown.elecPerPc)}</span></div>
+        <div class="bc-row"><span class="bn">${t('pvLabor')}</span><span class="bv">${money(result.breakdown.laborPerPc)}</span></div>
+        <div class="bc-row"><span class="bn">${t('pvFixed')}</span><span class="bv">${money(result.breakdown.fixedPerPc)}</span></div>
+        <div class="bc-row total-row"><span class="bn">${t('suggestedUnitPrice')}</span><span class="bv">${money(result.price)}</span></div>
+      </div>
+      <div class="btn-actions"><button class="btn-action" onclick="copyResultText()">📋 Copy</button><button class="btn-action" onclick="window.print()">🖨️ Print</button></div>
+    `;
+  } else if(result.type === 'parts'){
+    box.innerHTML = `
+      <div class="result-hero"><div class="result-title">${escapeHtml(result.name)}</div><div class="result-price new">¥${money(result.setUnitPrice)}</div><div class="result-sub">${result.setQty} sets · ${t('totalQuote')}: ¥${money(result.totalQuote,2)}</div></div>
+      <div class="result-info">
+        <div class="ri-card"><div class="ri-label">Piece Avg</div><div class="ri-value">¥${money(result.pieceUnitPrice)}</div></div>
+        <div class="ri-card"><div class="ri-label">Set Min Deal</div><div class="ri-value">¥${money(result.minDealPrice)}</div></div>
+      </div>
+      <div class="breakdown-card">
+        <div class="bc-header"><span>SET BREAKDOWN</span><span>RMB</span></div>
+        <div style="padding:10px 14px">
+          <table class="cost-table">
+            <thead><tr><th>${t('partName')}</th><th>每套用量</th><th>${t('suggestedUnitPrice')}</th><th>${t('lowestDealPrice')}</th><th>${t('subtotal')}</th></tr></thead>
+            <tbody>
+              ${result.lines.map(line=>`<tr><td>${escapeHtml(line.name)}</td><td>${money(line.perSetQty,0)}</td><td>${money(line.unitPrice)}</td><td>${money(line.unitMin)}</td><td>${money(line.suggestedPerSet)}</td></tr>`).join('')}
+            </tbody>
+          </table>
+        </div>
+        <div class="bc-row"><span class="bn">Cost / Set</span><span class="bv">${money(result.totalCostPerSet)}</span></div>
+        <div class="bc-row"><span class="bn">Suggested / Set</span><span class="bv">${money(result.setUnitPrice)}</span></div>
+        <div class="bc-row total-row"><span class="bn">${t('totalQuote')}</span><span class="bv">${money(result.totalQuote,2)}</span></div>
+      </div>
+      <div class="btn-actions"><button class="btn-action" onclick="copyResultText()">📋 Copy</button><button class="btn-action" onclick="window.print()">🖨️ Print</button></div>
+    `;
+  } else if(result.type === 'mold'){
+    const sym = symbolByCurrency(result.currency);
+    box.innerHTML = `
+      <div class="result-hero"><div class="result-title">${escapeHtml(result.partyA)} / ${escapeHtml(result.partyB)}</div><div class="result-price">${sym}${money(result.moldTotal,2)}</div><div class="result-sub">${result.molds.length} molds · ${t('ownershipResult')}: ${escapeHtml(result.ownership)}</div></div>
+      <div class="result-info">
+        <div class="ri-card"><div class="ri-label">Party A</div><div class="ri-value">${sym}${money(result.investA,2)}</div></div>
+        <div class="ri-card"><div class="ri-label">Party B</div><div class="ri-value">${sym}${money(result.investB,2)}</div></div>
+      </div>
+      <div class="breakdown-card">
+        <div class="bc-header"><span>MOLD LIST</span><span>${escapeHtml(result.currency)}</span></div>
+        ${result.molds.map(m=>`<div class="bc-row"><span class="bn">${escapeHtml(m.name)} · ${escapeHtml(m.steel || '-')} · ${m.cavity || '-'} cav</span><span class="bv">${money(m.price,2)}</span></div>`).join('')}
+        <div class="bc-row total-row"><span class="bn">Mold Total</span><span class="bv">${money(result.moldTotal,2)}</span></div>
+      </div>
+      <button class="btn-contract" onclick="generateContractPreview()">GENERATE PDF CONTRACT</button>
+      <div class="btn-actions"><button class="btn-action" onclick="copyResultText()">📋 Copy</button><button class="btn-action" onclick="window.print()">🖨️ Print</button></div>
+    `;
+  } else if(result.type === 'inquiry'){
+    box.innerHTML = `
+      <div class="result-hero"><div class="result-title">${escapeHtml(result.name)}</div><div class="result-price new">¥${money(result.price)}</div><div class="result-sub">${result.qty} pcs · ${t('totalQuote')}: ¥${money(result.total,2)}</div></div>
+      <div class="result-info">
+        <div class="ri-card"><div class="ri-label">${t('suggestedUnitPrice')}</div><div class="ri-value">¥${money(result.price)}</div></div>
+        <div class="ri-card"><div class="ri-label">${t('lowestDealPrice')}</div><div class="ri-value">¥${money(result.minDealPrice)}</div></div>
+      </div>
+      <div class="breakdown-card">
+        <div class="bc-header"><span>QUICK BREAKDOWN</span><span>RMB / pcs</span></div>
+        <div class="bc-row"><span class="bn">${t('pvMat')}</span><span class="bv">${money(result.breakdown.matPerPc)}</span></div>
+        <div class="bc-row"><span class="bn">${t('pvElec')}</span><span class="bv">${money(result.breakdown.elecPerPc)}</span></div>
+        <div class="bc-row"><span class="bn">${t('pvLabor')}</span><span class="bv">${money(result.breakdown.laborPerPc)}</span></div>
+        <div class="bc-row"><span class="bn">${t('pvFixed')}</span><span class="bv">${money(result.breakdown.fixedPerPc)}</span></div>
+        <div class="bc-row total-row"><span class="bn">${t('suggestedUnitPrice')}</span><span class="bv">${money(result.price)}</span></div>
+      </div>
+      <div class="btn-actions"><button class="btn-action" onclick="copyResultText()">📋 Copy</button><button class="btn-action" onclick="window.print()">🖨️ Print</button></div>
+    `;
   }
 }
-function renderPartResult(r){
-  return `
-    <div class="result-hero">
-      <div class="result-title">${escapeHtml(r.name)}</div>
-      <div class="result-price">¥${money(r.price)}</div>
-      <div class="result-sub">${r.qty} pcs · ${t('totalQuote')}: ¥${money(r.total,2)}</div>
-    </div>
 
-    <div class="result-info">
-      <div class="ri-card"><div class="ri-label">${t('suggestedUnitPrice')}</div><div class="ri-value">¥${money(r.price)}</div></div>
-      <div class="ri-card"><div class="ri-label">${t('lowestDealPrice')}</div><div class="ri-value">¥${money(r.minDealPrice)}</div></div>
-    </div>
-
-    <div class="breakdown-card">
-      <div class="bc-header"><span>COST BREAKDOWN</span><span>RMB / pcs</span></div>
-      <div class="bc-section">VARIABLE</div>
-      <div class="bc-row"><span class="bn">${t('pvMat')}</span><span class="bv">${money(r.breakdown.matPerPc)}</span></div>
-      <div class="bc-row"><span class="bn">${t('pvElec')}</span><span class="bv">${money(r.breakdown.elecPerPc)}</span></div>
-      <div class="bc-row"><span class="bn">${t('pvLabor')}</span><span class="bv">${money(r.breakdown.laborPerPc)}</span></div>
-      <div class="bc-row"><span class="bn">${t('lblSurface')}</span><span class="bv">${money(r.breakdown.surface)}</span></div>
-      <div class="bc-row"><span class="bn">${t('lblPack')}</span><span class="bv">${money(r.breakdown.pack)}</span></div>
-      <div class="bc-section">FIXED</div>
-      <div class="bc-row"><span class="bn">${t('pvFixed')}</span><span class="bv">${money(r.breakdown.fixedPerPc)}</span></div>
-      <div class="bc-row"><span class="bn">Base Cost</span><span class="bv">${money(r.breakdown.baseCost)}</span></div>
-      <div class="bc-row"><span class="bn">Yield Adj.</span><span class="bv">${money(r.breakdown.adjustedCost)}</span></div>
-      <div class="bc-row total-row"><span class="bn">${t('suggestedUnitPrice')}</span><span class="bv">${money(r.price)}</span></div>
-    </div>
-
-    <div class="btn-actions">
-      <button class="btn-action" onclick="copyResultText()">📋 Copy</button>
-      <button class="btn-action" onclick="window.print()">🖨️ Print</button>
-    </div>
-  `;
-}
-function renderPartsResult(r){
-  return `
-    <div class="result-hero">
-      <div class="result-title">${escapeHtml(r.name)}</div>
-      <div class="result-price new">¥${money(r.setUnitPrice)}</div>
-      <div class="result-sub">${r.setQty} sets · ${t('totalQuote')}: ¥${money(r.totalQuote,2)}</div>
-    </div>
-
-    <div class="result-info">
-      <div class="ri-card"><div class="ri-label">Piece Avg</div><div class="ri-value">¥${money(r.pieceUnitPrice)}</div></div>
-      <div class="ri-card"><div class="ri-label">Set Min Deal</div><div class="ri-value">¥${money(r.minDealPrice)}</div></div>
-    </div>
-
-    <div class="breakdown-card">
-      <div class="bc-header"><span>SET BREAKDOWN</span><span>RMB</span></div>
-      <div style="padding:10px 14px">
-        <table class="cost-table">
-          <thead>
-            <tr>
-              <th>${t('partName')}</th>
-              <th>每套用量</th>
-              <th>${t('suggestedUnitPrice')}</th>
-              <th>${t('lowestDealPrice')}</th>
-              <th>${t('subtotal')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${r.lines.map(line=>`
-              <tr>
-                <td>${escapeHtml(line.name)}</td>
-                <td>${money(line.perSetQty,0)}</td>
-                <td>${money(line.unitPrice)}</td>
-                <td>${money(line.unitMin)}</td>
-                <td>${money(line.suggestedPerSet)}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      </div>
-      <div class="bc-row"><span class="bn">Cost / Set</span><span class="bv">${money(r.totalCostPerSet)}</span></div>
-      <div class="bc-row"><span class="bn">Suggested / Set</span><span class="bv">${money(r.setUnitPrice)}</span></div>
-      <div class="bc-row total-row"><span class="bn">${t('totalQuote')}</span><span class="bv">${money(r.totalQuote,2)}</span></div>
-    </div>
-
-    <div class="btn-actions">
-      <button class="btn-action" onclick="copyResultText()">📋 Copy</button>
-      <button class="btn-action" onclick="window.print()">🖨️ Print</button>
-    </div>
-  `;
-}
-  function renderMoldResult(r){
-  const sym = symbolByCurrency(r.currency);
-  return `
-    <div class="result-hero">
-      <div class="result-title">${escapeHtml(r.partyA)} / ${escapeHtml(r.partyB)}</div>
-      <div class="result-price">${sym}${money(r.moldTotal,2)}</div>
-      <div class="result-sub">${r.molds.length} molds · ${t('ownershipResult')}: ${escapeHtml(r.ownership)}</div>
-    </div>
-
-    <div class="result-info">
-      <div class="ri-card"><div class="ri-label">Party A</div><div class="ri-value">${sym}${money(r.investA,2)}</div></div>
-      <div class="ri-card"><div class="ri-label">Party B</div><div class="ri-value">${sym}${money(r.investB,2)}</div></div>
-    </div>
-
-    <div class="breakdown-card">
-      <div class="bc-header"><span>MOLD LIST</span><span>${escapeHtml(r.currency)}</span></div>
-      ${r.molds.map(m=>`
-        <div class="bc-row"><span class="bn">${escapeHtml(m.name)} · ${escapeHtml(m.steel || '-')} · ${m.cavity || '-'} cav</span><span class="bv">${money(m.price,2)}</span></div>
-      `).join('')}
-      <div class="bc-row total-row"><span class="bn">Mold Total</span><span class="bv">${money(r.moldTotal,2)}</span></div>
-    </div>
-
-    <button class="btn-contract" onclick="generateContractPreview()">GENERATE PDF CONTRACT</button>
-
-    <div class="btn-actions">
-      <button class="btn-action" onclick="copyResultText()">📋 Copy</button>
-      <button class="btn-action" onclick="window.print()">🖨️ Print</button>
-    </div>
-  `;
-}
-function renderInquiryResult(r){
-  return `
-    <div class="result-hero">
-      <div class="result-title">${escapeHtml(r.name)}</div>
-      <div class="result-price new">¥${money(r.price)}</div>
-      <div class="result-sub">${r.qty} pcs · ${t('totalQuote')}: ¥${money(r.total,2)}</div>
-    </div>
-
-    <div class="result-info">
-      <div class="ri-card"><div class="ri-label">${t('suggestedUnitPrice')}</div><div class="ri-value">¥${money(r.price)}</div></div>
-      <div class="ri-card"><div class="ri-label">${t('lowestDealPrice')}</div><div class="ri-value">¥${money(r.minDealPrice)}</div></div>
-    </div>
-
-    <div class="breakdown-card">
-      <div class="bc-header"><span>QUICK BREAKDOWN</span><span>RMB / pcs</span></div>
-      <div class="bc-row"><span class="bn">${t('pvMat')}</span><span class="bv">${money(r.breakdown.matPerPc)}</span></div>
-      <div class="bc-row"><span class="bn">${t('pvElec')}</span><span class="bv">${money(r.breakdown.elecPerPc)}</span></div>
-      <div class="bc-row"><span class="bn">${t('pvLabor')}</span><span class="bv">${money(r.breakdown.laborPerPc)}</span></div>
-      <div class="bc-row"><span class="bn">${t('pvFixed')}</span><span class="bv">${money(r.breakdown.fixedPerPc)}</span></div>
-      <div class="bc-row total-row"><span class="bn">${t('suggestedUnitPrice')}</span><span class="bv">${money(r.price)}</span></div>
-    </div>
-
-    <div class="btn-actions">
-      <button class="btn-action" onclick="copyResultText()">📋 Copy</button>
-      <button class="btn-action" onclick="window.print()">🖨️ Print</button>
-    </div>
-  `;
-}
-
-/* =========================
-   Contract
-========================= */
 function generateContractPreview(){
   if(!CURRENT_RESULT || CURRENT_RESULT.type !== 'mold') return;
   const r = CURRENT_RESULT;
   const sym = symbolByCurrency(r.currency);
-
-  const rows = r.molds.map((m,i)=>`
-    <div class="cp-row"><span class="label">${i+1}. ${escapeHtml(m.name)} / ${escapeHtml(m.steel || '-')} / ${m.cavity || '-'} cav / ${m.life || '-'} shots</span><span>${sym}${money(m.price,2)}</span></div>
-  `).join('');
-
-  let paymentHtml = '';
-  if(r.paymentTerm === '50/50'){
-    paymentHtml = `
-      <div class="cp-clause">1) 合同簽訂後支付 50% 模具訂金。</div>
-      <div class="cp-clause-en">50% deposit upon contract signing.</div>
-      <div class="cp-clause">2) 模具試模確認後支付餘款 50%。</div>
-      <div class="cp-clause-en">50% balance after T1 approval.</div>
-    `;
-  }else if(r.paymentTerm === '40/30/30'){
-    paymentHtml = `
-      <div class="cp-clause">1) 簽約支付 40% 訂金。</div>
-      <div class="cp-clause-en">40% deposit upon contract signing.</div>
-      <div class="cp-clause">2) 模具完成後支付 30%。</div>
-      <div class="cp-clause-en">30% upon mold completion.</div>
-      <div class="cp-clause">3) 試模確認後支付 30%。</div>
-      <div class="cp-clause-en">30% after trial approval.</div>
-    `;
-  }else{
-    paymentHtml = `
-      <div class="cp-clause">合同簽訂後一次性支付 100%。</div>
-      <div class="cp-clause-en">100% payment upon contract signing.</div>
-    `;
-  }
-
+  const rows = r.molds.map((m,i)=>`<div class="cp-row"><span class="label">${i+1}. ${escapeHtml(m.name)} / ${escapeHtml(m.steel || '-')} / ${m.cavity || '-'} cav / ${m.life || '-'} shots</span><span>${sym}${money(m.price,2)}</span></div>`).join('');
   CURRENT_CONTRACT_HTML = `
     <div class="cp-company">NETSTAR INTERNATIONAL INDUSTRY LIMITED</div>
     <div class="cp-subtitle">Mold Development / Ownership Agreement</div>
     <div class="cp-contract-title">模具開發與產權協議</div>
     <div class="cp-contract-en">Mold Development and Ownership Agreement</div>
     <hr class="cp-divider">
-
     <div class="cp-section">甲乙雙方 / Parties</div>
     <div class="cp-row"><span class="label">甲方 / Party A</span><span>${escapeHtml(r.partyA)}</span></div>
     <div class="cp-row"><span class="label">乙方 / Party B</span><span>${escapeHtml(r.partyB)}</span></div>
-
     <div class="cp-section">模具明細 / Mold Details</div>
     ${rows}
-
-    <div class="cp-total-box">
-      <div class="ct-lbl">模具總價 / Mold Total</div>
-      <div class="ct-val">${sym}${money(r.moldTotal,2)}</div>
-    </div>
-
+    <div class="cp-total-box"><div class="ct-lbl">模具總價 / Mold Total</div><div class="ct-val">${sym}${money(r.moldTotal,2)}</div></div>
     <div class="cp-section">出資與產權 / Investment & Ownership</div>
     <div class="cp-row"><span class="label">甲方出資 / Party A Investment</span><span>${sym}${money(r.investA,2)}</span></div>
     <div class="cp-row"><span class="label">乙方出資 / Party B Investment</span><span>${sym}${money(r.investB,2)}</span></div>
     <div class="cp-row"><span class="label">產權結果 / Ownership</span><span>${escapeHtml(r.ownership)}</span></div>
-
-    <div class="cp-section">付款條件 / Payment Terms</div>
-    ${paymentHtml}
-
-    <div class="cp-section">條款 / Terms</div>
-    <div class="cp-clause">1. 模具製作完成並經雙方確認後，乙方應妥善保管與維護模具。</div>
-    <div class="cp-clause-en">Party B shall properly maintain and safeguard the molds after completion and approval.</div>
-    <div class="cp-clause">2. 模具僅供雙方約定產品使用，未經產權方書面同意不得轉移、轉售或用於第三方。</div>
-    <div class="cp-clause-en">The molds may only be used for the agreed products and may not be transferred or used for any third party without written approval from the owner.</div>
-    <div class="cp-clause">3. 如有共同出資，模具處置須雙方協商一致。</div>
-    <div class="cp-clause-en">For jointly funded molds, disposal or transfer requires mutual agreement.</div>
-    <div class="cp-clause">4. 其他約定：${escapeHtml(r.remarks || '無')}</div>
-    <div class="cp-clause-en">Other terms: ${escapeHtml(r.remarks || 'None')}</div>
-
+    <div class="cp-section">其他約定 / Other Terms</div>
+    <div class="cp-clause">Remarks: ${escapeHtml(r.remarks || 'None')}</div>
     <div class="cp-sig">
       <div class="cp-sig-block">甲方 / Party A<br>${escapeHtml(r.partyA)}</div>
       <div class="cp-sig-block">乙方 / Party B<br>${escapeHtml(r.partyB)}</div>
@@ -2121,14 +1527,11 @@ function generateContractPreview(){
   g('contract-content').innerHTML = CURRENT_CONTRACT_HTML;
   g('contract-modal').classList.add('open');
 }
-function closeContractModal(e){
-  if(e.target.id === 'contract-modal') g('contract-modal').classList.remove('open');
-}
+function closeContractModal(e){ if(e.target.id === 'contract-modal') g('contract-modal').classList.remove('open'); }
 async function downloadPDF(){
   if(!CURRENT_CONTRACT_HTML) return;
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit:'pt', format:'a4' });
-
   const temp = document.createElement('div');
   temp.style.position = 'fixed';
   temp.style.left = '-99999px';
@@ -2140,7 +1543,6 @@ async function downloadPDF(){
   temp.style.fontFamily = CURRENT_LANG === 'sc' ? 'Noto Sans SC, sans-serif' : 'Noto Sans TC, sans-serif';
   temp.innerHTML = CURRENT_CONTRACT_HTML;
   document.body.appendChild(temp);
-
   await doc.html(temp, {
     callback: function (doc) {
       const name = (CURRENT_RESULT?.partyA || 'contract').replace(/[\\/:*?"<>|]/g,'_');
@@ -2153,38 +1555,12 @@ async function downloadPDF(){
     windowWidth:560
   });
 }
-
-/* =========================
-   Copy
-========================= */
 function resultToText(r){
   if(!r) return '';
-  if(r.type==='part'){
-    return `${r.name}
-單價: ¥${money(r.price)}
-最低成交: ¥${money(r.minDealPrice)}
-數量: ${r.qty}
-總價: ¥${money(r.total,2)}`;
-  }
-  if(r.type==='parts'){
-    return `${r.name}
-每套單價: ¥${money(r.setUnitPrice)}
-最低成交: ¥${money(r.minDealPrice)}
-套數: ${r.setQty}
-總報價: ¥${money(r.totalQuote,2)}`;
-  }
-  if(r.type==='inquiry'){
-    return `${r.name}
-單價: ¥${money(r.price)}
-最低成交: ¥${money(r.minDealPrice)}
-數量: ${r.qty}
-總價: ¥${money(r.total,2)}`;
-  }
-  if(r.type==='mold'){
-    return `${r.partyA} / ${r.partyB}
-模具總價: ${symbolByCurrency(r.currency)}${money(r.moldTotal,2)}
-產權: ${r.ownership}`;
-  }
+  if(r.type==='part') return `${r.name}\n單價: ¥${money(r.price)}\n最低成交: ¥${money(r.minDealPrice)}\n數量: ${r.qty}\n總價: ¥${money(r.total,2)}`;
+  if(r.type==='parts') return `${r.name}\n每套單價: ¥${money(r.setUnitPrice)}\n最低成交: ¥${money(r.minDealPrice)}\n套數: ${r.setQty}\n總報價: ¥${money(r.totalQuote,2)}`;
+  if(r.type==='inquiry') return `${r.name}\n單價: ¥${money(r.price)}\n最低成交: ¥${money(r.minDealPrice)}\n數量: ${r.qty}\n總價: ¥${money(r.total,2)}`;
+  if(r.type==='mold') return `${r.partyA} / ${r.partyB}\n模具總價: ${symbolByCurrency(r.currency)}${money(r.moldTotal,2)}\n產權: ${r.ownership}`;
   return '';
 }
 async function copyResultText(){
@@ -2196,40 +1572,16 @@ async function copyResultText(){
     alert(resultToText(CURRENT_RESULT));
   }
 }
+function updateStats(){ g('stat-history').textContent = getHistory().length; }
 
-/* =========================
-   Utils
-========================= */
-function escapeHtml(str){
-  return String(str ?? '')
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;')
-    .replace(/'/g,'&#39;');
-}
-function escapeAttr(str){ return escapeHtml(str); }
-
-function updateStats(){
-  g('stat-history').textContent = getHistory().length;
-}
-
-/* =========================
-   Auto live binding
-========================= */
 function bindLiveInputs(){
   ['p-weight','p-mat-price','p-runner','p-tonnage','p-cycle','p-cavity','p-surface','p-pack','p-profit','p-good-rate','p-labor-coef']
     .forEach(id=>g(id)?.addEventListener('input', updatePartLive));
-
   ['q-weight','q-mat-price','q-runner','q-tonnage','q-cycle','q-cavity','q-surface','q-pack','q-profit','q-good-rate']
     .forEach(id=>g(id)?.addEventListener('input', updateInquiryLive));
-
   ['ps-name','ps-qty','ps-profit'].forEach(id=>g(id)?.addEventListener('input', updatePartsLive));
 }
 
-/* =========================
-   Init
-========================= */
 (function init(){
   document.body.classList.toggle('sc', CURRENT_LANG === 'sc');
   applyI18n();
@@ -2243,7 +1595,6 @@ function bindLiveInputs(){
 })();
 </script>
 
-<!-- Contract Modal -->
 <div class="modal-overlay" id="contract-modal" onclick="closeContractModal(event)">
   <div class="modal-box">
     <div class="modal-handle"></div>
