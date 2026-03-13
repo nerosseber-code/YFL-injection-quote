@@ -21,28 +21,19 @@
 html,body{height:100%;overflow:hidden;background:var(--bg);font-family:'Noto Sans TC',sans-serif;color:var(--text)}
 body.sc{font-family:'Noto Sans SC',sans-serif}
 .app{display:flex;flex-direction:column;height:100%}
-
-/* Topbar */
 .topbar{background:var(--card);border-bottom:1px solid var(--border);padding:10px 14px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;z-index:10;box-shadow:0 1px 8px rgba(0,0,0,0.06)}
 .topbar-left{display:flex;align-items:center;gap:10px}
 .topbar-badge{background:var(--accent);color:#0f172a;font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:1.5px;padding:2px 7px;border-radius:3px}
 .topbar-title{font-family:'Oswald',sans-serif;font-size:18px;letter-spacing:1px;background:linear-gradient(90deg,var(--text),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .topbar-sub{font-size:10px;color:var(--muted)}
 .topbar-right{display:flex;gap:8px;align-items:center}
-
-/* Language Toggle */
 .lang-toggle{display:flex;background:var(--card2);border:1px solid var(--border);border-radius:8px;overflow:hidden}
 .lang-btn{padding:6px 10px;font-size:11px;font-weight:700;cursor:pointer;color:var(--muted);transition:all .2s;border:none;background:transparent;font-family:inherit}
 .lang-btn.active{background:var(--accent);color:#fff;font-weight:800}
-
 .btn-history{background:var(--card2);border:1px solid var(--border);color:var(--text);padding:6px 11px;border-radius:8px;font-size:12px;cursor:pointer;font-family:inherit}
-
-/* Pages */
 .pages{flex:1;overflow:hidden;position:relative}
 .page{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;transition:transform .3s ease,opacity .3s ease}
 .page.hidden{transform:translateX(100%);opacity:0;pointer-events:none}
-
-/* Tabbar */
 .tabbar{height:var(--tab-h);background:var(--card);border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr 1fr 1fr;flex-shrink:0;box-shadow:0 -2px 10px rgba(0,0,0,0.06)}
 .tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:all .2s;position:relative;font-size:10px;color:var(--muted);min-height:44px}
 .tab .tab-icon{font-size:20px;transition:transform .2s;opacity:.6;display:flex;align-items:center;justify-content:center}
@@ -53,11 +44,7 @@ body.sc{font-family:'Noto Sans SC',sans-serif}
 .tab.active::after{content:'';position:absolute;bottom:0;left:20%;right:20%;height:2px;background:var(--accent);border-radius:2px 2px 0 0}
 .tab-new.active{color:var(--blue)}
 .tab-new.active::after{background:var(--blue)}
-
-/* Scroll content */
 .scroll-content{padding:16px 14px 24px}
-
-/* Home */
 .home-hero{padding:20px 14px 0}
 .hero-label{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
 .hero-title{font-family:'Oswald',sans-serif;font-size:28px;letter-spacing:1px;color:var(--text);font-weight:800;line-height:1.2}
@@ -84,20 +71,14 @@ body.sc{font-family:'Noto Sans SC',sans-serif}
 .qs-num{font-family:'Oswald',sans-serif;font-size:24px;color:var(--accent)}
 .qs-label{font-size:10px;color:var(--muted);margin-top:2px}
 .guide-box{margin:16px 14px 0;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;font-size:12px;color:var(--muted);line-height:1.8}
-
-/* Form header */
 .form-header{background:var(--card);border-bottom:1px solid var(--border);padding:12px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0}
 .btn-back{background:var(--card2);border:1px solid var(--border);color:var(--text);padding:7px 12px;border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit}
 .form-title{font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:.5px}
 .form-title.exist{color:var(--accent)}
 .form-title.new{color:var(--blue)}
-
-/* Section headers */
 .section-hd{display:flex;align-items:center;gap:8px;margin:20px 0 12px;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;font-family:'JetBrains Mono',monospace;font-weight:600}
 .section-hd::before{content:'';width:3px;height:14px;border-radius:2px;background:var(--accent);flex-shrink:0}
 .section-hd.blue::before{background:var(--blue)}
-
-/* Fields */
 .field{margin-bottom:14px}
 .field label{display:block;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.5px;margin-bottom:6px}
 .field input,.field select,.field textarea{width:100%;background:var(--card2);border:1.5px solid var(--border);border-radius:10px;padding:13px 14px;color:var(--text);font-family:inherit;font-size:15px;outline:none;transition:all .2s;-webkit-appearance:none;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
@@ -111,8 +92,6 @@ body.sc{font-family:'Noto Sans SC',sans-serif}
 .cost-badge{display:inline-block;font-size:9px;letter-spacing:1px;font-weight:700;padding:2px 6px;border-radius:3px;margin-left:6px;vertical-align:middle}
 .badge-fixed{background:rgba(232,160,32,.15);color:var(--accent)}
 .badge-var{background:rgba(59,158,255,.15);color:var(--blue)}
-
-/* Live preview */
 .live-preview{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:16px}
 .lp-header{background:var(--bg);padding:10px 14px;font-size:10px;letter-spacing:2px;color:var(--muted);font-family:'JetBrains Mono',monospace;display:flex;justify-content:space-between;align-items:center;font-weight:600}
 .lp-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border);font-size:13px}
@@ -120,14 +99,10 @@ body.sc{font-family:'Noto Sans SC',sans-serif}
 .lp-row .ln{color:var(--muted)}
 .lp-row .lv{font-family:'JetBrains Mono',monospace;font-size:12px}
 .lp-row.highlight .lv{color:var(--accent);font-weight:700}
-
-/* Calc button */
 .btn-calc{width:100%;margin-top:20px;padding:18px;border-radius:14px;border:none;cursor:pointer;font-family:'Oswald',sans-serif;font-size:20px;letter-spacing:2px;transition:all .2s}
 .btn-calc.exist{background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 60%,#0369a1));color:#fff;font-weight:800}
 .btn-calc.new{background:linear-gradient(135deg,var(--blue),color-mix(in srgb,var(--blue) 60%,#3730a3));color:#fff}
 .btn-calc:active{transform:scale(.98)}
-
-/* Result */
 .result-hero{padding:20px 14px;text-align:center}
 .result-title{font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
 .result-price{font-family:'Oswald',sans-serif;font-size:42px;line-height:1;color:var(--accent);text-shadow:0 4px 14px var(--accent-dim);margin-bottom:4px}
@@ -139,7 +114,6 @@ body.sc{font-family:'Noto Sans SC',sans-serif}
 .ri-value{font-size:14px;font-weight:700}
 .breakdown-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:0 14px 16px}
 .bc-header{padding:10px 14px;font-size:10px;letter-spacing:2px;color:var(--muted);font-family:'JetBrains Mono',monospace;background:var(--bg);display:flex;justify-content:space-between;font-weight:600}
-.bc-section{padding:6px 14px 2px;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;background:rgba(255,255,255,.02)}
 .bc-row{display:flex;justify-content:space-between;padding:9px 14px;border-bottom:1px solid var(--border);font-size:12px}
 .bc-row:last-child{border-bottom:none}
 .bc-row .bn{color:var(--muted);flex:1;padding-right:8px}
@@ -152,8 +126,6 @@ body.sc{font-family:'Noto Sans SC',sans-serif}
 .btn-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 14px 20px}
 .btn-action{padding:14px;border-radius:12px;border:1.5px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;transition:all .2s;text-align:center}
 .btn-action:active{transform:scale(.97)}
-
-/* History */
 .history-list{padding:14px}
 .hist-empty{text-align:center;padding:60px 20px;color:var(--muted)}
 .hist-empty .he-icon{font-size:48px;margin-bottom:12px}
@@ -168,12 +140,8 @@ body.sc{font-family:'Noto Sans SC',sans-serif}
 .hc-tag-new{background:var(--blue-dim);color:var(--blue)}
 .hc-tag-gray{background:var(--card2);color:var(--muted)}
 .hist-clear-btn{display:block;width:100%;margin-top:16px;padding:12px;background:rgba(244,63,94,.08);border:1px solid rgba(244,63,94,.25);color:var(--red);border-radius:10px;font-family:inherit;font-size:13px;cursor:pointer}
-
-/* Toast */
 .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--green);color:#000;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:700;opacity:0;transition:all .3s;z-index:999;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-/* Modal */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .3s}
 .modal-overlay.open{opacity:1;pointer-events:all}
 .modal-overlay.open .modal-box{transform:translateY(0)}
@@ -198,8 +166,6 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
 .cp-total-box .ct-lbl{font-size:11px}
 .cp-total-box .ct-val{font-size:16px;font-weight:700}
 .btn-dl-contract{width:100%;padding:16px;border-radius:12px;border:none;cursor:pointer;background:linear-gradient(135deg,#2ecc71,#1a9950);color:#fff;font-family:'Oswald',sans-serif;font-size:18px;letter-spacing:1px}
-
-/* Part card for multi-part quote */
 .part-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:12px;position:relative}
 .part-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .part-card-title{font-size:14px;font-weight:700;color:var(--text)}
@@ -210,13 +176,10 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
 .part-summary-row .value{font-family:'JetBrains Mono',monospace;color:var(--accent)}
 .btn-add-part{width:100%;padding:14px;border-radius:12px;border:1.5px dashed var(--blue);background:rgba(129,140,248,.06);color:var(--blue);cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;margin-top:12px}
 .parts-total-preview{background:linear-gradient(135deg,rgba(129,140,248,.08),rgba(56,189,248,.08));border:1px solid rgba(129,140,248,.2);border-radius:var(--radius);padding:16px;margin-top:16px}
-
-/* Cost preview table */
 .cost-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:11px}
 .cost-table th,.cost-table td{padding:6px;border-bottom:1px solid var(--border);text-align:left}
 .cost-table th{color:var(--muted);font-weight:600;background:rgba(255,255,255,.02)}
 .cost-table td:last-child,.cost-table th:last-child{text-align:right;font-family:'JetBrains Mono',monospace}
-
 @media (max-width:380px){
   .hero-title{font-size:24px}
   .mode-cards{grid-template-columns:1fr}
@@ -241,6 +204,7 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
         <button class="lang-btn" onclick="switchLang('sc')" id="lang-sc">简</button>
         <button class="lang-btn" onclick="switchLang('en')" id="lang-en">EN</button>
       </div>
+      <button class="btn-history" onclick="clearCurrentPageDraft()">🧹</button>
       <button class="btn-history" onclick="openSettings()" data-i18n="btnSettings">⚙️</button>
       <button class="btn-history" onclick="goHistory()" data-i18n="btnHistory">📁</button>
     </div>
@@ -262,36 +226,28 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
       <div class="mode-cards">
         <div class="mode-card mc-exist" onclick="openForm('part')">
           <div class="mc-tag" data-i18n="tagQuote">QUOTE</div>
-          <div class="mc-icon">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M7 7h10M7 12h10M7 17h6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
+          <div class="mc-icon"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M7 7h10M7 12h10M7 17h6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="mc-title" data-i18n="modePartTitle">注塑件報價</div>
           <div class="mc-desc" data-i18n="modePartDesc">適用於單個塑膠件的單價與成本分析，包含固定成本、可變成本、良品率與利潤。</div>
         </div>
 
         <div class="mode-card mc-new" onclick="openForm('parts')">
           <div class="mc-tag" data-i18n="tagBundle">SET</div>
-          <div class="mc-icon">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M9 12h6M12 9v6M4 7h16M4 17h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
+          <div class="mc-icon"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M9 12h6M12 9v6M4 7h16M4 17h16" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="mc-title" data-i18n="modePartsTitle">多零件套料報價</div>
           <div class="mc-desc" data-i18n="modePartsDesc">多個注塑件組合成一套產品，支援每件成本、每套單價與最低成交價匯總。</div>
         </div>
 
         <div class="mode-card mc-exist" onclick="openForm('mold')">
           <div class="mc-tag" data-i18n="tagMold">TOOL</div>
-          <div class="mc-icon">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M14.7 6.3l3 3m-8.4 8.4L4 20l2.3-5.3M10.5 7.5l6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
+          <div class="mc-icon"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M14.7 6.3l3 3m-8.4 8.4L4 20l2.3-5.3M10.5 7.5l6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="mc-title" data-i18n="modeMoldTitle">模具報價 / 合同</div>
           <div class="mc-desc" data-i18n="modeMoldDesc">支援多副模具匯總、付款比例、產權歸屬與合同 PDF 輸出。</div>
         </div>
 
         <div class="mode-card mc-new" onclick="openForm('inquiry')">
           <div class="mc-tag" data-i18n="tagFast">FAST</div>
-          <div class="mc-icon">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M13 3L4 14h7l-1 7 9-11h-7l1-7z" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
+          <div class="mc-icon"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M13 3L4 14h7l-1 7 9-11h-7l1-7z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="mc-title" data-i18n="modeInquiryTitle">詢價預報</div>
           <div class="mc-desc" data-i18n="modeInquiryDesc">快速輸入重量、材料、週期、穴數等資訊，生成預估單價。</div>
         </div>
@@ -309,80 +265,31 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
       </div>
       <div class="scroll-content">
         <div class="section-hd" data-i18n="secBasic">BASIC INFO</div>
-
-        <div class="field">
-          <label data-i18n="lblProductName">產品名稱 / Product Name</label>
-          <input id="p-name" placeholder="如：外殼上蓋 / Top Cover">
-        </div>
-
+        <div class="field"><label data-i18n="lblProductName">產品名稱 / Product Name</label><input id="p-name" placeholder="如：外殼上蓋 / Top Cover"></div>
         <div class="grid2">
-          <div class="field">
-            <label data-i18n="lblWeight">成品重量 (g)</label>
-            <input id="p-weight" type="number" step="0.01" placeholder="81">
-          </div>
-          <div class="field">
-            <label data-i18n="lblQty">訂單數量 (pcs)</label>
-            <input id="p-qty" type="number" step="1" placeholder="60000">
-          </div>
+          <div class="field"><label data-i18n="lblWeight">成品重量 (g)</label><input id="p-weight" type="number" step="0.01" placeholder="81"></div>
+          <div class="field"><label data-i18n="lblQty">訂單數量 (pcs)</label><input id="p-qty" type="number" step="1" placeholder="60000"></div>
         </div>
-
         <div class="grid2">
-          <div class="field">
-            <label data-i18n="lblMaterialPrice">材料單價 (元/kg) <span class="cost-badge badge-var" data-i18n="badgeVariable">可變</span></label>
-            <input id="p-mat-price" type="number" step="0.01" placeholder="14.0">
-          </div>
-          <div class="field">
-            <label data-i18n="lblRunner">水口/損耗 (%)</label>
-            <input id="p-runner" type="number" step="0.1" placeholder="8">
-          </div>
+          <div class="field"><label data-i18n="lblMaterialPrice">材料單價 (元/kg) <span class="cost-badge badge-var" data-i18n="badgeVariable">可變</span></label><input id="p-mat-price" type="number" step="0.01" placeholder="14.0"></div>
+          <div class="field"><label data-i18n="lblRunner">水口/損耗 (%)</label><input id="p-runner" type="number" step="0.1" placeholder="8"></div>
         </div>
-
         <div class="section-hd" data-i18n="secMachine">MACHINE & PROCESS</div>
-
         <div class="grid3">
-          <div class="field">
-            <label data-i18n="lblTonnage">機台噸位</label>
-            <input id="p-tonnage" type="number" step="1" placeholder="160">
-          </div>
-          <div class="field">
-            <label data-i18n="lblCycle">成型週期 (s)</label>
-            <input id="p-cycle" type="number" step="0.1" placeholder="33">
-          </div>
-          <div class="field">
-            <label data-i18n="lblCavity">模穴數</label>
-            <input id="p-cavity" type="number" step="1" placeholder="2">
-          </div>
+          <div class="field"><label data-i18n="lblTonnage">機台噸位</label><input id="p-tonnage" type="number" step="1" placeholder="160"></div>
+          <div class="field"><label data-i18n="lblCycle">成型週期 (s)</label><input id="p-cycle" type="number" step="0.1" placeholder="33"></div>
+          <div class="field"><label data-i18n="lblCavity">模穴數</label><input id="p-cavity" type="number" step="1" placeholder="2"></div>
         </div>
-
         <div class="grid2">
-          <div class="field">
-            <label data-i18n="lblSurface">表面處理 / 後加工 (元/pcs) <span class="cost-badge badge-var" data-i18n="badgeVariable">可變</span></label>
-            <input id="p-surface" type="number" step="0.001" placeholder="0">
-          </div>
-          <div class="field">
-            <label data-i18n="lblPack">包材費 (元/pcs) <span class="cost-badge badge-var" data-i18n="badgeVariable">可變</span></label>
-            <input id="p-pack" type="number" step="0.001" placeholder="1.5">
-          </div>
+          <div class="field"><label data-i18n="lblSurface">表面處理 / 後加工 (元/pcs) <span class="cost-badge badge-var" data-i18n="badgeVariable">可變</span></label><input id="p-surface" type="number" step="0.001" placeholder="0"></div>
+          <div class="field"><label data-i18n="lblPack">包材費 (元/pcs) <span class="cost-badge badge-var" data-i18n="badgeVariable">可變</span></label><input id="p-pack" type="number" step="0.001" placeholder="1.5"></div>
         </div>
-
         <div class="section-hd" data-i18n="secQuality">QUALITY & PROFIT</div>
-
         <div class="grid3">
-          <div class="field">
-            <label data-i18n="lblGoodRate">良品率 (%)</label>
-            <input id="p-good-rate" type="number" step="0.1" placeholder="97">
-            <div class="field-hint" data-i18n="hintGoodRate">此處為良品率，不是次品率</div>
-          </div>
-          <div class="field">
-            <label data-i18n="lblProfit">利潤率 (%)</label>
-            <input id="p-profit" type="number" step="0.1" placeholder="15">
-          </div>
-          <div class="field">
-            <label data-i18n="lblLaborCoef">人工系數</label>
-            <input id="p-labor-coef" type="number" step="0.1" placeholder="1.0" value="1.0">
-          </div>
+          <div class="field"><label data-i18n="lblGoodRate">良品率 (%)</label><input id="p-good-rate" type="number" step="0.1" placeholder="97"><div class="field-hint" data-i18n="hintGoodRate">此處為良品率，不是次品率</div></div>
+          <div class="field"><label data-i18n="lblProfit">利潤率 (%)</label><input id="p-profit" type="number" step="0.1" placeholder="15"></div>
+          <div class="field"><label data-i18n="lblLaborCoef">人工系數</label><input id="p-labor-coef" type="number" step="0.1" placeholder="1.0" value="1.0"></div>
         </div>
-
         <div class="live-preview">
           <div class="lp-header"><span data-i18n="previewTitle">即時計算預覽</span><span id="part-live-status">--</span></div>
           <div class="lp-row"><span class="ln" data-i18n="pvMat">材料成本</span><span class="lv" id="pv-part-mat">0.000</span></div>
@@ -391,7 +298,6 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
           <div class="lp-row"><span class="ln" data-i18n="pvFixed">固定成本攤銷</span><span class="lv" id="pv-part-fixed">0.000</span></div>
           <div class="lp-row highlight"><span class="ln" data-i18n="pvUnit">預估單價</span><span class="lv" id="pv-part-price">0.000</span></div>
         </div>
-
         <button class="btn-calc exist" onclick="calcPart()" data-i18n="btnCalcPart">CALCULATE</button>
       </div>
     </div>
@@ -402,34 +308,20 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
       </div>
       <div class="scroll-content">
         <div class="section-hd blue" data-i18n="secSetBasic">SET BASIC INFO</div>
-
-        <div class="field">
-          <label data-i18n="lblSetName">套件名稱 / Set Name</label>
-          <input id="ps-name" placeholder="如：塑膠盒整套 / Full Plastic Box Set">
-        </div>
-
+        <div class="field"><label data-i18n="lblSetName">套件名稱 / Set Name</label><input id="ps-name" placeholder="如：塑膠盒整套 / Full Plastic Box Set"></div>
         <div class="grid2">
-          <div class="field">
-            <label data-i18n="lblSetQty">套件數量 (sets)</label>
-            <input id="ps-qty" type="number" step="1" placeholder="10000">
-          </div>
-          <div class="field">
-            <label data-i18n="lblSetProfit">套件利潤率 (%)</label>
-            <input id="ps-profit" type="number" step="0.1" placeholder="15">
-          </div>
+          <div class="field"><label data-i18n="lblSetQty">套件數量 (sets)</label><input id="ps-qty" type="number" step="1" placeholder="10000"></div>
+          <div class="field"><label data-i18n="lblSetProfit">套件利潤率 (%)</label><input id="ps-profit" type="number" step="0.1" placeholder="15"></div>
         </div>
-
         <div class="section-hd blue" data-i18n="secPartList">PART LIST</div>
         <div id="parts-container"></div>
         <button class="btn-add-part" onclick="addPartItem()" data-i18n="btnAddPart">+ 新增零件 / Add Part</button>
-
         <div class="parts-total-preview">
           <div class="lp-header" style="padding:0 0 10px 0;background:none"><span data-i18n="setPreviewTitle">套料匯總預覽</span><span id="parts-count">0 parts</span></div>
           <div class="lp-row" style="padding-left:0;padding-right:0"><span class="ln" data-i18n="pvSetCost">每套成本</span><span class="lv" id="pv-set-cost">0.000</span></div>
           <div class="lp-row" style="padding-left:0;padding-right:0"><span class="ln" data-i18n="pvSetPrice">每套建議單價</span><span class="lv" id="pv-set-price">0.000</span></div>
           <div class="lp-row highlight" style="padding-left:0;padding-right:0"><span class="ln" data-i18n="pvSetTotal">總報價</span><span class="lv" id="pv-set-total">0.00</span></div>
         </div>
-
         <button class="btn-calc new" onclick="calcParts()" data-i18n="btnCalcParts">CALCULATE SET</button>
       </div>
     </div>
@@ -441,63 +333,21 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
       </div>
       <div class="scroll-content">
         <div class="section-hd" data-i18n="secContractParty">PARTY INFO</div>
-
-        <div class="field">
-          <label data-i18n="lblPartyA">甲方 / Party A</label>
-          <input id="m-party-a" placeholder="客戶名稱 / Customer Name">
-        </div>
-
-        <div class="field">
-          <label data-i18n="lblPartyB">乙方 / Party B</label>
-          <input id="m-party-b" placeholder="NetStar / 供應商名稱">
-        </div>
-
+        <div class="field"><label data-i18n="lblPartyA">甲方 / Party A</label><input id="m-party-a" placeholder="客戶名稱 / Customer Name"></div>
+        <div class="field"><label data-i18n="lblPartyB">乙方 / Party B</label><input id="m-party-b" placeholder="NetStar / 供應商名稱"></div>
         <div class="grid2">
-          <div class="field">
-            <label data-i18n="lblCurrency">幣種 / Currency</label>
-            <select id="m-currency">
-              <option value="RMB">RMB</option>
-              <option value="USD">USD</option>
-              <option value="JPY">JPY</option>
-            </select>
-          </div>
-          <div class="field">
-            <label data-i18n="lblPaymentTerm">付款方式</label>
-            <select id="m-payment-term">
-              <option value="50/50">50% + 50%</option>
-              <option value="40/30/30">40% + 30% + 30%</option>
-              <option value="100">100%</option>
-            </select>
-          </div>
+          <div class="field"><label data-i18n="lblCurrency">幣種 / Currency</label><select id="m-currency"><option value="RMB">RMB</option><option value="USD">USD</option><option value="JPY">JPY</option></select></div>
+          <div class="field"><label data-i18n="lblPaymentTerm">付款方式</label><select id="m-payment-term"><option value="50/50">50% + 50%</option><option value="40/30/30">40% + 30% + 30%</option><option value="100">100%</option></select></div>
         </div>
-
         <div class="section-hd" data-i18n="secMoldList">MOLD LIST</div>
-
-        <div class="field">
-          <label data-i18n="lblMoldCount">模具數量</label>
-          <input id="m-count" type="number" step="1" value="1" onchange="renderMoldItems()">
-        </div>
-
+        <div class="field"><label data-i18n="lblMoldCount">模具數量</label><input id="m-count" type="number" step="1" value="1" onchange="renderMoldItems();saveMoldDraftDebounced();"></div>
         <div id="mold-items-container"></div>
-
         <div class="section-hd" data-i18n="secOwnership">OWNERSHIP / SHARE</div>
-
         <div class="grid2">
-          <div class="field">
-            <label data-i18n="lblPartyAAmount">甲方出資</label>
-            <input id="m-invest-a" type="number" step="0.01" placeholder="0">
-          </div>
-          <div class="field">
-            <label data-i18n="lblPartyBAmount">乙方出資</label>
-            <input id="m-invest-b" type="number" step="0.01" placeholder="0">
-          </div>
+          <div class="field"><label data-i18n="lblPartyAAmount">甲方出資</label><input id="m-invest-a" type="number" step="0.01" placeholder="0"></div>
+          <div class="field"><label data-i18n="lblPartyBAmount">乙方出資</label><input id="m-invest-b" type="number" step="0.01" placeholder="0"></div>
         </div>
-
-        <div class="field">
-          <label data-i18n="lblRemarks">備註 / Remarks</label>
-          <textarea id="m-remarks" placeholder="如：模具保養、使用地、產權補充說明"></textarea>
-        </div>
-
+        <div class="field"><label data-i18n="lblRemarks">備註 / Remarks</label><textarea id="m-remarks" placeholder="如：模具保養、使用地、產權補充說明"></textarea></div>
         <button class="btn-calc exist" onclick="calcMold()" data-i18n="btnCalcMold">GENERATE CONTRACT</button>
       </div>
     </div>
@@ -509,75 +359,32 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
       </div>
       <div class="scroll-content">
         <div class="section-hd blue" data-i18n="secFastInput">FAST INPUT</div>
-
-        <div class="field">
-          <label data-i18n="lblInquiryName">詢價名稱 / Item Name</label>
-          <input id="q-name" placeholder="如：塑膠盒上蓋 / Cover">
-        </div>
-
+        <div class="field"><label data-i18n="lblInquiryName">詢價名稱 / Item Name</label><input id="q-name" placeholder="如：塑膠盒上蓋 / Cover"></div>
         <div class="grid3">
-          <div class="field">
-            <label data-i18n="lblWeight">成品重量 (g)</label>
-            <input id="q-weight" type="number" step="0.01" placeholder="81">
-          </div>
-          <div class="field">
-            <label data-i18n="lblMaterialPrice">材料單價</label>
-            <input id="q-mat-price" type="number" step="0.01" placeholder="14">
-          </div>
-          <div class="field">
-            <label data-i18n="lblRunner">水口 (%)</label>
-            <input id="q-runner" type="number" step="0.1" placeholder="8">
-          </div>
+          <div class="field"><label data-i18n="lblWeight">成品重量 (g)</label><input id="q-weight" type="number" step="0.01" placeholder="81"></div>
+          <div class="field"><label data-i18n="lblMaterialPrice">材料單價</label><input id="q-mat-price" type="number" step="0.01" placeholder="14"></div>
+          <div class="field"><label data-i18n="lblRunner">水口 (%)</label><input id="q-runner" type="number" step="0.1" placeholder="8"></div>
         </div>
-
         <div class="grid3">
-          <div class="field">
-            <label data-i18n="lblTonnage">噸位</label>
-            <input id="q-tonnage" type="number" step="1" placeholder="160">
-          </div>
-          <div class="field">
-            <label data-i18n="lblCycle">週期 (s)</label>
-            <input id="q-cycle" type="number" step="0.1" placeholder="33">
-          </div>
-          <div class="field">
-            <label data-i18n="lblCavity">穴數</label>
-            <input id="q-cavity" type="number" step="1" placeholder="2">
-          </div>
+          <div class="field"><label data-i18n="lblTonnage">噸位</label><input id="q-tonnage" type="number" step="1" placeholder="160"></div>
+          <div class="field"><label data-i18n="lblCycle">週期 (s)</label><input id="q-cycle" type="number" step="0.1" placeholder="33"></div>
+          <div class="field"><label data-i18n="lblCavity">穴數</label><input id="q-cavity" type="number" step="1" placeholder="2"></div>
         </div>
-
         <div class="grid3">
-          <div class="field">
-            <label data-i18n="lblSurface">表面處理</label>
-            <input id="q-surface" type="number" step="0.001" placeholder="0">
-          </div>
-          <div class="field">
-            <label data-i18n="lblPack">包材費</label>
-            <input id="q-pack" type="number" step="0.001" placeholder="1.5">
-          </div>
-          <div class="field">
-            <label data-i18n="lblProfit">利潤率 (%)</label>
-            <input id="q-profit" type="number" step="0.1" placeholder="15">
-          </div>
+          <div class="field"><label data-i18n="lblSurface">表面處理</label><input id="q-surface" type="number" step="0.001" placeholder="0"></div>
+          <div class="field"><label data-i18n="lblPack">包材費</label><input id="q-pack" type="number" step="0.001" placeholder="1.5"></div>
+          <div class="field"><label data-i18n="lblProfit">利潤率 (%)</label><input id="q-profit" type="number" step="0.1" placeholder="15"></div>
         </div>
-
         <div class="grid2">
-          <div class="field">
-            <label data-i18n="lblGoodRate">良品率 (%)</label>
-            <input id="q-good-rate" type="number" step="0.1" placeholder="97">
-          </div>
-          <div class="field">
-            <label data-i18n="lblInquiryQty">數量 (pcs)</label>
-            <input id="q-qty" type="number" step="1" placeholder="10000">
-          </div>
+          <div class="field"><label data-i18n="lblGoodRate">良品率 (%)</label><input id="q-good-rate" type="number" step="0.1" placeholder="97"></div>
+          <div class="field"><label data-i18n="lblInquiryQty">數量 (pcs)</label><input id="q-qty" type="number" step="1" placeholder="10000"></div>
         </div>
-
         <div class="live-preview">
           <div class="lp-header"><span data-i18n="previewFastTitle">快速預覽</span><span id="inquiry-live-status">--</span></div>
           <div class="lp-row"><span class="ln" data-i18n="pvMat">材料成本</span><span class="lv" id="pv-q-mat">0.000</span></div>
           <div class="lp-row"><span class="ln" data-i18n="pvFixed">固定成本攤銷</span><span class="lv" id="pv-q-fixed">0.000</span></div>
           <div class="lp-row highlight"><span class="ln" data-i18n="pvUnit">預估單價</span><span class="lv" id="pv-q-price">0.000</span></div>
         </div>
-
         <button class="btn-calc new" onclick="calcInquiry()" data-i18n="btnCalcInquiry">FAST CALCULATE</button>
       </div>
     </div>
@@ -605,104 +412,40 @@ body.sc .contract-preview{font-family:'Noto Sans SC',sans-serif}
       </div>
       <div class="scroll-content">
         <div class="section-hd" data-i18n="secFactoryFixed">FACTORY FIXED COST</div>
-
         <div class="grid2">
-          <div class="field">
-            <label data-i18n="lblRent">廠房租金 / 月 <span class="cost-badge badge-fixed" data-i18n="badgeFixed">固定</span></label>
-            <input id="s-rent" type="number" step="0.01" placeholder="0">
-          </div>
-          <div class="field">
-            <label data-i18n="lblAdmin">管理費 / 月 <span class="cost-badge badge-fixed" data-i18n="badgeFixed">固定</span></label>
-            <input id="s-admin" type="number" step="0.01" placeholder="0">
-          </div>
+          <div class="field"><label data-i18n="lblRent">廠房租金 / 月 <span class="cost-badge badge-fixed" data-i18n="badgeFixed">固定</span></label><input id="s-rent" type="number" step="0.01" placeholder="0"></div>
+          <div class="field"><label data-i18n="lblAdmin">管理費 / 月 <span class="cost-badge badge-fixed" data-i18n="badgeFixed">固定</span></label><input id="s-admin" type="number" step="0.01" placeholder="0"></div>
         </div>
-
         <div class="grid2">
-          <div class="field">
-            <label data-i18n="lblDepreciation">設備折舊 / 月 <span class="cost-badge badge-fixed" data-i18n="badgeFixed">固定</span></label>
-            <input id="s-depreciation" type="number" step="0.01" placeholder="0">
-          </div>
-          <div class="field">
-            <label data-i18n="lblMisc">其他固定費 / 月 <span class="cost-badge badge-fixed" data-i18n="badgeFixed">固定</span></label>
-            <input id="s-misc" type="number" step="0.01" placeholder="0">
-          </div>
+          <div class="field"><label data-i18n="lblDepreciation">設備折舊 / 月 <span class="cost-badge badge-fixed" data-i18n="badgeFixed">固定</span></label><input id="s-depreciation" type="number" step="0.01" placeholder="0"></div>
+          <div class="field"><label data-i18n="lblMisc">其他固定費 / 月 <span class="cost-badge badge-fixed" data-i18n="badgeFixed">固定</span></label><input id="s-misc" type="number" step="0.01" placeholder="0"></div>
         </div>
-
         <div class="section-hd" data-i18n="secProduction">PRODUCTION PLAN</div>
-
         <div class="grid2">
-          <div class="field">
-            <label data-i18n="lblDayVol">日產量 (pcs/day)</label>
-            <input id="s-day-vol" type="number" step="1" placeholder="8000">
-          </div>
-          <div class="field">
-            <label data-i18n="lblWorkDays">月工作天數</label>
-            <input id="s-work-days" type="number" step="1" placeholder="26">
-          </div>
+          <div class="field"><label data-i18n="lblDayVol">日產量 (pcs/day)</label><input id="s-day-vol" type="number" step="1" placeholder="8000"></div>
+          <div class="field"><label data-i18n="lblWorkDays">月工作天數</label><input id="s-work-days" type="number" step="1" placeholder="26"></div>
         </div>
-
         <div class="section-hd" data-i18n="secVariableCost">VARIABLE COST DEFAULT</div>
-
         <div class="grid3">
-          <div class="field">
-            <label data-i18n="lblElecRate">電價 / 度</label>
-            <input id="s-elec-rate" type="number" step="0.01" placeholder="1">
-          </div>
-          <div class="field">
-            <label data-i18n="lblLaborHour">人工時薪</label>
-            <input id="s-labor-hour" type="number" step="0.01" placeholder="0">
-          </div>
-          <div class="field">
-            <label data-i18n="lblMachinesPerWorker">看機數</label>
-            <input id="s-machines-per-worker" type="number" step="1" placeholder="1">
-          </div>
+          <div class="field"><label data-i18n="lblElecRate">電價 / 度</label><input id="s-elec-rate" type="number" step="0.01" placeholder="1"></div>
+          <div class="field"><label data-i18n="lblLaborHour">人工時薪</label><input id="s-labor-hour" type="number" step="0.01" placeholder="0"></div>
+          <div class="field"><label data-i18n="lblMachinesPerWorker">看機數</label><input id="s-machines-per-worker" type="number" step="1" placeholder="1"></div>
         </div>
-
         <div class="grid3">
-          <div class="field">
-            <label data-i18n="lblDefaultPack">預設包材費</label>
-            <input id="s-pack" type="number" step="0.001" placeholder="1.5">
-          </div>
-          <div class="field">
-            <label data-i18n="lblDefaultRunner">預設水口 (%)</label>
-            <input id="s-runner" type="number" step="0.1" placeholder="8">
-          </div>
-          <div class="field">
-            <label data-i18n="lblDefaultMinProfit">預設最低利潤率 (%)</label>
-            <input id="s-min-profit" type="number" step="0.1" placeholder="0">
-          </div>
+          <div class="field"><label data-i18n="lblDefaultPack">預設包材費</label><input id="s-pack" type="number" step="0.001" placeholder="1.5"></div>
+          <div class="field"><label data-i18n="lblDefaultRunner">預設水口 (%)</label><input id="s-runner" type="number" step="0.1" placeholder="8"></div>
+          <div class="field"><label data-i18n="lblDefaultMinProfit">預設最低利潤率 (%)</label><input id="s-min-profit" type="number" step="0.1" placeholder="0"></div>
         </div>
-
         <button class="btn-calc exist" onclick="saveSettings()" data-i18n="btnSaveSettings">SAVE SETTINGS</button>
       </div>
     </div>
   </div>
 
   <div class="tabbar">
-    <div class="tab active" onclick="goHome()">
-      <div class="tab-icon">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 10.5L12 3l9 7.5M5.25 9.75V21h13.5V9.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="tab-text" data-i18n="tabHome">首頁</div>
-    </div>
-    <div class="tab tab-new" onclick="openForm('parts')">
-      <div class="tab-icon">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 7h16M4 17h16M9 12h6M12 9v6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="tab-text" data-i18n="tabSet">套料</div>
-    </div>
-    <div class="tab" onclick="openForm('mold')">
-      <div class="tab-icon">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M14.7 6.3l3 3m-8.4 8.4L4 20l2.3-5.3M10.5 7.5l6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="tab-text" data-i18n="tabMold">模具</div>
-    </div>
-    <div class="tab" onclick="goHistory()">
-      <div class="tab-icon">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 6v6l4 2M12 22a10 10 0 1 1 7.07-2.93" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="tab-text" data-i18n="tabHistory">歷史</div>
-    </div>
+    <div class="tab active" onclick="goHome()"><div class="tab-icon"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 10.5L12 3l9 7.5M5.25 9.75V21h13.5V9.75" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="tab-text" data-i18n="tabHome">首頁</div></div>
+    <div class="tab tab-new" onclick="openForm('parts')"><div class="tab-icon"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 7h16M4 17h16M9 12h6M12 9v6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="tab-text" data-i18n="tabSet">套料</div></div>
+    <div class="tab" onclick="openForm('mold')"><div class="tab-icon"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M14.7 6.3l3 3m-8.4 8.4L4 20l2.3-5.3M10.5 7.5l6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="tab-text" data-i18n="tabMold">模具</div></div>
+    <div class="tab" onclick="goHistory()"><div class="tab-icon"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.8"><path d="M12 6v6l4 2M12 22a10 10 0 1 1 7.07-2.93" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="tab-text" data-i18n="tabHistory">歷史</div></div>
   </div>
 </div>
 
@@ -751,7 +494,7 @@ const I18N = {
     subtotal:"小計", totalQuote:"總報價", ownershipResult:"產權歸屬", partyAOwn:"甲方所有", partyBOwn:"乙方所有",
     sharedOwn:"共同所有", invalidInput:"請檢查輸入數值", pleaseAddPart:"請至少新增 1 個零件"
   },
-  sc: {
+    sc: {
     appTitle:"MOLD IQ", appSubtitle:"Injection Quote System · New/Existing", btnSettings:"⚙️", btnHistory:"📁",
     heroLabel:"Advanced Estimation Platform", heroLine1:"INJECTION", heroLine2:"QUOTE SYSTEM",
     statHistory:"历史报价", statProducts:"模块功能", statLang:"语言切换",
@@ -792,7 +535,7 @@ const I18N = {
     subtotal:"小计", totalQuote:"总报价", ownershipResult:"产权归属", partyAOwn:"甲方所有", partyBOwn:"乙方所有",
     sharedOwn:"共同所有", invalidInput:"请检查输入数值", pleaseAddPart:"请至少新增 1 个零件"
   },
-    en: {
+  en: {
     appTitle:"MOLD IQ", appSubtitle:"Injection Quote System · New/Existing", btnSettings:"⚙️", btnHistory:"📁",
     heroLabel:"Advanced Estimation Platform", heroLine1:"INJECTION", heroLine2:"QUOTE SYSTEM",
     statHistory:"History", statProducts:"Modules", statLang:"Languages",
@@ -835,12 +578,29 @@ let CURRENT_PAGE = 'home';
 let CURRENT_RESULT = null;
 let CURRENT_CONTRACT_HTML = '';
 let PART_ITEMS = [];
-let HISTORY_KEY = 'mold_iq_history_v10';
-let SETTINGS_KEY = 'mold_iq_settings_v10';
+const HISTORY_KEY = 'mold_iq_history_v10';
+const SETTINGS_KEY = 'mold_iq_settings_v10';
+const DRAFT_KEY_PREFIX = 'mold_iq_draft_v1_';
 
 function t(key){ return (I18N[CURRENT_LANG] && I18N[CURRENT_LANG][key]) || key; }
 function g(id){ return document.getElementById(id); }
 function qsa(sel){ return document.querySelectorAll(sel); }
+function num(v, d = 0){ const n = parseFloat(v); return Number.isFinite(n) ? n : d; }
+function clampMin(v, min, fallback = min){ const n = num(v, fallback); return n < min ? min : n; }
+function money(n, d=3){ return num(n).toFixed(d); }
+function symbolByCurrency(cur){ if(cur === 'USD') return '$'; if(cur === 'JPY') return '¥'; return '¥'; }
+function escapeHtml(str){ return String(str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+function escapeAttr(str){ return escapeHtml(str); }
+function fmtDate(ts){ const d = new Date(ts); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`; }
+function showToast(msg){ const el = g('toast'); el.textContent = msg; el.classList.add('show'); clearTimeout(showToast._tm); showToast._tm = setTimeout(()=>el.classList.remove('show'), 1600); }
+
+function debounce(fn, wait = 400){
+  let timer = null;
+  return function(...args){
+    clearTimeout(timer);
+    timer = setTimeout(()=>fn.apply(this, args), wait);
+  };
+}
 
 function switchLang(lang){
   CURRENT_LANG = lang;
@@ -853,54 +613,7 @@ function switchLang(lang){
   renderHistory();
   if(CURRENT_RESULT) renderResult(CURRENT_RESULT);
 }
-
-function applyI18n(){
-  qsa('[data-i18n]').forEach(el=>{
-    const key = el.getAttribute('data-i18n');
-    el.textContent = t(key);
-  });
-}
-
-function showToast(msg){
-  const el = g('toast');
-  el.textContent = msg;
-  el.classList.add('show');
-  clearTimeout(showToast._tm);
-  showToast._tm = setTimeout(()=>el.classList.remove('show'), 1600);
-}
-
-function num(v, d = 0){
-  const n = parseFloat(v);
-  return Number.isFinite(n) ? n : d;
-}
-function clampMin(v, min, fallback = min){
-  const n = num(v, fallback);
-  return n < min ? min : n;
-}
-function money(n, d=3){ return num(n).toFixed(d); }
-function symbolByCurrency(cur){
-  if(cur === 'USD') return '$';
-  if(cur === 'JPY') return '¥';
-  return '¥';
-}
-function fmtDate(ts){
-  const d = new Date(ts);
-  const y = d.getFullYear();
-  const m = String(d.getMonth()+1).padStart(2,'0');
-  const day = String(d.getDate()).padStart(2,'0');
-  const h = String(d.getHours()).padStart(2,'0');
-  const mi = String(d.getMinutes()).padStart(2,'0');
-  return `${y}-${m}-${day} ${h}:${mi}`;
-}
-function escapeHtml(str){
-  return String(str ?? '')
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;')
-    .replace(/'/g,'&#39;');
-}
-function escapeAttr(str){ return escapeHtml(str); }
+function applyI18n(){ qsa('[data-i18n]').forEach(el=>{ el.textContent = t(el.getAttribute('data-i18n')); }); }
 
 function setActiveTab(key){
   qsa('.tabbar .tab').forEach(tab=>tab.classList.remove('active','tab-new'));
@@ -919,12 +632,41 @@ function showPage(pageId){
 function goHome(){ showPage('home'); updateStats(); }
 function goHistory(){ showPage('history'); renderHistory(); }
 function openSettings(){ showPage('settings'); loadSettingsToUI(); }
+
+function getDraftKey(type){ return `${DRAFT_KEY_PREFIX}${type}`; }
+function saveDraft(type, data){
+  try{ localStorage.setItem(getDraftKey(type), JSON.stringify({ts:Date.now(), data})); }catch(e){}
+}
+function loadDraft(type){
+  try{
+    const raw = localStorage.getItem(getDraftKey(type));
+    if(!raw) return null;
+    const parsed = JSON.parse(raw);
+    return parsed?.data || null;
+  }catch(e){ return null; }
+}
+function clearDraft(type){ try{ localStorage.removeItem(getDraftKey(type)); }catch(e){} }
+function hasDraft(type){ return !!localStorage.getItem(getDraftKey(type)); }
+
+function clearCurrentPageDraft(){
+  if(CURRENT_PAGE === 'part') clearDraft('part');
+  else if(CURRENT_PAGE === 'parts') clearDraft('parts');
+  else if(CURRENT_PAGE === 'mold') clearDraft('mold');
+  else if(CURRENT_PAGE === 'inquiry') clearDraft('inquiry');
+  showToast('草稿已清除');
+}
+
 function openForm(type){
   showPage(type);
-  if(type==='parts' && PART_ITEMS.length===0) addPartItem();
+  if(type==='parts' && PART_ITEMS.length===0){
+    const draft = loadDraft('parts');
+    if(!(draft && Array.isArray(draft.partItems) && draft.partItems.length)) addPartItem();
+  }
   if(type==='mold') renderMoldItems();
-  if(type==='part') applyPartDefaults();
-  if(type==='inquiry') applyInquiryDefaults();
+  if(type==='part'){ applyPartDefaults(); restorePartDraft(); }
+  if(type==='parts'){ restorePartsDraft(); }
+  if(type==='mold'){ restoreMoldDraft(); }
+  if(type==='inquiry'){ applyInquiryDefaults(); restoreInquiryDraft(); }
 }
 
 function loadSettings(){
@@ -989,41 +731,20 @@ function applyInquiryDefaults(){
   if(g('q-good-rate') && !g('q-good-rate').value) g('q-good-rate').value = '97';
 }
 
-function getHistory(){
-  try{ return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); }
-  catch(e){ return []; }
-}
+function getHistory(){ try{ return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); }catch(e){ return []; } }
 function setHistory(arr){ localStorage.setItem(HISTORY_KEY, JSON.stringify(arr)); }
-function addHistory(item){
-  const arr = getHistory();
-  arr.unshift(item);
-  setHistory(arr.slice(0,100));
-  updateStats();
-}
-function clearHistory(){
-  if(!confirm(t('clearHistory') + '?')) return;
-  setHistory([]);
-  renderHistory();
-  updateStats();
-}
+function addHistory(item){ const arr = getHistory(); arr.unshift(item); setHistory(arr.slice(0,100)); updateStats(); }
+function clearHistory(){ if(!confirm(t('clearHistory') + '?')) return; setHistory([]); renderHistory(); updateStats(); }
 function renderHistory(){
   const arr = getHistory();
   const box = g('history-list');
   if(!arr.length){
-    box.innerHTML = `
-      <div class="hist-empty">
-        <div class="he-icon">🗂️</div>
-        <div style="font-size:16px;font-weight:700;margin-bottom:6px">${t('noHistory')}</div>
-        <div style="font-size:12px">${t('noHistoryHint')}</div>
-      </div>`;
+    box.innerHTML = `<div class="hist-empty"><div class="he-icon">🗂️</div><div style="font-size:16px;font-weight:700;margin-bottom:6px">${t('noHistory')}</div><div style="font-size:12px">${t('noHistoryHint')}</div></div>`;
     return;
   }
   box.innerHTML = arr.map((it,idx)=>`
     <div class="hist-card" onclick="openHistoryItem(${idx})">
-      <div class="hc-top">
-        <div class="hc-product">${escapeHtml(it.name || '-')}</div>
-        <div class="hc-price">${escapeHtml(it.displayPrice || '-')}</div>
-      </div>
+      <div class="hc-top"><div class="hc-product">${escapeHtml(it.name || '-')}</div><div class="hc-price">${escapeHtml(it.displayPrice || '-')}</div></div>
       <div class="hc-meta">
         <span class="hc-tag ${it.type==='parts' || it.type==='inquiry' ? 'hc-tag-new':'hc-tag-exist'}">${escapeHtml(it.type)}</span>
         <span class="hc-tag hc-tag-gray">${fmtDate(it.ts)}</span>
@@ -1040,8 +761,7 @@ function openHistoryItem(idx){
   renderResult(item.result);
   showPage('result');
 }
-
-function calcPartQuoteFromData(data){
+  function calcPartQuoteFromData(data){
   const weight = num(data.weight);
   const matPrice = num(data.matPrice);
   const runnerRate = num(data.runnerRate);
@@ -1070,7 +790,6 @@ function calcPartQuoteFromData(data){
   const adjustedCost = yieldRate > 0 ? baseCost / yieldRate : baseCost;
   const quote = adjustedCost * (1 + profitRate / 100);
   const minDealPrice = adjustedCost * (1 + Math.max(0, profitRate * 0.4) / 100);
-
   return { matPerPc, elecPerPc, laborPerPc, fixedPerPc, surface, pack, baseCost, yieldRate, adjustedCost, quote, minDealPrice };
 }
 
@@ -1088,6 +807,45 @@ function updatePartLive(){
   g('pv-part-price').textContent = money(res.quote);
   g('part-live-status').textContent = `${money(res.quote)} / pcs`;
 }
+
+function collectPartDraft(){
+  return {
+    name: g('p-name')?.value || '',
+    weight: g('p-weight')?.value || '',
+    qty: g('p-qty')?.value || '',
+    matPrice: g('p-mat-price')?.value || '',
+    runner: g('p-runner')?.value || '',
+    tonnage: g('p-tonnage')?.value || '',
+    cycle: g('p-cycle')?.value || '',
+    cavity: g('p-cavity')?.value || '',
+    surface: g('p-surface')?.value || '',
+    pack: g('p-pack')?.value || '',
+    goodRate: g('p-good-rate')?.value || '',
+    profit: g('p-profit')?.value || '',
+    laborCoef: g('p-labor-coef')?.value || ''
+  };
+}
+function savePartDraft(){ saveDraft('part', collectPartDraft()); }
+function restorePartDraft(){
+  const d = loadDraft('part');
+  if(!d) return;
+  if(g('p-name')) g('p-name').value = d.name || '';
+  if(g('p-weight')) g('p-weight').value = d.weight || '';
+  if(g('p-qty')) g('p-qty').value = d.qty || '';
+  if(g('p-mat-price')) g('p-mat-price').value = d.matPrice || '';
+  if(g('p-runner')) g('p-runner').value = d.runner || '';
+  if(g('p-tonnage')) g('p-tonnage').value = d.tonnage || '';
+  if(g('p-cycle')) g('p-cycle').value = d.cycle || '';
+  if(g('p-cavity')) g('p-cavity').value = d.cavity || '';
+  if(g('p-surface')) g('p-surface').value = d.surface || '';
+  if(g('p-pack')) g('p-pack').value = d.pack || '';
+  if(g('p-good-rate')) g('p-good-rate').value = d.goodRate || '';
+  if(g('p-profit')) g('p-profit').value = d.profit || '';
+  if(g('p-labor-coef')) g('p-labor-coef').value = d.laborCoef || '';
+  updatePartLive();
+}
+const savePartDraftDebounced = debounce(savePartDraft, 400);
+
 function calcPart(){
   const name = g('p-name').value.trim();
   const qty = num(g('p-qty').value);
@@ -1102,44 +860,31 @@ function calcPart(){
   const total = res.quote * qty;
   const result = { type:'part', name, currency:'RMB', data, breakdown:res, price:res.quote, minDealPrice:res.minDealPrice, qty, total, displayPrice:`¥${money(res.quote)}` };
   CURRENT_RESULT = result;
+  clearDraft('part');
   renderResult(result);
   addHistory({ts:Date.now(), type:'part', name, currency:'RMB', displayPrice:`¥${money(res.quote)}`, result});
   showPage('result');
 }
-  function makePartItemDefaults(){
+
+function makePartItemDefaults(){
   const s = loadSettings();
   return {
     id: Date.now() + Math.random().toString(16).slice(2),
-    name:'',
-    perSetQty:1,
-    weight:'',
-    matPrice:'',
-    runner:s.runner || '8',
-    tonnage:'',
-    cycle:'',
-    cavity:'1',
-    surface:'0',
-    pack:s.pack || '1.5',
-    goodRate:'97',
-    profit:s.minProfit || '0',
-    laborCoef:'1.0'
+    name:'', perSetQty:1, weight:'', matPrice:'', runner:s.runner || '8',
+    tonnage:'', cycle:'', cavity:'1', surface:'0', pack:s.pack || '1.5',
+    goodRate:'97', profit:s.minProfit || '0', laborCoef:'1.0'
   };
 }
-function addPartItem(){ PART_ITEMS.push(makePartItemDefaults()); renderPartItems(); }
-function removePartItem(id){ PART_ITEMS = PART_ITEMS.filter(x=>x.id!==id); renderPartItems(); }
-
 function renderPartSummaryContent(p){
   const res = calcPartQuoteFromData({
     weight:p.weight, matPrice:p.matPrice, runnerRate:p.runner, tonnage:p.tonnage, cycle:p.cycle,
     cavity:p.cavity, surface:p.surface, pack:p.pack, profitRate:p.profit, goodRate:p.goodRate, laborCoef:p.laborCoef
   });
   const perSetQty = num(p.perSetQty, 1);
-  const setCost = res.adjustedCost * perSetQty;
-  const setPrice = res.quote * perSetQty;
   return `
     <div class="part-summary-row"><span class="label">${t('pvUnit')}</span><span class="value">${money(res.quote)}</span></div>
-    <div class="part-summary-row"><span class="label">每套成本</span><span class="value">${money(setCost)}</span></div>
-    <div class="part-summary-row"><span class="label">每套售價</span><span class="value">${money(setPrice)}</span></div>
+    <div class="part-summary-row"><span class="label">每套成本</span><span class="value">${money(res.adjustedCost * perSetQty)}</span></div>
+    <div class="part-summary-row"><span class="label">每套售價</span><span class="value">${money(res.quote * perSetQty)}</span></div>
   `;
 }
 function renderPartItems(){
@@ -1150,39 +895,28 @@ function renderPartItems(){
         <div class="part-card-title">${t('partName')} ${idx+1}</div>
         <button class="part-remove-btn" onclick="removePartItem('${p.id}')">✕</button>
       </div>
-
-      <div class="field">
-        <label>${t('lblProductName')}</label>
-        <input value="${escapeAttr(p.name)}" oninput="updatePartItem('${p.id}','name',this.value)">
-      </div>
-
+      <div class="field"><label>${t('lblProductName')}</label><input value="${escapeAttr(p.name)}" oninput="updatePartItem('${p.id}','name',this.value)"></div>
       <div class="grid3">
         <div class="field"><label>每套用量</label><input type="number" step="1" value="${escapeAttr(p.perSetQty)}" oninput="updatePartItem('${p.id}','perSetQty',this.value)"></div>
         <div class="field"><label>${t('lblWeight')}</label><input type="number" step="0.01" value="${escapeAttr(p.weight)}" oninput="updatePartItem('${p.id}','weight',this.value)"></div>
         <div class="field"><label>${t('lblMaterialPrice')}</label><input type="number" step="0.01" value="${escapeAttr(p.matPrice)}" oninput="updatePartItem('${p.id}','matPrice',this.value)"></div>
       </div>
-
       <div class="grid3">
         <div class="field"><label>${t('lblRunner')}</label><input type="number" step="0.1" value="${escapeAttr(p.runner)}" oninput="updatePartItem('${p.id}','runner',this.value)"></div>
         <div class="field"><label>${t('lblTonnage')}</label><input type="number" step="1" value="${escapeAttr(p.tonnage)}" oninput="updatePartItem('${p.id}','tonnage',this.value)"></div>
         <div class="field"><label>${t('lblCycle')}</label><input type="number" step="0.1" value="${escapeAttr(p.cycle)}" oninput="updatePartItem('${p.id}','cycle',this.value)"></div>
       </div>
-
       <div class="grid3">
         <div class="field"><label>${t('lblCavity')}</label><input type="number" step="1" value="${escapeAttr(p.cavity)}" oninput="updatePartItem('${p.id}','cavity',this.value)"></div>
         <div class="field"><label>${t('lblSurface')}</label><input type="number" step="0.001" value="${escapeAttr(p.surface)}" oninput="updatePartItem('${p.id}','surface',this.value)"></div>
         <div class="field"><label>${t('lblPack')}</label><input type="number" step="0.001" value="${escapeAttr(p.pack)}" oninput="updatePartItem('${p.id}','pack',this.value)"></div>
       </div>
-
       <div class="grid3">
         <div class="field"><label>${t('lblGoodRate')}</label><input type="number" step="0.1" value="${escapeAttr(p.goodRate)}" oninput="updatePartItem('${p.id}','goodRate',this.value)"></div>
         <div class="field"><label>${t('lblProfit')}</label><input type="number" step="0.1" value="${escapeAttr(p.profit)}" oninput="updatePartItem('${p.id}','profit',this.value)"></div>
         <div class="field"><label>${t('lblLaborCoef')}</label><input type="number" step="0.1" value="${escapeAttr(p.laborCoef)}" oninput="updatePartItem('${p.id}','laborCoef',this.value)"></div>
       </div>
-
-      <div class="part-summary" id="part-summary-${p.id}">
-        ${renderPartSummaryContent(p)}
-      </div>
+      <div class="part-summary" id="part-summary-${p.id}">${renderPartSummaryContent(p)}</div>
     </div>
   `).join('');
   g('parts-count').textContent = `${PART_ITEMS.length} parts`;
@@ -1190,17 +924,40 @@ function renderPartItems(){
 }
 function updatePartCardSummary(id){
   const item = PART_ITEMS.find(x => x.id === id);
-  if(!item) return;
   const summaryEl = g(`part-summary-${id}`);
-  if(!summaryEl) return;
-  summaryEl.innerHTML = renderPartSummaryContent(item);
+  if(item && summaryEl) summaryEl.innerHTML = renderPartSummaryContent(item);
 }
+function collectPartsDraft(){
+  return {
+    setName: g('ps-name')?.value || '',
+    setQty: g('ps-qty')?.value || '',
+    setProfit: g('ps-profit')?.value || '',
+    partItems: PART_ITEMS.map(x => ({...x}))
+  };
+}
+function savePartsDraft(){ saveDraft('parts', collectPartsDraft()); }
+function restorePartsDraft(){
+  const d = loadDraft('parts');
+  if(!d) return;
+  if(g('ps-name')) g('ps-name').value = d.setName || '';
+  if(g('ps-qty')) g('ps-qty').value = d.setQty || '';
+  if(g('ps-profit')) g('ps-profit').value = d.setProfit || '';
+  if(Array.isArray(d.partItems) && d.partItems.length){
+    PART_ITEMS = d.partItems.map(item => ({ ...makePartItemDefaults(), ...item, id: item.id || (Date.now() + Math.random().toString(16).slice(2)) }));
+  }
+  renderPartItems();
+}
+const savePartsDraftDebounced = debounce(savePartsDraft, 400);
+
+function addPartItem(){ PART_ITEMS.push(makePartItemDefaults()); renderPartItems(); savePartsDraftDebounced(); }
+function removePartItem(id){ PART_ITEMS = PART_ITEMS.filter(x=>x.id!==id); renderPartItems(); savePartsDraftDebounced(); }
 function updatePartItem(id, key, val){
   const item = PART_ITEMS.find(x => x.id === id);
   if(!item) return;
   item[key] = val;
   updatePartCardSummary(id);
   updatePartsLive();
+  savePartsDraftDebounced();
 }
 function calcPartsQuote(){
   const setName = g('ps-name').value.trim();
@@ -1223,16 +980,7 @@ function calcPartsQuote(){
     const minPerSet = res.minDealPrice * perSetQty;
     totalCostPerSet += costPerSet;
     totalSuggestedPerSet += suggestedPerSet;
-    lines.push({
-      name:p.name || '-',
-      perSetQty,
-      unitCost:res.adjustedCost,
-      unitPrice:res.quote,
-      unitMin:res.minDealPrice,
-      costPerSet,
-      suggestedPerSet,
-      minPerSet
-    });
+    lines.push({ name:p.name || '-', perSetQty, unitCost:res.adjustedCost, unitPrice:res.quote, unitMin:res.minDealPrice, costPerSet, suggestedPerSet, minPerSet });
   }
 
   const setUnitPrice = totalCostPerSet * (1 + setProfit/100);
@@ -1241,22 +989,7 @@ function calcPartsQuote(){
   const pieceCountPerSet = lines.reduce((a,b)=>a + num(b.perSetQty), 0);
   const pieceUnitPrice = pieceCountPerSet > 0 ? totalSuggestedPerSet / pieceCountPerSet : 0;
 
-  return {
-    type:'parts',
-    name:setName,
-    currency:'RMB',
-    setQty,
-    setProfit,
-    pieceCountPerSet,
-    pieceUnitPrice,
-    setUnitPrice,
-    minDealPrice,
-    totalCostPerSet,
-    totalSuggestedPerSet,
-    totalQuote,
-    lines,
-    displayPrice:`¥${money(setUnitPrice)}`
-  };
+  return { type:'parts', name:setName, currency:'RMB', setQty, setProfit, pieceCountPerSet, pieceUnitPrice, setUnitPrice, minDealPrice, totalCostPerSet, totalSuggestedPerSet, totalQuote, lines, displayPrice:`¥${money(setUnitPrice)}` };
 }
 function updatePartsLive(){
   if(!PART_ITEMS.length){
@@ -1266,11 +999,9 @@ function updatePartsLive(){
     g('parts-count').textContent = '0 parts';
     return;
   }
-
   const setQty = num(g('ps-qty')?.value);
   const setProfit = num(g('ps-profit')?.value);
   let totalCostPerSet = 0;
-
   for(const p of PART_ITEMS){
     const res = calcPartQuoteFromData({
       weight:p.weight, matPrice:p.matPrice, runnerRate:p.runner, tonnage:p.tonnage, cycle:p.cycle,
@@ -1278,10 +1009,8 @@ function updatePartsLive(){
     });
     totalCostPerSet += res.adjustedCost * num(p.perSetQty, 1);
   }
-
   const setUnitPrice = totalCostPerSet * (1 + setProfit / 100);
   const totalQuote = setUnitPrice * setQty;
-
   g('pv-set-cost').textContent = money(totalCostPerSet);
   g('pv-set-price').textContent = money(setUnitPrice);
   g('pv-set-total').textContent = money(totalQuote, 2);
@@ -1291,6 +1020,7 @@ function calcParts(){
   const result = calcPartsQuote();
   if(!result || !result.name || !result.setQty){ alert(t('invalidInput')); return; }
   CURRENT_RESULT = result;
+  clearDraft('parts');
   renderResult(result);
   addHistory({ts:Date.now(), type:'parts', name:result.name, currency:'RMB', displayPrice:result.displayPrice, result});
   showPage('result');
@@ -1318,6 +1048,66 @@ function renderMoldItems(){
     `;
   }
   box.innerHTML = html;
+  bindMoldDynamicDraftInputs();
+}
+function collectMoldDraft(){
+  const count = clampMin(g('m-count')?.value, 1, 1);
+  const molds = [];
+  for(let i=0;i<count;i++){
+    molds.push({
+      name: g(`m-name-${i}`)?.value || '',
+      price: g(`m-price-${i}`)?.value || '',
+      cavity: g(`m-cavity-${i}`)?.value || '',
+      steel: g(`m-steel-${i}`)?.value || '',
+      life: g(`m-life-${i}`)?.value || '',
+      note: g(`m-note-${i}`)?.value || ''
+    });
+  }
+  return {
+    partyA: g('m-party-a')?.value || '',
+    partyB: g('m-party-b')?.value || '',
+    currency: g('m-currency')?.value || 'RMB',
+    paymentTerm: g('m-payment-term')?.value || '50/50',
+    count: g('m-count')?.value || '1',
+    investA: g('m-invest-a')?.value || '',
+    investB: g('m-invest-b')?.value || '',
+    remarks: g('m-remarks')?.value || '',
+    molds
+  };
+}
+function saveMoldDraft(){ saveDraft('mold', collectMoldDraft()); }
+function restoreMoldDraft(){
+  const d = loadDraft('mold');
+  if(!d) return;
+  if(g('m-party-a')) g('m-party-a').value = d.partyA || '';
+  if(g('m-party-b')) g('m-party-b').value = d.partyB || '';
+  if(g('m-currency')) g('m-currency').value = d.currency || 'RMB';
+  if(g('m-payment-term')) g('m-payment-term').value = d.paymentTerm || '50/50';
+  if(g('m-count')) g('m-count').value = d.count || '1';
+  if(g('m-invest-a')) g('m-invest-a').value = d.investA || '';
+  if(g('m-invest-b')) g('m-invest-b').value = d.investB || '';
+  if(g('m-remarks')) g('m-remarks').value = d.remarks || '';
+  renderMoldItems();
+  if(Array.isArray(d.molds)){
+    d.molds.forEach((m, i) => {
+      if(g(`m-name-${i}`)) g(`m-name-${i}`).value = m.name || '';
+      if(g(`m-price-${i}`)) g(`m-price-${i}`).value = m.price || '';
+      if(g(`m-cavity-${i}`)) g(`m-cavity-${i}`).value = m.cavity || '';
+      if(g(`m-steel-${i}`)) g(`m-steel-${i}`).value = m.steel || '';
+      if(g(`m-life-${i}`)) g(`m-life-${i}`).value = m.life || '';
+      if(g(`m-note-${i}`)) g(`m-note-${i}`).value = m.note || '';
+    });
+  }
+}
+const saveMoldDraftDebounced = debounce(saveMoldDraft, 400);
+function bindMoldDynamicDraftInputs(){
+  const count = clampMin(g('m-count')?.value, 1, 1);
+  for(let i=0;i<count;i++){
+    [`m-name-${i}`, `m-price-${i}`, `m-cavity-${i}`, `m-steel-${i}`, `m-life-${i}`, `m-note-${i}`].forEach(id=>{
+      g(id)?.addEventListener('input', saveMoldDraftDebounced);
+      g(id)?.addEventListener('change', saveMoldDraftDebounced);
+    });
+  }
 }
 function calcMoldQuote(){
   const partyA = g('m-party-a').value.trim();
@@ -1326,28 +1116,13 @@ function calcMoldQuote(){
   const paymentTerm = g('m-payment-term').value;
   const remarks = g('m-remarks').value.trim();
   const count = clampMin(g('m-count').value, 1, 1);
-
-  let molds = [];
-  let moldTotal = 0;
+  let molds = [], moldTotal = 0;
   for(let i=0;i<count;i++){
-    const item = {
-      name: g(`m-name-${i}`).value.trim() || `Mold ${i+1}`,
-      price: num(g(`m-price-${i}`).value),
-      cavity: num(g(`m-cavity-${i}`).value),
-      steel: g(`m-steel-${i}`).value.trim(),
-      life: num(g(`m-life-${i}`).value),
-      note: g(`m-note-${i}`).value.trim()
-    };
-    molds.push(item);
-    moldTotal += item.price;
+    const item = { name: g(`m-name-${i}`).value.trim() || `Mold ${i+1}`, price: num(g(`m-price-${i}`).value), cavity: num(g(`m-cavity-${i}`).value), steel: g(`m-steel-${i}`).value.trim(), life: num(g(`m-life-${i}`).value), note: g(`m-note-${i}`).value.trim() };
+    molds.push(item); moldTotal += item.price;
   }
-
-  const investA = num(g('m-invest-a').value);
-  const investB = num(g('m-invest-b').value);
-  let ownership = t('sharedOwn');
-  if(investA > investB) ownership = t('partyAOwn');
-  else if(investB > investA) ownership = t('partyBOwn');
-
+  const investA = num(g('m-invest-a').value), investB = num(g('m-invest-b').value);
+  let ownership = t('sharedOwn'); if(investA > investB) ownership = t('partyAOwn'); else if(investB > investA) ownership = t('partyBOwn');
   const sym = symbolByCurrency(currency);
   return { type:'mold', name:`${partyA || '-'} / ${partyB || '-'}`, currency, partyA, partyB, paymentTerm, remarks, molds, moldTotal, investA, investB, ownership, displayPrice:`${sym}${money(moldTotal,2)}` };
 }
@@ -1355,31 +1130,19 @@ function calcMold(){
   const result = calcMoldQuote();
   if(!result.partyA || !result.partyB || !result.molds.length){ alert(t('invalidInput')); return; }
   CURRENT_RESULT = result;
+  clearDraft('mold');
   renderResult(result);
   addHistory({ts:Date.now(), type:'mold', name:result.name, currency:result.currency, displayPrice:result.displayPrice, result});
   showPage('result');
 }
 
 function calcInquiryQuoteFromData(data){
-  const weight = num(data.weight);
-  const matPrice = num(data.matPrice);
-  const runnerRate = num(data.runnerRate);
-  const tonnage = num(data.tonnage);
-  const cycle = clampMin(data.cycle, 0.1, 30);
-  const cavity = clampMin(data.cavity, 1, 1);
-  const surface = num(data.surface);
-  const pack = num(data.pack);
-  const profitRate = num(data.profitRate);
-  const goodRate = clampMin(data.goodRate, 1, 97);
-
+  const weight = num(data.weight), matPrice = num(data.matPrice), runnerRate = num(data.runnerRate), tonnage = num(data.tonnage);
+  const cycle = clampMin(data.cycle, 0.1, 30), cavity = clampMin(data.cavity, 1, 1), surface = num(data.surface), pack = num(data.pack);
+  const profitRate = num(data.profitRate), goodRate = clampMin(data.goodRate, 1, 97);
   const s = loadSettings();
-  const elecRate = num(s.elecRate, 1);
-  const laborH = num(s.laborHour, 0);
-  const machinesPerWorker = clampMin(s.machinesPerWorker, 1, 1);
-
-  const pcsPerHour = (3600 / cycle) * cavity;
-  const fixedPerPc = getFixedPerPc();
-  const totalWeight = weight * (1 + runnerRate / 100);
+  const elecRate = num(s.elecRate, 1), laborH = num(s.laborHour, 0), machinesPerWorker = clampMin(s.machinesPerWorker, 1, 1);
+  const pcsPerHour = (3600 / cycle) * cavity, fixedPerPc = getFixedPerPc(), totalWeight = weight * (1 + runnerRate / 100);
   const matPerPc = (totalWeight / 1000) * matPrice;
   const elecPerPc = pcsPerHour > 0 ? (tonnage * 0.6 * elecRate) / pcsPerHour : 0;
   const laborPerPc = pcsPerHour > 0 ? (laborH / machinesPerWorker) / pcsPerHour : 0;
@@ -1387,7 +1150,6 @@ function calcInquiryQuoteFromData(data){
   const adjustedCost = baseCost / (goodRate / 100);
   const unitPrice = adjustedCost * (1 + profitRate / 100);
   const minDealPrice = adjustedCost * (1 + Math.max(0, profitRate * 0.4)/100);
-
   return { unitPrice, minDealPrice, baseCost, fixedPerPc, matPerPc, elecPerPc, laborPerPc, adjustedCost };
 }
 function updateInquiryLive(){
@@ -1401,6 +1163,34 @@ function updateInquiryLive(){
   g('pv-q-price').textContent = money(res.unitPrice);
   g('inquiry-live-status').textContent = `${money(res.unitPrice)} / pcs`;
 }
+function collectInquiryDraft(){
+  return {
+    name: g('q-name')?.value || '', weight: g('q-weight')?.value || '', matPrice: g('q-mat-price')?.value || '',
+    runner: g('q-runner')?.value || '', tonnage: g('q-tonnage')?.value || '', cycle: g('q-cycle')?.value || '',
+    cavity: g('q-cavity')?.value || '', surface: g('q-surface')?.value || '', pack: g('q-pack')?.value || '',
+    profit: g('q-profit')?.value || '', goodRate: g('q-good-rate')?.value || '', qty: g('q-qty')?.value || ''
+  };
+}
+function saveInquiryDraft(){ saveDraft('inquiry', collectInquiryDraft()); }
+function restoreInquiryDraft(){
+  const d = loadDraft('inquiry');
+  if(!d) return;
+  if(g('q-name')) g('q-name').value = d.name || '';
+  if(g('q-weight')) g('q-weight').value = d.weight || '';
+  if(g('q-mat-price')) g('q-mat-price').value = d.matPrice || '';
+  if(g('q-runner')) g('q-runner').value = d.runner || '';
+  if(g('q-tonnage')) g('q-tonnage').value = d.tonnage || '';
+  if(g('q-cycle')) g('q-cycle').value = d.cycle || '';
+  if(g('q-cavity')) g('q-cavity').value = d.cavity || '';
+  if(g('q-surface')) g('q-surface').value = d.surface || '';
+  if(g('q-pack')) g('q-pack').value = d.pack || '';
+  if(g('q-profit')) g('q-profit').value = d.profit || '';
+  if(g('q-good-rate')) g('q-good-rate').value = d.goodRate || '';
+  if(g('q-qty')) g('q-qty').value = d.qty || '';
+  updateInquiryLive();
+}
+const saveInquiryDraftDebounced = debounce(saveInquiryDraft, 400);
+
 function calcInquiry(){
   const name = g('q-name').value.trim();
   const qty = num(g('q-qty').value);
@@ -1413,6 +1203,7 @@ function calcInquiry(){
   const total = res.unitPrice * qty;
   const result = { type:'inquiry', name, currency:'RMB', qty, price:res.unitPrice, minDealPrice:res.minDealPrice, total, breakdown:res, displayPrice:`¥${money(res.unitPrice)}` };
   CURRENT_RESULT = result;
+  clearDraft('inquiry');
   renderResult(result);
   addHistory({ts:Date.now(), type:'inquiry', name, currency:'RMB', displayPrice:result.displayPrice, result});
   showPage('result');
@@ -1423,10 +1214,7 @@ function renderResult(result){
   if(result.type === 'part'){
     box.innerHTML = `
       <div class="result-hero"><div class="result-title">${escapeHtml(result.name)}</div><div class="result-price">¥${money(result.price)}</div><div class="result-sub">${result.qty} pcs · ${t('totalQuote')}: ¥${money(result.total,2)}</div></div>
-      <div class="result-info">
-        <div class="ri-card"><div class="ri-label">${t('suggestedUnitPrice')}</div><div class="ri-value">¥${money(result.price)}</div></div>
-        <div class="ri-card"><div class="ri-label">${t('lowestDealPrice')}</div><div class="ri-value">¥${money(result.minDealPrice)}</div></div>
-      </div>
+      <div class="result-info"><div class="ri-card"><div class="ri-label">${t('suggestedUnitPrice')}</div><div class="ri-value">¥${money(result.price)}</div></div><div class="ri-card"><div class="ri-label">${t('lowestDealPrice')}</div><div class="ri-value">¥${money(result.minDealPrice)}</div></div></div>
       <div class="breakdown-card">
         <div class="bc-header"><span>COST BREAKDOWN</span><span>RMB / pcs</span></div>
         <div class="bc-row"><span class="bn">${t('pvMat')}</span><span class="bv">${money(result.breakdown.matPerPc)}</span></div>
@@ -1440,18 +1228,13 @@ function renderResult(result){
   } else if(result.type === 'parts'){
     box.innerHTML = `
       <div class="result-hero"><div class="result-title">${escapeHtml(result.name)}</div><div class="result-price new">¥${money(result.setUnitPrice)}</div><div class="result-sub">${result.setQty} sets · ${t('totalQuote')}: ¥${money(result.totalQuote,2)}</div></div>
-      <div class="result-info">
-        <div class="ri-card"><div class="ri-label">Piece Avg</div><div class="ri-value">¥${money(result.pieceUnitPrice)}</div></div>
-        <div class="ri-card"><div class="ri-label">Set Min Deal</div><div class="ri-value">¥${money(result.minDealPrice)}</div></div>
-      </div>
+      <div class="result-info"><div class="ri-card"><div class="ri-label">Piece Avg</div><div class="ri-value">¥${money(result.pieceUnitPrice)}</div></div><div class="ri-card"><div class="ri-label">Set Min Deal</div><div class="ri-value">¥${money(result.minDealPrice)}</div></div></div>
       <div class="breakdown-card">
         <div class="bc-header"><span>SET BREAKDOWN</span><span>RMB</span></div>
         <div style="padding:10px 14px">
           <table class="cost-table">
             <thead><tr><th>${t('partName')}</th><th>每套用量</th><th>${t('suggestedUnitPrice')}</th><th>${t('lowestDealPrice')}</th><th>${t('subtotal')}</th></tr></thead>
-            <tbody>
-              ${result.lines.map(line=>`<tr><td>${escapeHtml(line.name)}</td><td>${money(line.perSetQty,0)}</td><td>${money(line.unitPrice)}</td><td>${money(line.unitMin)}</td><td>${money(line.suggestedPerSet)}</td></tr>`).join('')}
-            </tbody>
+            <tbody>${result.lines.map(line=>`<tr><td>${escapeHtml(line.name)}</td><td>${money(line.perSetQty,0)}</td><td>${money(line.unitPrice)}</td><td>${money(line.unitMin)}</td><td>${money(line.suggestedPerSet)}</td></tr>`).join('')}</tbody>
           </table>
         </div>
         <div class="bc-row"><span class="bn">Cost / Set</span><span class="bv">${money(result.totalCostPerSet)}</span></div>
@@ -1464,10 +1247,7 @@ function renderResult(result){
     const sym = symbolByCurrency(result.currency);
     box.innerHTML = `
       <div class="result-hero"><div class="result-title">${escapeHtml(result.partyA)} / ${escapeHtml(result.partyB)}</div><div class="result-price">${sym}${money(result.moldTotal,2)}</div><div class="result-sub">${result.molds.length} molds · ${t('ownershipResult')}: ${escapeHtml(result.ownership)}</div></div>
-      <div class="result-info">
-        <div class="ri-card"><div class="ri-label">Party A</div><div class="ri-value">${sym}${money(result.investA,2)}</div></div>
-        <div class="ri-card"><div class="ri-label">Party B</div><div class="ri-value">${sym}${money(result.investB,2)}</div></div>
-      </div>
+      <div class="result-info"><div class="ri-card"><div class="ri-label">Party A</div><div class="ri-value">${sym}${money(result.investA,2)}</div></div><div class="ri-card"><div class="ri-label">Party B</div><div class="ri-value">${sym}${money(result.investB,2)}</div></div></div>
       <div class="breakdown-card">
         <div class="bc-header"><span>MOLD LIST</span><span>${escapeHtml(result.currency)}</span></div>
         ${result.molds.map(m=>`<div class="bc-row"><span class="bn">${escapeHtml(m.name)} · ${escapeHtml(m.steel || '-')} · ${m.cavity || '-'} cav</span><span class="bv">${money(m.price,2)}</span></div>`).join('')}
@@ -1479,10 +1259,7 @@ function renderResult(result){
   } else if(result.type === 'inquiry'){
     box.innerHTML = `
       <div class="result-hero"><div class="result-title">${escapeHtml(result.name)}</div><div class="result-price new">¥${money(result.price)}</div><div class="result-sub">${result.qty} pcs · ${t('totalQuote')}: ¥${money(result.total,2)}</div></div>
-      <div class="result-info">
-        <div class="ri-card"><div class="ri-label">${t('suggestedUnitPrice')}</div><div class="ri-value">¥${money(result.price)}</div></div>
-        <div class="ri-card"><div class="ri-label">${t('lowestDealPrice')}</div><div class="ri-value">¥${money(result.minDealPrice)}</div></div>
-      </div>
+      <div class="result-info"><div class="ri-card"><div class="ri-label">${t('suggestedUnitPrice')}</div><div class="ri-value">¥${money(result.price)}</div></div><div class="ri-card"><div class="ri-label">${t('lowestDealPrice')}</div><div class="ri-value">¥${money(result.minDealPrice)}</div></div></div>
       <div class="breakdown-card">
         <div class="bc-header"><span>QUICK BREAKDOWN</span><span>RMB / pcs</span></div>
         <div class="bc-row"><span class="bn">${t('pvMat')}</span><span class="bv">${money(result.breakdown.matPerPc)}</span></div>
@@ -1519,10 +1296,7 @@ function generateContractPreview(){
     <div class="cp-row"><span class="label">產權結果 / Ownership</span><span>${escapeHtml(r.ownership)}</span></div>
     <div class="cp-section">其他約定 / Other Terms</div>
     <div class="cp-clause">Remarks: ${escapeHtml(r.remarks || 'None')}</div>
-    <div class="cp-sig">
-      <div class="cp-sig-block">甲方 / Party A<br>${escapeHtml(r.partyA)}</div>
-      <div class="cp-sig-block">乙方 / Party B<br>${escapeHtml(r.partyB)}</div>
-    </div>
+    <div class="cp-sig"><div class="cp-sig-block">甲方 / Party A<br>${escapeHtml(r.partyA)}</div><div class="cp-sig-block">乙方 / Party B<br>${escapeHtml(r.partyB)}</div></div>
   `;
   g('contract-content').innerHTML = CURRENT_CONTRACT_HTML;
   g('contract-modal').classList.add('open');
@@ -1533,13 +1307,8 @@ async function downloadPDF(){
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit:'pt', format:'a4' });
   const temp = document.createElement('div');
-  temp.style.position = 'fixed';
-  temp.style.left = '-99999px';
-  temp.style.top = '0';
-  temp.style.width = '560px';
-  temp.style.background = '#fff';
-  temp.style.color = '#000';
-  temp.style.padding = '24px';
+  temp.style.position = 'fixed'; temp.style.left = '-99999px'; temp.style.top = '0'; temp.style.width = '560px';
+  temp.style.background = '#fff'; temp.style.color = '#000'; temp.style.padding = '24px';
   temp.style.fontFamily = CURRENT_LANG === 'sc' ? 'Noto Sans SC, sans-serif' : 'Noto Sans TC, sans-serif';
   temp.innerHTML = CURRENT_CONTRACT_HTML;
   document.body.appendChild(temp);
@@ -1549,12 +1318,10 @@ async function downloadPDF(){
       doc.save(`${name}_mold_contract.pdf`);
       temp.remove();
     },
-    margin:[20,20,20,20],
-    autoPaging:'text',
-    width:560,
-    windowWidth:560
+    margin:[20,20,20,20], autoPaging:'text', width:560, windowWidth:560
   });
 }
+
 function resultToText(r){
   if(!r) return '';
   if(r.type==='part') return `${r.name}\n單價: ¥${money(r.price)}\n最低成交: ¥${money(r.minDealPrice)}\n數量: ${r.qty}\n總價: ¥${money(r.total,2)}`;
@@ -1565,33 +1332,52 @@ function resultToText(r){
 }
 async function copyResultText(){
   if(!CURRENT_RESULT) return;
-  try{
-    await navigator.clipboard.writeText(resultToText(CURRENT_RESULT));
-    showToast(t('saved'));
-  }catch(e){
-    alert(resultToText(CURRENT_RESULT));
-  }
+  try{ await navigator.clipboard.writeText(resultToText(CURRENT_RESULT)); showToast(t('saved')); }
+  catch(e){ alert(resultToText(CURRENT_RESULT)); }
 }
 function updateStats(){ g('stat-history').textContent = getHistory().length; }
 
 function bindLiveInputs(){
-  ['p-weight','p-mat-price','p-runner','p-tonnage','p-cycle','p-cavity','p-surface','p-pack','p-profit','p-good-rate','p-labor-coef']
-    .forEach(id=>g(id)?.addEventListener('input', updatePartLive));
-  ['q-weight','q-mat-price','q-runner','q-tonnage','q-cycle','q-cavity','q-surface','q-pack','q-profit','q-good-rate']
-    .forEach(id=>g(id)?.addEventListener('input', updateInquiryLive));
+  ['p-weight','p-mat-price','p-runner','p-tonnage','p-cycle','p-cavity','p-surface','p-pack','p-profit','p-good-rate','p-labor-coef'].forEach(id=>g(id)?.addEventListener('input', updatePartLive));
+  ['q-weight','q-mat-price','q-runner','q-tonnage','q-cycle','q-cavity','q-surface','q-pack','q-profit','q-good-rate'].forEach(id=>g(id)?.addEventListener('input', updateInquiryLive));
   ['ps-name','ps-qty','ps-profit'].forEach(id=>g(id)?.addEventListener('input', updatePartsLive));
 }
+function bindDraftInputs(){
+  ['p-name','p-weight','p-qty','p-mat-price','p-runner','p-tonnage','p-cycle','p-cavity','p-surface','p-pack','p-good-rate','p-profit','p-labor-coef'].forEach(id=>{
+    g(id)?.addEventListener('input', savePartDraftDebounced);
+    g(id)?.addEventListener('change', savePartDraftDebounced);
+  });
+  ['ps-name','ps-qty','ps-profit'].forEach(id=>{
+    g(id)?.addEventListener('input', savePartsDraftDebounced);
+    g(id)?.addEventListener('change', savePartsDraftDebounced);
+  });
+  ['m-party-a','m-party-b','m-currency','m-payment-term','m-count','m-invest-a','m-invest-b','m-remarks'].forEach(id=>{
+    g(id)?.addEventListener('input', saveMoldDraftDebounced);
+    g(id)?.addEventListener('change', saveMoldDraftDebounced);
+  });
+  ['q-name','q-weight','q-mat-price','q-runner','q-tonnage','q-cycle','q-cavity','q-surface','q-pack','q-profit','q-good-rate','q-qty'].forEach(id=>{
+    g(id)?.addEventListener('input', saveInquiryDraftDebounced);
+    g(id)?.addEventListener('change', saveInquiryDraftDebounced);
+  });
+}
+
+window.addEventListener('beforeunload', function (e) {
+  const dirty = hasDraft('part') || hasDraft('parts') || hasDraft('mold') || hasDraft('inquiry');
+  if(dirty){ e.preventDefault(); e.returnValue = ''; }
+});
 
 (function init(){
   document.body.classList.toggle('sc', CURRENT_LANG === 'sc');
   applyI18n();
   bindLiveInputs();
+  bindDraftInputs();
   updateStats();
   renderHistory();
   loadSettingsToUI();
   applyPartDefaults();
   applyInquiryDefaults();
   renderMoldItems();
+  bindMoldDynamicDraftInputs();
 })();
 </script>
 
